@@ -113,9 +113,9 @@ class Reniec
         $patron = '/<td height="63" class="style2" align="center">\r\n[ ]+(.*)\r\n[ ]+(.*)\r\n[ ]+(.*)<br>/';
         preg_match_all($patron, $html, $matches, PREG_SET_ORDER);
         if (isset($matches[0])) {
-            $person->nombres = utf8_encode($matches[0][1]);
-            $person->apellidoPaterno = utf8_encode($matches[0][2]);
-            $person->apellidoMaterno = utf8_encode($matches[0][3]);
+            $person->nombres = mb_convert_encoding($matches[0][1], 'UTF-8', 'ISO-8859-1');
+            $person->apellidoPaterno = mb_convert_encoding($matches[0][2], 'UTF-8', 'ISO-8859-1');
+            $person->apellidoMaterno = mb_convert_encoding($matches[0][3], 'UTF-8', 'ISO-8859-1');
         }
         $this->setCodVerifica($person, $html);
 

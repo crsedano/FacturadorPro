@@ -43,4 +43,24 @@ class Person
      * @var string
      */
     public $voting_group;
+    /**
+     * @var string
+     */
+    public $dni;
+    /**
+     * @var string
+     */
+    public $codVerifica;
+    /**
+     * @var string
+     */
+    public $nombres;
+    /**
+     * @var string
+     */
+    public $apellidoPaterno;
+    /**
+     * @var string
+     */
+    public $apellidoMaterno;
 }

@@ -82,6 +82,8 @@
          */
         public function cleanString($str)
         {
-            return strtr(utf8_decode($str), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝñÑ.'), '');
+            $latin = mb_convert_encoding($str, 'ISO-8859-1', 'UTF-8');
+            $accented = mb_convert_encoding('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝñÑ.', 'ISO-8859-1', 'UTF-8');
+            return strtr($latin, $accented, '');
         }
     }
