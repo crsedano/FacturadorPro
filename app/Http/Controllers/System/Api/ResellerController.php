@@ -23,7 +23,7 @@ class ResellerController extends Controller
     public function resellerDetail()
     {
 
-        $records = Client::latest()->get();
+        $records = Client::with('tenant.domains')->latest()->get();
 
         foreach ($records as &$row) {
             if (!$row->tenant) continue;

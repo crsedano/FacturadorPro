@@ -19,11 +19,9 @@ class CacheServiceProvider extends ServiceProvider
                 // prefix to the UUID of the current website being called
                 $fqdn = $_SERVER['SERVER_NAME'];
 
-                $uuid = DB::table('hostnames')
-                    ->select('websites.uuid')
-                    ->join('websites', 'hostnames.website_id', '=', 'websites.id')
-                    ->where('fqdn', $fqdn)
-                    ->value('uuid');
+                $uuid = DB::table('domains')
+                    ->where('domain', $fqdn)
+                    ->value('tenant_id');
             }
             return Cache::repository(new RedisStore(
                 $app['redis'],

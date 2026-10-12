@@ -16,7 +16,7 @@ class HostnameResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'fqdn' => $this->fqdn
+            'domain' => $this->domain
         ];
     }
 }

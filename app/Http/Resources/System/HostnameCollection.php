@@ -17,7 +17,7 @@ class HostnameCollection extends ResourceCollection
         return $this->collection->transform(function($row, $key) {
             return [
                 'id' => $row->id,
-                'fqdn' => $row->fqdn,
+                'domain' => $row->domain,
                 'created_at' => $row->created_at->format('Y-m-d H:i:s'),
                 'updated_at' => $row->updated_at->format('Y-m-d H:i:s'),
             ];

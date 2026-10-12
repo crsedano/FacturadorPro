@@ -31,7 +31,7 @@ class BackupController extends Controller
         $most_recent = $this->mostRecent();
 
         $clients = Client::without(['tenant','plan'])
-            ->select('id', 'hostname_id', 'tenant_id', 'name')
+            ->select('id', 'tenant_id', 'name')
             ->get();
 
         return view('system.backup.index')->with('disc_used', $disc_used)->with('storage_size', $storage_size)->with('last_zip', $most_recent)->with('clients', $clients);
@@ -41,12 +41,12 @@ class BackupController extends Controller
     {
         $request->validate([
             'type' => 'required|in:individual,todos',
-            'hostname_id' => 'nullable|required_if:type,individual',
+            'client_id' => 'nullable|required_if:type,individual',
         ]);
 
         $database = '';
         if ($request->type === 'individual') {
-            $client = Client::where('hostname_id', $request->hostname_id)->firstOrFail();
+            $client = Client::findOrFail($request->client_id);
             $database = $client->tenant_id;
         }
         $output = Artisan::call('bk:bd', [
@@ -60,12 +60,12 @@ class BackupController extends Controller
     {
         $request->validate([
             'type' => 'required|in:individual,todos',
-            'hostname_id' => 'nullable|required_if:type,individual',
+            'client_id' => 'nullable|required_if:type,individual',
         ]);
 
         $folder = '';
         if ($request->type === 'individual') {
-            $client = Client::where('hostname_id', $request->hostname_id)->firstOrFail();
+            $client = Client::findOrFail($request->client_id);
             $folder = $client->tenant_id;
         }
         $output = Artisan::call('bk:files', [

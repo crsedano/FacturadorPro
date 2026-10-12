@@ -153,7 +153,7 @@
 
         public function records()
         {
-            $records = Client::latest()
+            $records = Client::with('tenant.domains')->latest()
                 ->get();
             foreach ($records as &$row) {
                 if (!$row->tenant) continue;

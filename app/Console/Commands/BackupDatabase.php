@@ -68,12 +68,12 @@ class BackupDatabase extends Command
                 if (!is_dir(storage_path('app/backups'))) mkdir(storage_path('app/backups'));
                 if (!is_dir(storage_path('app/backups/'.$today))) mkdir(storage_path('app/backups/'.$today));
 
-				$dbs = DB::table('websites')->get()->toArray();
+				$dbs = DB::table('tenants')->get()->toArray();
 				$db_admin = config('database.connections.mysql.database');
 
 				foreach ($dbs as $db) {
-					$tenant_dump = new IMysqldump\Mysqldump('mysql:host=' . $this->host . ';dbname=' . $db->uuid, $this->username, $this->password);
-					$tenant_dump->start(storage_path("app/backups/{$today}/{$db->uuid}.sql"));
+					$tenant_dump = new IMysqldump\Mysqldump('mysql:host=' . $this->host . ';dbname=' . $db->id, $this->username, $this->password);
+					$tenant_dump->start(storage_path("app/backups/{$today}/{$db->id}.sql"));
 				}
 
 				$system_dump = new IMysqldump\Mysqldump('mysql:host=' . $this->host . ';dbname=' . $db_admin, $this->username, $this->password);

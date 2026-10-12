@@ -10,11 +10,11 @@
                         <el-radio v-model="formBackups.type" label="todos">Todos</el-radio>
                         <el-radio v-model="formBackups.type" label="individual">Individual</el-radio>
                     </div>
-                    <div class="col-6 col-md-3 form-group" v-if="formBackups.type === 'individual'" :class="{'has-danger': errors.hostname_id}">
-                        <el-select v-model="formBackups.hostname_id" clearable filterable placeholder="Selecciona un cliente">
-                            <el-option v-for="cl in clients" :key="cl.hostname_id" :label="cl.name" :value="cl.hostname_id"></el-option>
+                    <div class="col-6 col-md-3 form-group" v-if="formBackups.type === 'individual'" :class="{'has-danger': errors.client_id}">
+                        <el-select v-model="formBackups.client_id" clearable filterable placeholder="Selecciona un cliente">
+                            <el-option v-for="cl in clients" :key="cl.id" :label="cl.name" :value="cl.id"></el-option>
                         </el-select>
-                        <small class="form-control-feedback" v-if="errors.hostname_id" v-text="errors.hostname_id[0]"></small>
+                        <small class="form-control-feedback" v-if="errors.client_id" v-text="errors.client_id[0]"></small>
                     </div>
                     <div class="col-6 col-md-3 form-group">
                         <el-button @click.prevent="start()" :loading="loading_submit" :disabled="loading_submit">Iniciar Proceso</el-button>
