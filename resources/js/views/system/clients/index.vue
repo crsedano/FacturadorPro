@@ -463,19 +463,19 @@
         </div>
 
         <system-clients-form :recordId="recordId"
-                             :showDialog.sync="showDialog"></system-clients-form>
+                             v-model:showDialog="showDialog"></system-clients-form>
 
-        <!--<system-clients-form-edit :showDialog.sync="showDialogEdit"
+        <!--<system-clients-form-edit v-model:showDialog="showDialogEdit"
         :recordId="recordId"></system-clients-form-edit>-->
 
         <client-payments :clientId="recordId"
-                         :showDialog.sync="showDialogPayments"></client-payments>
+                         v-model:showDialog="showDialogPayments"></client-payments>
 
         <account-status :clientId="recordId"
-                        :showDialog.sync="showDialogAccountStatus"></account-status>
+                        v-model:showDialog="showDialogAccountStatus"></account-status>
 
         <client-delete :record="record"
-                        :showDialog.sync="showDialogDelete"></client-delete>
+                        v-model:showDialog="showDialogDelete"></client-delete>
     </div>
 </template>
 

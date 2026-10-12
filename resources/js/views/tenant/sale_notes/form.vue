@@ -1,12 +1,11 @@
 <template>
     <div class="card mb-0 pt-2 pt-md-0"
     >
-        <Keypress
-            key-event="keyup"
+        <key-event="keyup"
 
             @success="checkKey"
         />
-        <Keypress key-event="keyup" :multiple-keys="multiple" @success="checkKeyWithAlt"/>
+        <key-event="keyup" :multiple-keys="multiple" @success="checkKeyWithAlt"/>
 
 
         <div class="tab-content" v-if="company && establishment">
@@ -471,7 +470,7 @@
             </div>
         </div>
 
-        <sale-notes-form-item :typeUser="typeUser" :showDialog.sync="showDialogAddItem"
+        <sale-notes-form-item :typeUser="typeUser" v-model:showDialog="showDialogAddItem"
                               :currency-type-id-active="form.currency_type_id"
                               :exchange-rate-sale="form.exchange_rate_sale"
                               :configuration="config"
@@ -479,13 +478,13 @@
                               :percentage-igv="percentage_igv"
                               @add="addRow"></sale-notes-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                      type="customers"
                      :external="true"
                      :input_person="input_person"
                      :document_type_id=form.document_type_id></person-form>
 
-        <sale-notes-options :showDialog.sync="showDialogOptions"
+        <sale-notes-options v-model:showDialog="showDialogOptions"
                             :recordId="saleNotesNewId"
                             :showClose="false"
                             :configuration="config"></sale-notes-options>
@@ -501,8 +500,7 @@
     import {calculateRowItem, sumAmountDiscountsNoBaseByItem} from '../../../helpers/functions'
     import Logo from '../companies/logo.vue'
     import {mapActions, mapState} from "vuex/dist/vuex.mjs";
-    import Keypress from "vue-keypress";
-
+    
     export default {
         props: [
             'id',
@@ -515,8 +513,7 @@
             PersonForm,
             SaleNotesOptions,
             Logo,
-            Keypress
-        },
+            },
         mixins: [functions, exchangeRate],
         computed:{
             ...mapState([

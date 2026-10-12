@@ -215,18 +215,18 @@
             </div>
         </div>
 
-        <purchase-form-item :showDialog.sync="showDialogAddItem"
+        <purchase-form-item v-model:showDialog="showDialogAddItem"
                             :currency-type-id-active="form.currency_type_id"
                             :exchange-rate-sale="form.exchange_rate_sale"
                             :percentage-igv="percentage_igv"
                             @add="addRow"></purchase-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                      type="suppliers"
                      :input_person="input_person"
                      :external="true"></person-form>
 
-        <purchase-options :showDialog.sync="showDialogOptions"
+        <purchase-options v-model:showDialog="showDialogOptions"
                           :recordId="purchaseNewId"
                           :showClose="false"></purchase-options>
     </div>

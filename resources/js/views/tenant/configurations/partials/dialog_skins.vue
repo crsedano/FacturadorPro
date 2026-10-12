@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Accesos Directos" :visible.sync="showDialog" @close="close" top="20vh" width="40%">
+  <el-dialog title="Accesos Directos" v-model:visible="showDialog" @close="close" top="20vh" width="40%">
     <el-table :data="skins">
       <el-table-column prop="name" label="Nombre" width="150"></el-table-column>
       <el-table-column prop="filename" label="Archivo" width="150"></el-table-column>

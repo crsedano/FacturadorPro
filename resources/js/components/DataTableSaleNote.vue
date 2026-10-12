@@ -92,7 +92,7 @@
                                 @current-change="getRequestData"
                                 layout="total, prev, pager, next"
                                 :total="pagination.total"
-                                :current-page.sync="pagination.current_page"
+                                v-model:current-page="pagination.current_page"
                                 :page-size="pagination.per_page">
                         </el-pagination>
                     </div>

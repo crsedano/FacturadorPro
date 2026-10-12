@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <bank-accounts-form :showDialog.sync="showDialog"
+        <bank-accounts-form v-model:showDialog="showDialog"
                             :recordId="recordId"></bank-accounts-form>
     </div>
 </template>

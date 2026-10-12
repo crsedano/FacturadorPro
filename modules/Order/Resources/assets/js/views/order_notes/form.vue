@@ -258,7 +258,7 @@
             </div>
         </div>
 
-        <order-note-form-item :showDialog.sync="showDialogAddItem"
+        <order-note-form-item v-model:showDialog="showDialogAddItem"
                               :currency-type-id-active="form.currency_type_id"
                               :exchange-rate-sale="form.exchange_rate_sale"
                               :typeUser="typeUser"
@@ -266,13 +266,13 @@
                               :percentage-igv="percentage_igv"
                               @add="addRow"></order-note-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                      type="customers"
                      :external="true"
                      :input_person="input_person"
                      :document_type_id=form.document_type_id></person-form>
 
-        <order-note-options :showDialog.sync="showDialogOptions"
+        <order-note-options v-model:showDialog="showDialogOptions"
                             :recordId="orderNoteNewId"
                             :typeUser="typeUser"
                             :showGenerate="false"
@@ -282,7 +282,7 @@
         <select-lots-group
             :lots_group="lots_group"
             :quantity="lots_group_quantity"
-            :showDialog.sync="showDialogLotsGroup"
+            v-model:showDialog="showDialogLotsGroup"
             @addRowLotGroup="addRowLotGroup">
         </select-lots-group>
     </div>

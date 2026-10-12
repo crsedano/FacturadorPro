@@ -7,13 +7,13 @@
         <title>Module Production</title>
 
        {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/production.css') }}"> --}}
+       {{-- <link rel="stylesheet" href="@vite(['css/production.css'])"> --}}
 
     </head>
     <body>
         @yield('content')
 
         {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/production.js') }}"></script> --}}
+        {{-- <script src="@vite(['js/production.js'])"></script> --}}
     </body>
 </html>

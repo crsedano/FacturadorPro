@@ -1,9 +1,9 @@
 <template>
     <div>
-        <Keypress key-event="keyup" :key-code="40" @success="handle40" />
-        <Keypress key-event="keyup" :key-code="38" @success="handle38" />
-        <Keypress key-event="keyup" :key-code="13" @success="handle13" />
-        <Keypress key-event="keyup" :key-code="113" @success="openTableListPrices113" />
+        <key-event="keyup" :key-code="40" @success="handle40" />
+        <key-event="keyup" :key-code="38" @success="handle38" />
+        <key-event="keyup" :key-code="13" @success="handle13" />
+        <key-event="keyup" :key-code="113" @success="openTableListPrices113" />
 
         <el-table
             ref="singleTable"
@@ -183,7 +183,7 @@
                 </el-table-column> -->
         </el-table>
         <item-unit-types-table
-            :showDialog.sync="showDialogItemUnitTypes"
+            v-model:showDialog="showDialogItemUnitTypes"
             :itemUnitTypes="itemUnitTypes"
         >
         </item-unit-types-table>
@@ -191,11 +191,10 @@
 </template>
 
 <script>
-import Keypress from "vue-keypress";
 import ItemUnitTypesTable from "./item_unit_types_table.vue";
 
 export default {
-    components: { Keypress, ItemUnitTypesTable },
+    components: { ItemUnitTypesTable },
     props: {
         typeUser: String,
         records: {

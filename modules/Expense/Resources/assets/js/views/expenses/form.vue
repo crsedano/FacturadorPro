@@ -174,16 +174,16 @@
             </form>
         </div>
 
-        <expense-form-item :showDialog.sync="showDialogAddItem"
+        <expense-form-item v-model:showDialog="showDialogAddItem"
                            :currency-type="currency_type"
                            :exchange-rate-sale="form.exchange_rate_sale"
                            @add="addRow"></expense-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                        type="suppliers"
                        :external="true"></person-form>
 
-        <expense-options :showDialog.sync="showDialogOptions"
+        <expense-options v-model:showDialog="showDialogOptions"
                           :recordId="expenseNewId"
                           :isUpdate="id ? true:false"
                           :showClose="false"></expense-options>

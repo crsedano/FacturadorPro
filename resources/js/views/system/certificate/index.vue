@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <certificates-form :showDialog.sync="showDialog"
+        <certificates-form v-model:showDialog="showDialog"
                            :recordId="recordId"></certificates-form>
     </div>
 </template>

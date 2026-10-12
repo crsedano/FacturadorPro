@@ -44,7 +44,7 @@
         </div>
 
 
-        <tribute-concept-types-form :showDialog.sync="showDialog"
+        <tribute-concept-types-form v-model:showDialog="showDialog"
                                     :recordId="recordId"></tribute-concept-types-form>
     </div>
 </template>

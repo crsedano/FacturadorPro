@@ -7,13 +7,13 @@
         <title>Module MercadoPago</title>
 
        {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/mercadopago.css') }}"> --}}
+       {{-- <link rel="stylesheet" href="@vite(['css/mercadopago.css'])"> --}}
 
     </head>
     <body>
         @yield('content')
 
         {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/mercadopago.js') }}"></script> --}}
+        {{-- <script src="@vite(['js/mercadopago.js'])"></script> --}}
     </body>
 </html>

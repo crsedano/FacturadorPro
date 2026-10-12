@@ -98,7 +98,7 @@
 
             </div>
         </form>
-        <dialog-skins :showDialog.sync="dialogSkinsVisible" :skins.sync="skins"/>
+        <dialog-skins v-model:showDialog="dialogSkinsVisible" v-model:skins="skins"/>
     </div>
 </template>
 

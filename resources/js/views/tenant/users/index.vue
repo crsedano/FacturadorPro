@@ -52,11 +52,11 @@
                     </table>
                 </div>
             </div>
-            <users-form :showDialog.sync="showDialog"
+            <users-form v-model:showDialog="showDialog"
                         :typeUser="typeUser"
                         :recordId="recordId"></users-form>
 
-            <authorized-token-discount-form :showDialog.sync="showDialogAuthorizedTokenForDiscount" ></authorized-token-discount-form>
+            <authorized-token-discount-form v-model:showDialog="showDialogAuthorizedTokenForDiscount" ></authorized-token-discount-form>
         </div>
     </div>
 </template>

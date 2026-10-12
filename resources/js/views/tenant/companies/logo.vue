@@ -4,7 +4,7 @@
             <img :src="src" class="img-fluid" style="max-height: 70px;">
         </div>
         <div class="">
-            <el-dialog title="Logo" class="text-left" :visible.sync="dialogVisible">
+            <el-dialog title="Logo" class="text-left" v-model:visible="dialogVisible">
                 <p class="text-center">* Se recomienda resoluciones 700x300.</p>
                 <div class="text-center">
                     <el-upload class="uploader" ref="upload" slot="append" :auto-upload="false" :headers="headers"

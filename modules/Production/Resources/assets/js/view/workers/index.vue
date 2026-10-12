@@ -57,7 +57,7 @@
             </div>
 
             <worker-form :recordId="recordId"
-                          :showDialog.sync="showDialog"></worker-form>
+                          v-model:showDialog="showDialog"></worker-form>
 
 
         </div>

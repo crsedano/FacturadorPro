@@ -253,13 +253,13 @@
         </div>
 
         <purchase-payments
-            :showDialog.sync="showDialogPurchasePayments"
+            v-model:showDialog="showDialogPurchasePayments"
             :purchaseId="recordId"
             :external="true"
             ></purchase-payments>
 
         <expense-payments
-            :showDialog.sync="showDialogExpensePayments"
+            v-model:showDialog="showDialogExpensePayments"
             :expenseId="recordId"
             :external="true"
             ></expense-payments>

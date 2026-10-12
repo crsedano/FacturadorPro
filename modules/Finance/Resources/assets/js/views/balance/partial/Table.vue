@@ -165,19 +165,19 @@
                             <td class="">{{ row.description }}</td>
                             <td v-if="resource !== 'finances/payment-method-types'"
                                 class="text-center">
-                                {{ row.initial_balance | DecimalText }}
+                                {{ $filters.DecimalText(row.initial_balance) }}
                             </td>
-                            <td class="text-center">{{ row.document_payment | DecimalText }}</td>
-                            <td class="text-center">{{ row.sale_note_payment | DecimalText }}</td>
-                            <td class="text-center">{{ row.quotation_payment | DecimalText }}</td>
-                            <td class="text-center">{{ row.contract_payment | DecimalText }}</td>
-                            <td class="text-center">{{ row.technical_service_payment | DecimalText }}</td>
-                            <td class="text-center">{{ row.income_payment | DecimalText }}</td>
-                            <td class="text-center">{{ row.purchase_payment | DecimalText }}</td>
-                            <td class="text-center">{{ row.expense_payment | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ row.bank_loan | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ row.bank_loan_payment | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ row.balance | DecimalText }}</td>
+                            <td class="text-center">{{ $filters.DecimalText(row.document_payment) }}</td>
+                            <td class="text-center">{{ $filters.DecimalText(row.sale_note_payment) }}</td>
+                            <td class="text-center">{{ $filters.DecimalText(row.quotation_payment) }}</td>
+                            <td class="text-center">{{ $filters.DecimalText(row.contract_payment) }}</td>
+                            <td class="text-center">{{ $filters.DecimalText(row.technical_service_payment) }}</td>
+                            <td class="text-center">{{ $filters.DecimalText(row.income_payment) }}</td>
+                            <td class="text-center">{{ $filters.DecimalText(row.purchase_payment) }}</td>
+                            <td class="text-center">{{ $filters.DecimalText(row.expense_payment) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(row.bank_loan) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(row.bank_loan_payment) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(row.balance) }}</td>
                         </tr>
                         </tbody>
                         <tfoot>
@@ -186,21 +186,19 @@
                                 colspan="2">Totales
                             </td>
                             <td v-if="resource !== 'finances/payment-method-types'"
-                                class="text-center">{{curencySymbol}} {{
-                                    totals.t_initial_balance | DecimalText
-                                                    }}
+                                class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_initial_balance) }}
                             </td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_documents | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_sale_notes | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_quotations | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_contracts | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_technical_services | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_income | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_purchases | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_expenses | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_bank_loan | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_bank_loan_payment | DecimalText }}</td>
-                            <td class="text-center">{{curencySymbol}} {{ totals.t_balance | DecimalText }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_documents) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_sale_notes) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_quotations) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_contracts) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_technical_services) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_income) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_purchases) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_expenses) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_bank_loan) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_bank_loan_payment) }}</td>
+                            <td class="text-center">{{curencySymbol}} {{ $filters.DecimalText(totals.t_balance) }}</td>
                         </tr>
                         </tfoot>
                     </table>
@@ -208,7 +206,7 @@
             </div>
         </div>
         <tenant-finance-modal-transfer-between-accounts
-            :showDialogTransfer.sync="showDialogTransfer"
+            v-model:showDialogTransfer="showDialogTransfer"
             :reloadAccounts="getRecordsByFilter"
         >
 

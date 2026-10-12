@@ -7,13 +7,13 @@
         <title>Module Padron</title>
 
        {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/padron.css') }}"> --}}
+       {{-- <link rel="stylesheet" href="@vite(['css/padron.css'])"> --}}
 
     </head>
     <body>
         @yield('content')
 
         {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/padron.js') }}"></script> --}}
+        {{-- <script src="@vite(['js/padron.js'])"></script> --}}
     </body>
 </html>

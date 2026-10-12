@@ -396,7 +396,7 @@
 
         <purchase-form-item :currency-type-id-active="form.currency_type_id"
                             :exchange-rate-sale="form.exchange_rate_sale"
-                            :showDialog.sync="showDialogAddItem"
+                            v-model:showDialog="showDialogAddItem"
                             :localHasGlobalIgv="localHasGlobalIgv"
                             :supplier_id="this.form.supplier_id"
                             :type="this.type"
@@ -404,12 +404,12 @@
 
         <person-form :external="true"
                      :input_person="input_person"
-                     :showDialog.sync="showDialogNewPerson"
+                     v-model:showDialog="showDialogNewPerson"
                      type="suppliers"></person-form>
 
         <purchase-options :recordId="purchaseNewId"
                           :showClose="false"
-                          :showDialog.sync="showDialogOptions"></purchase-options>
+                          v-model:showDialog="showDialogOptions"></purchase-options>
 
         <series-form
             ref="series_form"

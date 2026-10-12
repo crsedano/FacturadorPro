@@ -45,7 +45,7 @@
                 </div>
             </div> -->
         </div>
-        <unit-types-form :showDialog.sync="showDialog"
+        <unit-types-form v-model:showDialog="showDialog"
                          :recordId="recordId"></unit-types-form>
     </div>
 </template>

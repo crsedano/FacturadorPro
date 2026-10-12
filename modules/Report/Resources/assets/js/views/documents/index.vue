@@ -152,12 +152,12 @@
 
                 </div>
         </div>
-        <document-options :showDialog.sync="showDialogOptions"
+        <document-options v-model:showDialog="showDialogOptions"
                           :recordId="recordId"
                           :showClose="true"
                           :configuration="configuration"
         ></document-options>
-        <product-sale :records="recordsItems" :showDialog.sync="showDialogProducts">
+        <product-sale :records="recordsItems" v-model:showDialog="showDialogProducts">
 
         </product-sale>
     </div>

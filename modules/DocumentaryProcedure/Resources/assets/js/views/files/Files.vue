@@ -232,24 +232,24 @@
             </div>
         </div>
         <ModalAddEdit
-            :visible.sync="openModalAddEdit"
+            v-model:visible="openModalAddEdit"
             @onAddItem="onAddItem"
             @onUpdateItem="onUpdateItem"
             @onUploadComplete="onUploadComplete"
         ></ModalAddEdit>
         <ModalDerive
             :file="file"
-            :visible.sync="showModalDerive"
+            v-model:visible="showModalDerive"
             @onAddOffice="onAddOffice"
         ></ModalDerive>
         <ModalStage
-            :visible.sync="showModalStage"
+            v-model:visible="showModalStage"
             @onBackStep="onBackStep"
             @onNextStep="onNextStep"
             @updateFiles="updateFiles"
         ></ModalStage>
         <StageModalObservationStage
-            :visible.sync="showStageModalObservationStage"
+            v-model:visible="showStageModalObservationStage"
         ></StageModalObservationStage>
     </div>
 </template>

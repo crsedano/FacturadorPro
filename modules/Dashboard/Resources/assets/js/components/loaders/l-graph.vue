@@ -3,9 +3,9 @@
         <vcl-table :rows="rows" :columns="columns"></vcl-table>
         <template v-if="!hideCircle">
             <br/><br/>
-            <vue-content-loading v-bind="$attrs" :width="100" :height="100">
+            <el-skeleton animated>
                 <circle cx="50%" cy="50%" :r="radius"/>
-            </vue-content-loading>
+            </el-skeleton>
         </template>
     </div>
 </template>
@@ -13,7 +13,7 @@
 
 <script>
     
-    import { VclTable, VueContentLoading  } from 'vue-content-loading';
+    // vue-content-loading removed — using el-skeleton;
 
     export default {
         props: {
@@ -22,7 +22,7 @@
             rows: Number,
             columns: Number,
         },
-        components: { VclTable, VueContentLoading },
+        components: { },
         data () {
             return {  
             }

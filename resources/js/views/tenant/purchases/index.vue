@@ -154,28 +154,28 @@
                 </data-table>
             </div>
 
-            <!-- <documents-voided :showDialog.sync="showDialogVoided"
+            <!-- <documents-voided v-model:showDialog="showDialogVoided"
                             :recordId="recordId"></documents-voided>
 
-            <document-options :showDialog.sync="showDialogOptions"
+            <document-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showClose="true"></document-options> -->
 
-            <purchase-import :showDialog.sync="showImportDialog"></purchase-import>
+            <purchase-import v-model:showDialog="showImportDialog"></purchase-import>
         </div>
 
 <tenant-guides-modal
-    :show.sync="showModalGuide"
+    v-model:show="showModalGuide"
     :id="recordId"
     :type="'purchases'"
 ></tenant-guides-modal>
         <purchase-payments
-            :showDialog.sync="showDialogPurchasePayments"
+            v-model:showDialog="showDialogPurchasePayments"
             :purchaseId="recordId"
             :external="true"
             ></purchase-payments>
 
-        <purchase-options :showDialog.sync="showDialogOptions"
+        <purchase-options v-model:showDialog="showDialogOptions"
                           :recordId="recordId"
                           :showClose="true"></purchase-options>
     </div>

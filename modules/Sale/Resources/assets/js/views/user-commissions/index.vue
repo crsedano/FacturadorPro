@@ -37,7 +37,7 @@
                 </data-table>
             </div>
 
-            <user-commissions-form :showDialog.sync="showDialog"
+            <user-commissions-form v-model:showDialog="showDialog"
                         :recordId="recordId"></user-commissions-form>
  
 

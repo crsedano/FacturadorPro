@@ -316,7 +316,7 @@
             </div>
         </div>
 
-        <quotation-form-item :showDialog.sync="showDialogAddItem"
+        <quotation-form-item v-model:showDialog="showDialogAddItem"
                            :currency-type-id-active="form.currency_type_id"
                            :exchange-rate-sale="form.exchange_rate_sale"
                              :typeUser="typeUser"
@@ -326,19 +326,19 @@
                              :percentage-igv="percentage_igv"
                            @add="addRow"></quotation-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                        type="customers"
                        :external="true"
                        :input_person="input_person"
                        :document_type_id = form.document_type_id></person-form>
 
-        <quotation-options :showDialog.sync="showDialogOptions"
+        <quotation-options v-model:showDialog="showDialogOptions"
                           :recordId="quotationNewId"
                           :typeUser="typeUser"
                           :showGenerate="false"
                           :showClose="false"></quotation-options>
 
-        <terms-condition :showDialog.sync="showDialogTermsCondition"
+        <terms-condition v-model:showDialog="showDialogTermsCondition"
                           :form="form"
                           :showClose="false"></terms-condition>
     </div>

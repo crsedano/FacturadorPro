@@ -101,7 +101,7 @@
             </div>
 
             <plans-form
-                :showDialog.sync="showDialog"
+                v-model:showDialog="showDialog"
                 @reload-data="sendReload"
             >
             </plans-form>

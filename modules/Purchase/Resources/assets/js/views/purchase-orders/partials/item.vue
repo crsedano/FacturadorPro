@@ -353,10 +353,10 @@
             </div>
         </form>
         <item-form :external="true"
-                   :showDialog.sync="showDialogNewItem"></item-form>
+                   v-model:showDialog="showDialogNewItem"></item-form>
         <lots-form
             :lots="lots"
-            :showDialog.sync="showDialogLots"
+            v-model:showDialog="showDialogLots"
             :stock="form.quantity"
             @addRowLot="addRowLot"
         >
@@ -376,7 +376,7 @@ import {calculateRowItem} from '../../../../../../../../resources/js/helpers/fun
 import LotsForm from './lots.vue'
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import VueCkeditor from "vue-ckeditor5";
+import CKEditor from '@ckeditor/ckeditor5-vue';
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../../../../../resources/js/helpers/modal_item";
 import WarehousesDetail
@@ -389,7 +389,7 @@ export default {
         'exchangeRateSale',
         'percentageIgv'
     ],
-    components: {itemForm, LotsForm, 'vue-ckeditor': VueCkeditor.component},
+    components: {itemForm, LotsForm, ckeditor: CKEditor.component},
 
     data() {
         return {
@@ -428,10 +428,7 @@ export default {
             showDialogLots: false,
             showDialogSelectLots: false,
             lots: [],
-            editors: {
-                classic: ClassicEditor
-            },
-        }
+                    }
     },
     created() {
         this.loadConfiguration()

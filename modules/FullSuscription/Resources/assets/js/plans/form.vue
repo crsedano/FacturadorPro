@@ -245,7 +245,7 @@
             :currency-type-id-active="config.currency_type_id"
             :exchange-rate-sale="exchange_rate"
             :recordItem="recordItem"
-            :showDialog.sync="showDialogAddItem"
+            v-model:showDialog="showDialogAddItem"
             :typeUser="config.typeUser"
             :displayDiscount="false"
             @add="addRow"
@@ -260,7 +260,7 @@
             :document_type_id='"01"'
             :exchange-rate-sale="exchange_rate"
             :external="true"
-            :showDialog.sync="showDialogNewPerson"
+            v-model:showDialog="showDialogNewPerson"
             :operationTypeId="'0101'"
 
             type="customers"

@@ -2,8 +2,7 @@
     <el-dialog :title="titleDialog"
                :visible="showDialog"
                @close="close">
-        <Keypress
-            :key-code="112"
+        <:key-code="112"
             key-event="keyup"
             @success="handleFn112"
         />
@@ -536,11 +535,11 @@
             </div>
         </form>
         <item-form :external="true"
-                   :showDialog.sync="showDialogNewItem"></item-form>
+                   v-model:showDialog="showDialogNewItem"></item-form>
 
         <lots-form
             :lots="lots"
-            :showDialog.sync="showDialogLots"
+            v-model:showDialog="showDialogLots"
             :stock="form.quantity"
             @addRowLot="addRowLot">
         </lots-form>
@@ -566,7 +565,6 @@
 import itemForm from '../../items/form.vue'
 import {calculateRowItem} from '../../../../helpers/functions'
 import LotsForm from '@components/incomeLots.vue'
-import Keypress from "vue-keypress";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../helpers/modal_item";
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import moment from "moment";
@@ -579,7 +577,7 @@ export default {
         'localHasGlobalIgv',
         'percentageIgv'
     ],
-    components: {itemForm, LotsForm, Keypress},
+    components: {itemForm, LotsForm, },
     computed: {
         ...mapState([
             'config',

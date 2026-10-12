@@ -125,7 +125,7 @@
                                             @change="calculateTotal"
                                             :min="0"/>
                                     </td>
-                                    <td class="text-center">{{row.sale_unit_price * row.quantity | toDecimals }}</td>
+                                    <td class="text-center">{{ $filters.toDecimals(row.sale_unit_price * row.quantity) }}</td>
                                     <td class="text-right">
                                         <button class="btn waves-effect waves-light btn-xs btn-danger" type="button"
                                                 @click.prevent="clickRemoveItem(index)">x
@@ -139,7 +139,7 @@
                                     <th class="font-weight-bold"></th>
                                     <th class="text-center font-weight-bold"></th>
                                     <th class="text-right font-weight-bold">Total</th>
-                                    <th class="text-center font-weight-bold">{{ total | toDecimals}}</th>
+                                    <th class="text-center font-weight-bold">{{ $filters.toDecimals(total) }}</th>
                                     <th></th>
                                 </tr>
                                 </tfoot>
@@ -437,7 +437,7 @@
                     </div>
 
                     <item-set-form-item
-                        :showDialog.sync="showDialogAddItem"
+                        v-model:showDialog="showDialogAddItem"
                         @add="addRow"></item-set-form-item>
 
                 </div>

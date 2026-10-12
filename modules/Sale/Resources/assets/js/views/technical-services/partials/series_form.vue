@@ -33,10 +33,10 @@
                 </div>
             </div>
 
-            <!-- <lots :showDialog.sync="showDialogLots" :lots="lots"></lots> -->
+            <!-- <lots v-model:showDialog="showDialogLots" :lots="lots"></lots> -->
 
             <select-lots-form
-                :showDialog.sync="showDialogLots"
+                v-model:showDialog="showDialogLots"
                 :lots="lots"
                 :itemId="item_id"
                 @addRowSelectLot="addRowSelectLot">

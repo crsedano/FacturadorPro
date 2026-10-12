@@ -242,7 +242,7 @@
             </form>
         </el-dialog>
         <!--<purchase-options
-          :showDialog.sync="showDialogOptions"
+          v-model:showDialog="showDialogOptions"
           :recordId="purchaseNewId"
           :showClose="false"
         ></purchase-options>-->

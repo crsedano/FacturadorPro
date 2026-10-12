@@ -144,7 +144,7 @@
             :process="process"
             :requirements="requirements"
             :stages="stages"
-            :visible.sync="openModalAddEdit"
+            v-model:visible="openModalAddEdit"
             @onAddItem="onAddItem"
             @onUpdateItem="onUpdateItem"
         ></ModalAddEdit>

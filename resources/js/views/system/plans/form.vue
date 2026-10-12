@@ -181,7 +181,7 @@
 
                 if(!this.documents_unlimited){
                     if(this.limit_documents < 1)
-                        this.$set(this.errorLDocument, 'limit_documents', ['limite de documentos debe ser mayor a cero']);
+                        this.errorLDocument['limit_documents'] = ['limite de documentos debe ser mayor a cero'];
                 } 
 
                 return this.errorLDocument 
@@ -193,7 +193,7 @@
                  
                 if(!this.users_unlimited){
                     if(this.limit_users < 1)
-                        this.$set(this.errorLUser, 'limit_users', ['limite de usuarios debe ser mayor a cero']);
+                        this.errorLUser['limit_users'] = ['limite de usuarios debe ser mayor a cero'];
                 }
 
                 return this.errorLUser 

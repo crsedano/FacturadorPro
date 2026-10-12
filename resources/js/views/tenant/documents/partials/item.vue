@@ -6,8 +6,7 @@
                top="7vh"
                @close="close"
                @open="create">
-        <Keypress
-            key-event="keyup"
+        <key-event="keyup"
             @success="checkKey"
         />
 
@@ -309,10 +308,7 @@
                          class="col-md-12 col-sm-12 mt-2">
                         <div class="form-group">
                             <label class="control-label">Nombre producto en PDF</label>
-                            <vue-ckeditor
-                                v-model="form.name_product_pdf"
-                                :editors="editors"
-                                type="classic"></vue-ckeditor>
+                            <ckeditor :editor="ClassicEditor" v-model="form.name_product_pdf"></ckeditor>
                         </div>
                     </div>
                     <template v-if="canShowExtraData">
@@ -569,14 +565,14 @@
             <!-- Ocultar en cel -->
         </form>
         <item-form :external="true"
-                   :showDialog.sync="showDialogNewItem"></item-form>
+                   v-model:showDialog="showDialogNewItem"></item-form>
         <warehouses-detail
             :isUpdateWarehouseId="isUpdateWarehouseId"
-            :showDialog.sync="showWarehousesDetail"
+            v-model:showDialog="showWarehousesDetail"
             :warehouses="warehousesDetail">
         </warehouses-detail>
         <history-sales-form
-            :showDialog.sync="showDialogHistorySales"
+            v-model:showDialog="showDialogHistorySales"
             :item_id="history_item_id"
             :customer_id="this.customerId"
             :type="true"
@@ -584,7 +580,7 @@
         <lots-group
             :lots_group="form.lots_group"
             :quantity="form.quantity"
-            :showDialog.sync="showDialogLots"
+            v-model:showDialog="showDialogLots"
             @addRowLotGroup="addRowLotGroup">
         </lots-group>
 
@@ -592,7 +588,7 @@
             :documentItemId="documentItem"
             :itemId="form.item_id"
             :lots="lots"
-            :showDialog.sync="showDialogSelectLots"
+            v-model:showDialog="showDialogSelectLots"
             :quantity="form.quantity"
             @addRowSelectLot="addRowSelectLot">
         </select-lots-form>
@@ -623,10 +619,9 @@ import WarehousesDetail from './select_warehouses.vue'
 import SelectLotsForm from './lots.vue'
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import VueCkeditor from 'vue-ckeditor5'
+import CKEditor from '@ckeditor/ckeditor5-vue'
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../helpers/modal_item";
-import Keypress from "vue-keypress";
 import HistorySalesForm from "../../../../../../modules/Pos/Resources/assets/js/views/history/sales.vue";
 export default {
     props: [
@@ -649,11 +644,10 @@ export default {
     components: {
         ItemForm,
         WarehousesDetail,
-        Keypress,
         LotsGroup,
         SelectLotsForm,
         HistorySalesForm,
-        'vue-ckeditor': VueCkeditor.component
+        ckeditor: CKEditor.component
     },
     data() {
         return {
@@ -693,10 +687,7 @@ export default {
             showDialogLots: false,
             showDialogSelectLots: false,
             lots: [],
-            editors: {
-                classic: ClassicEditor
-            },
-            value1: 'hello',
+                        value1: 'hello',
             readonly_total: 0,
             itemLastPrice: null,
             search_item_by_barcode_presentation: false,
@@ -1441,7 +1432,7 @@ export default {
 
             if (this.form.item.calculate_quantity) {
                 if (this.total_item < 0.01)
-                    this.$set(this.errors, 'total_item', ['total venta item debe ser mayor a 0.01']);
+                    this.errors['total_item'] = ['total venta item debe ser mayor a 0.01'];
             }
 
             return this.errors

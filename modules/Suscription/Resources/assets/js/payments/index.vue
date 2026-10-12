@@ -113,7 +113,7 @@
                 </data-table>
             </div>
             <customers-form
-                :showDialog.sync="showDialog"
+                v-model:showDialog="showDialog"
                 :suscriptionId="suscriptionId"
                 @clearSuscriptionId="clearsuscriptionid">
             </customers-form>

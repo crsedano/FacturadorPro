@@ -48,11 +48,11 @@
                             <tr v-for="p in form.products"
                                 :key="p.item_id">
                                 <td>{{ p.item.description }}</td>
-                                <td class="text-center">{{ p.quantity | toDecimals }}</td>
+                                <td class="text-center">{{ $filters.toDecimals(p.quantity) }}</td>
                                 <td class="text-center">
-                                    {{ p.input_unit_price_value | toDecimals }}
+                                    {{ $filters.toDecimals(p.input_unit_price_value) }}
                                 </td>
-                                <td class="text-right">{{ p.total | toDecimals }}</td>
+                                <td class="text-right">{{ $filters.toDecimals(p.total) }}</td>
                                 <td class="text-center">
                                     <div class="d-inline-block"
                                          style="max-width: 150px">
@@ -89,7 +89,7 @@
                                     colspan="3">SUBTOTAL
                                 </td>
                                 <td class="text-right">
-                                    {{ this.form.subtotal | toDecimals }}
+                                    {{ $filters.toDecimals(this.form.subtotal) }}
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -99,7 +99,7 @@
                                     colspan="3">IGV
                                 </td>
                                 <td class="text-right">
-                                    {{ this.form.igv | toDecimals }}
+                                    {{ $filters.toDecimals(this.form.igv) }}
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -109,7 +109,7 @@
                                     colspan="3">TOTAL
                                 </td>
                                 <td class="text-right">
-                                    {{ this.form.total | toDecimals }}
+                                    {{ $filters.toDecimals(this.form.total) }}
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -160,7 +160,7 @@
             :exchange-rate-sale="0"
             :isEditItemNote="false"
             :recordItem="recordItem"
-            :showDialog.sync="showDialogAddItem"
+            v-model:showDialog="showDialogAddItem"
             :typeUser="typeUser"
             :percentageIgv="percentage_igv"
             currency-type-id-active="PEN"

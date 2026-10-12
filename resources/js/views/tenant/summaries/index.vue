@@ -74,13 +74,13 @@
                 </data-table>
             </div>
             
-            <summary-form :showDialog.sync="showDialog"
+            <summary-form v-model:showDialog="showDialog"
                         :external="false"></summary-form>
 
-            <summary-options :showDialog.sync="showDialogOptions"
+            <summary-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"></summary-options>
 
-            <summary-regularize :showDialog.sync="showDialogRegularize"
+            <summary-regularize v-model:showDialog="showDialogRegularize"
                               :summary="summary"></summary-regularize>
         </div>
     </div>

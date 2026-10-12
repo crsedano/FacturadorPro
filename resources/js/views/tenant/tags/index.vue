@@ -61,7 +61,7 @@
         </data-table>
       </div>
 
-      <tags-form :showDialog.sync="showDialog" :recordId="recordId"></tags-form>
+      <tags-form v-model:showDialog="showDialog" :recordId="recordId"></tags-form>
 
     </div>
   </div>

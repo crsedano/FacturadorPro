@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <devolution-form-item :showDialog.sync="showDialogAddItem"
+        <devolution-form-item v-model:showDialog="showDialogAddItem"
                            @add="addRow"></devolution-form-item>
  
     </div>

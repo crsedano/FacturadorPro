@@ -228,17 +228,17 @@
         <mill-form-item
             :currency-type-id-active="form.currency_type_id"
             :exchange-rate-sale="form.exchange_rate_sale"
-            :showDialog.sync="showDialog"
+            v-model:showDialog="showDialog"
             @add="addRow"></mill-form-item>
         <!--
 
 
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                      type="suppliers"
                      :external="true"></person-form>
 
-        <mill-options :showDialog.sync="showDialogOptions"
+        <mill-options v-model:showDialog="showDialogOptions"
                          :recordId="millNewId"
                          :isUpdate="id ? true:false"
                          :showClose="false"></mill-options>

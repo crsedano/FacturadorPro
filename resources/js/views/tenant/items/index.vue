@@ -378,41 +378,41 @@
 
             <items-form
                 :recordId="recordId"
-                :showDialog.sync="showDialog"
+                v-model:showDialog="showDialog"
                 :type="type"
             ></items-form>
 
-            <items-import :showDialog.sync="showImportDialog"></items-import>
-            <items-export :showDialog.sync="showExportDialog"></items-export>
+            <items-import v-model:showDialog="showImportDialog"></items-import>
+            <items-export v-model:showDialog="showExportDialog"></items-export>
             <items-export-wp
-                :showDialog.sync="showExportWpDialog"
+                v-model:showDialog="showExportWpDialog"
             ></items-export-wp>
 
             <items-export-barcode
-                :showDialog.sync="showExportBarcodeDialog"
+                v-model:showDialog="showExportBarcodeDialog"
             ></items-export-barcode>
 
             <items-export-extra
-                :showDialog.sync="showExportExtraDialog"
+                v-model:showDialog="showExportExtraDialog"
             ></items-export-extra>
             <warehouses-detail
                 :item_unit_types="item_unit_types"
-                :showDialog.sync="showWarehousesDetail"
+                v-model:showDialog="showWarehousesDetail"
                 :warehouses="warehousesDetail"
             >
             </warehouses-detail>
 
             <items-import-list-price
-                :showDialog.sync="showImportListPriceDialog"
+                v-model:showDialog="showImportListPriceDialog"
             ></items-import-list-price>
 
             <items-import-extra-info
-                :showDialog.sync="showImportExtraWithExtraInfo"
+                v-model:showDialog="showImportExtraWithExtraInfo"
             ></items-import-extra-info>
 
 
             <items-import-update-price
-                :showDialog.sync="showImporUpdatePrice"
+                v-model:showDialog="showImporUpdatePrice"
             ></items-import-update-price>
 
             <!--
@@ -421,11 +421,11 @@
             -->
             <tenant-item-aditional-info-modal
                 :item="recordItem"
-                :showDialog.sync="showDialogItemStock"
+                v-model:showDialog="showDialogItemStock"
             ></tenant-item-aditional-info-modal>
             <items-history
                 :recordId="recordId"
-                :showDialog.sync="showDialogHistory"
+                v-model:showDialog="showDialogHistory"
             >
             </items-history>
         </div>

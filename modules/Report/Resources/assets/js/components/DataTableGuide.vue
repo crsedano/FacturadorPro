@@ -180,7 +180,7 @@
                     </table>
                     <div>
                         <el-pagination
-                            :current-page.sync="pagination.current_page"
+                            v-model:current-page="pagination.current_page"
                             :page-size="pagination.per_page"
                             :total="pagination.total"
                             layout="total, prev, pager, next"
@@ -193,7 +193,7 @@
         <totals-by-item-form
             :parameters="getQueryParameters()"
             :resource="'reports/guides'"
-            :showDialog.sync="showDialog"
+            v-model:showDialog="showDialog"
         ></totals-by-item-form>
     </div>
 </template>

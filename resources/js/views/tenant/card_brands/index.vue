@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <card-brands-form :showDialog.sync="showDialog"
+        <card-brands-form v-model:showDialog="showDialog"
                             :external="false"
                             :recordId="recordId"></card-brands-form>
     </div>

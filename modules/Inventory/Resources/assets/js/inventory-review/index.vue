@@ -135,7 +135,7 @@
                         <template v-if="records.length > 0">
                             <data-tables 
                                 :data="records"
-                                :current-page.sync="currentPage" 
+                                v-model:current-page="currentPage" 
                                 :table-props="tableProps"
                                 :pagination-props="{ pageSizes: [20] }"
                                 style="width: 100%" 

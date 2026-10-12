@@ -1,6 +1,6 @@
 <template>
     <el-dialog   :visible="showDialog"  @open="create" @opened="opened" width="60%" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
-        <Keypress key-event="keyup" :key-code="13" @success="someMethod" />
+        <key-event="keyup" :key-code="13" @success="someMethod" />
         <span slot="title">
             <div class="widget-summary widget-summary-xs pl-3 p-2">
                 <div class="widget-summary-col widget-summary-col-icon">
@@ -127,12 +127,10 @@
 
 <script>
     import {mapState, mapActions} from "vuex/dist/vuex.mjs";
-    import Keypress from 'vue-keypress'
     export default {
         props: ['showDialog', 'recordId', 'statusDocument','resource'],
         components: {
-           Keypress
-        },
+           },
         data() {
             return {
                 titleDialog: null,

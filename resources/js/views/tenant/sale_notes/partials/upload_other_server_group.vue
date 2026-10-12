@@ -85,7 +85,7 @@
                     <td>
                         <span>{{ dis.number_full }}</span>
                     </td>
-                    <td>{{ dis.date_of_issue | toDate }}</td>
+                    <td>{{ $filters.toDate(dis.date_of_issue) }}</td>
                 </tr>
                 </tbody>
             </table>

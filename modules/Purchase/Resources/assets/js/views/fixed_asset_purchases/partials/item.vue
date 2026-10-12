@@ -160,7 +160,7 @@
             </div>
         </form>
 
-        <fa-item-form :showDialog.sync="showDialogNewItem"
+        <fa-item-form v-model:showDialog="showDialogNewItem"
                    :external="true"></fa-item-form>
 
 

@@ -46,10 +46,10 @@
 <script>
 
     import SimpleDataTable from '../../components/SimpleDataTable.vue'
-    import { VclTable } from 'vue-content-loading';
+    // vue-content-loading removed — using el-skeleton;
 
     export default {
-        components: {SimpleDataTable, VclTable},
+        components: {SimpleDataTable, },
 
         data () {
             return {

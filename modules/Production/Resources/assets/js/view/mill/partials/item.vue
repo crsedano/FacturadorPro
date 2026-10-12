@@ -151,11 +151,11 @@
             </div>
         </form>
         <item-form :external="true"
-                   :showDialog.sync="showDialogNewItem"></item-form>
+                   v-model:showDialog="showDialogNewItem"></item-form>
 
         <!--
                 <warehouses-detail
-                    :showDialog.sync="showWarehousesDetail"
+                    v-model:showDialog="showWarehousesDetail"
                     :warehouses="warehousesDetail">
                 </warehouses-detail>-->
     </el-dialog>
@@ -171,7 +171,7 @@
 import itemForm from '@views/items/form.vue'
 // import WarehousesDetail from './warehouses.vue'
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import VueCkeditor from "vue-ckeditor5";
+import CKEditor from '@ckeditor/ckeditor5-vue';
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../../../../../resources/js/helpers/modal_item";
 
@@ -184,8 +184,7 @@ export default {
     components: {
         itemForm,
         // WarehousesDetail,
-        'vue-ckeditor':
-        VueCkeditor.component
+        ckeditor: CKEditor.component
     },
 
     data() {
@@ -235,10 +234,7 @@ export default {
             showDialogLots: false,
             showDialogSelectLots: false,
             lots: [],
-            editors: {
-                classic: ClassicEditor
-            },
-        }
+                    }
     },
     created() {
         this.loadConfiguration()

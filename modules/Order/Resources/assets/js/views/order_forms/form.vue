@@ -267,16 +267,16 @@
             </form>
         </div>
 
-        <person-form :showDialog.sync="showDialogNewPerson" type="customers" :external="true"></person-form>
+        <person-form v-model:showDialog="showDialogNewPerson" type="customers" :external="true"></person-form>
 
-        <driver-form :showDialog.sync="showDialogNewDriver" :external="true"></driver-form>
+        <driver-form v-model:showDialog="showDialogNewDriver" :external="true"></driver-form>
 
-        <dispatcher-form :showDialog.sync="showDialogNewDispatcher" :external="true"></dispatcher-form>
+        <dispatcher-form v-model:showDialog="showDialogNewDispatcher" :external="true"></dispatcher-form>
 
-        <items :recordItem.sync="recordItem" :dialogVisible.sync="showDialogAddItems" @addItem="addItem"></items>
+        <items v-model:recordItem="recordItem" v-model:dialogVisible="showDialogAddItems" @addItem="addItem"></items>
 
 
-        <order-form-options :showDialog.sync="showDialogOptions"
+        <order-form-options v-model:showDialog="showDialogOptions"
                             :recordId="recordId"
                             :isUpdate="(id) ? true:false"></order-form-options>
     </div>
@@ -468,8 +468,8 @@
                         'department_id': this.form.origin.department_id
                     });
 
-                    this.$set(this.form.origin, 'province_id', null);
-                    this.$set(this.form.origin, 'location_id', null);
+                    this.form.origin['province_id'] = null;
+                    this.form.origin['location_id'] = null;
 
                     return;
                 }
@@ -478,8 +478,8 @@
                     'department_id': this.form.delivery.department_id
                 });
 
-                this.$set(this.form.delivery, 'province_id', null);
-                this.$set(this.form.delivery, 'location_id', null);
+                this.form.delivery['province_id'] = null;
+                this.form.delivery['location_id'] = null;
             },
             filterDistrict(origin = true) {
                 if (origin) {
@@ -487,7 +487,7 @@
                         'province_id': this.form.origin.province_id
                     });
 
-                    this.$set(this.form.origin, 'location_id', null);
+                    this.form.origin['location_id'] = null;
 
                     return;
                 }
@@ -496,7 +496,7 @@
                     'province_id': this.form.delivery.province_id
                 });
 
-                this.$set(this.form.delivery, 'location_id', null);
+                this.form.delivery['location_id'] = null;
             },
             addItem(form) {
 

@@ -219,18 +219,18 @@
             :configuration="configuration"
             :currency-type-id-active="form.currency_type_id"
             :exchange-rate-sale="form.exchange_rate_sale"
-            :showDialog.sync="showDialogAddItem"
+            v-model:showDialog="showDialogAddItem"
             :typeUser="typeUser"
             :percentage-igv="percentage_igv"
             @add="addRow"></order-note-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                        type="customers"
                        :external="true"
                        :input_person="input_person"
                        :document_type_id = form.document_type_id></person-form>
 
-        <order-note-options :type="type" :showDialog.sync="showDialogOptions"
+        <order-note-options :type="type" v-model:showDialog="showDialogOptions"
                           :recordId="orderNoteNewId"
                           :showGenerate="false"
                           :typeUser="typeUser"

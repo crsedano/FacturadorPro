@@ -48,9 +48,9 @@
                     </div>
                 </div> -->
             </div>
-            <establishments-form :showDialog.sync="showDialog"
+            <establishments-form v-model:showDialog="showDialog"
                                 :recordId="recordId"></establishments-form>
-            <establishment-series :showDialog.sync="showDialogSeries"
+            <establishment-series v-model:showDialog="showDialogSeries"
                                 :establishmentId="recordId"></establishment-series>
         </div>
     </div>

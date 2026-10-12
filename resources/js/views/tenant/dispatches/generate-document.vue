@@ -414,13 +414,13 @@
             :isContingency="false"
             :recordId="documentNewId"
             :showClose="true"
-            :showDialog.sync="showDialogDocumentOptions"
+            v-model:showDialog="showDialogDocumentOptions"
         ></document-options>
 
         <sale-note-options
             :recordId="documentNewId"
             :showClose="true"
-            :showDialog.sync="showDialogSaleNoteOptions"
+            v-model:showDialog="showDialogSaleNoteOptions"
         ></sale-note-options>
     </div>
 </template>

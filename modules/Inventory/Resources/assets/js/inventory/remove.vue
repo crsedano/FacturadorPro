@@ -39,7 +39,7 @@
             </div>
         </form>
         <output-lots-form
-            :showDialog.sync="showDialogLotsOutput"
+            v-model:showDialog="showDialogLotsOutput"
             :lots="form.lots"
             @addRowOutputLot="addRowOutputLot">
         </output-lots-form>

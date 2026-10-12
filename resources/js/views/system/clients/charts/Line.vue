@@ -1,5 +1,5 @@
 <script>
-    import {Line} from "vue-chartjs";
+    import {Line} from 'vue-chartjs';
     import {lineChartOptions} from "./config";
 
     export default {
@@ -11,7 +11,7 @@
             };
         },
         mounted() {
-            this.renderChart(this.data, this.options);
+            // renderChart removed (vue-chartjs v5 is reactive);
         }
     };
 </script>

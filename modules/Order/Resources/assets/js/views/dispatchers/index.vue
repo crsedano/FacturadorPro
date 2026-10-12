@@ -40,7 +40,7 @@
                 </data-table>
             </div>
 
-            <dispatchers-form :showDialog.sync="showDialog"
+            <dispatchers-form v-model:showDialog="showDialog"
                           :recordId="recordId"></dispatchers-form>
 
 

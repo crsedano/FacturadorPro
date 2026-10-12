@@ -59,13 +59,13 @@
 
         <lots-group
             :quantity="form.quantity"
-            :showDialog.sync="showDialogLots"
+            v-model:showDialog="showDialogLots"
             :lots_group="form.lots_group"
             @addRowLotGroup="addRowLotGroup">
         </lots-group>
 
         <select-lots-form
-            :showDialog.sync="showDialogSelectLots"
+            v-model:showDialog="showDialogSelectLots"
             :lots="lots"
             :itemId="form.item_id"
             :documentItemId="form.document_item_id"

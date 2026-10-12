@@ -354,14 +354,14 @@
 
         <loan-form-item :currency-type="currency_type"
                         :exchange-rate-sale="form.exchange_rate_sale"
-                        :showDialog.sync="showDialogAddItem"
+                        v-model:showDialog="showDialogAddItem"
                         @add="addRow">
         </loan-form-item>
 
         <loan-options :isUpdate="id ? true:false"
                       :recordId="expenseNewId"
                       :showClose="false"
-                      :showDialog.sync="showDialogOptions">
+                      v-model:showDialog="showDialogOptions">
         </loan-options>
     </div>
 </template>

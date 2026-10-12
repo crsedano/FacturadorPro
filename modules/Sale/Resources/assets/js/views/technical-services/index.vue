@@ -86,16 +86,16 @@
                 </data-table>
             </div>
 
-            <technical-service-options :showDialog.sync="showDialogOptions"
+            <technical-service-options v-model:showDialog="showDialogOptions"
                                        :recordId="recordId"
                                        :showGenerate="true"
                                        :showClose="true"></technical-service-options>
 
-            <technical-services-form :showDialog.sync="showDialog"
+            <technical-services-form v-model:showDialog="showDialog"
                                      :recordId="recordId"></technical-services-form>
 
             <technical-service-payments
-                :showDialog.sync="showDialogPayments"
+                v-model:showDialog="showDialogPayments"
                 :recordId="recordId"
                 :external="true"
             ></technical-service-payments>

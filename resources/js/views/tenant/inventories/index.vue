@@ -38,10 +38,10 @@
                 </data-table>
             </div>
 
-            <inventories-form :showDialog.sync="showDialog"></inventories-form>
-            <inventories-move :showDialog.sync="showDialogMove"
+            <inventories-form v-model:showDialog="showDialog"></inventories-form>
+            <inventories-move v-model:showDialog="showDialogMove"
                               :recordId="recordId"></inventories-move>
-            <inventories-remove :showDialog.sync="showDialogRemove"
+            <inventories-remove v-model:showDialog="showDialogRemove"
                                 :recordId="recordId"></inventories-remove>
         </div>
     </div>

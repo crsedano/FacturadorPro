@@ -38,7 +38,7 @@
                 </data-table>
             </div>
 
-            <items-form :showDialog.sync="showDialog"
+            <items-form v-model:showDialog="showDialog"
                         :recordId="recordId"></items-form>
  
 

@@ -363,7 +363,7 @@
 
             <add-process-modal
                 :guides="editGuide"
-                :visible.sync="showDialogNewProcess"
+                v-model:visible="showDialogNewProcess"
                 @addrow="addStep"
                 @closeElement="clearStep"
                 :editable="!form.is_completed"
@@ -375,12 +375,12 @@
                 :document_type_id="form.document_type_id"
                 :external="true"
                 :input_person="input_person"
-                :showDialog.sync="showDialogNewPerson"
+                v-model:showDialog="showDialogNewPerson"
                 type="customers"
             ></person-form>
             <modal-file-upload
                 :stageId="stageId"
-                :visible.sync="showFileUpload"
+                v-model:visible="showFileUpload"
                 @updateStage="updateData"
                 @closeElement="updateData"
             ></modal-file-upload>
@@ -395,8 +395,6 @@ import moment from "moment";
 // import TableArchives from "./TableArchives";
 import PersonForm from "../../../../../../../resources/js/views/tenant/persons/form.vue";
 // import OfficesRows from './Offices.vue';
-import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import {mapActions, mapState} from "vuex";
 // import TableObservation from "./TableObservation";
 import AddProcessModal from './ModalAddProcess.vue';
@@ -410,7 +408,6 @@ export default {
         // TableArchives,
         PersonForm,
         // OfficesRows,
-        vueDropzone: vue2Dropzone
     },
     props: {
         /*

@@ -102,7 +102,7 @@
             </div>
 
             <inventories-form :recordId="recordId"
-                              :showDialog.sync="showDialog"></inventories-form>
+                              v-model:showDialog="showDialog"></inventories-form>
         </div>
     </div>
 </template>

@@ -1251,7 +1251,7 @@
             :userId="form.id"
             :recordId="recordIdChildren"
             :reload-data="getData"
-            :showDialog.sync="showDialogChildren"
+            v-model:showDialog="showDialogChildren"
             :type="'customers'"
             @add="addRow"
         >

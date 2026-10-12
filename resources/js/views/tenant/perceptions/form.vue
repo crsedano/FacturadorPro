@@ -149,11 +149,11 @@
             </form>
         </div>
 
-        <perception-form-document :showDialog.sync="showDialogAddDocument"
+        <perception-form-document v-model:showDialog="showDialogAddDocument"
                            :active-perception-type="activePerceptionType"
                            @add="addDocument"></perception-form-document>
 
-        <customer-form :showDialog.sync="showDialogNewCustomer"
+        <customer-form v-model:showDialog="showDialogNewCustomer"
                         type="customers"
                        :external="true"></customer-form>
     </div>

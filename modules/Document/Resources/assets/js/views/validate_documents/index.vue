@@ -66,7 +66,7 @@
                     </tr>
                 </data-table>
             </div>
-            <document-results :showDialog.sync="showDialogResults"
+            <document-results v-model:showDialog="showDialogResults"
                               :data="data"></document-results>
         </div>
     </div>

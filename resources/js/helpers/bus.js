@@ -1,3 +1,3 @@
-import Vue from 'vue'
+import eventHub from '../eventHub'
 
-export const EventBus = new Vue()
+export const EventBus = eventHub

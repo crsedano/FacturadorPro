@@ -41,9 +41,7 @@
                         <button type="button"
                                 style="min-width: 41px"
                                 class="btn waves-effect waves-light btn-xs btn-info m-1__2"
-                                v-clipboard:copy="row.user_payment_link"
-                                v-clipboard:success="onCopyText"
-                                v-clipboard:error="onErrorCopyText">
+                                @click="onCopyText_clipboard(row.user_payment_link)">
                                 Copiar
                         </button>
 
@@ -84,12 +82,12 @@
 
         <payment-link-form 
             :recordId="recordId" 
-            :showDialog.sync="showDialog"
+            v-model:showDialog="showDialog"
             ></payment-link-form>
 
         <payment-link-transactions 
             :recordId="recordId" 
-            :showDialog.sync="showDialogTransactions"
+            v-model:showDialog="showDialogTransactions"
             ></payment-link-transactions>
     </div>
 </div>

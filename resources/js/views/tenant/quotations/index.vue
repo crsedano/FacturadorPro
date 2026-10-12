@@ -208,17 +208,17 @@
             </div>
 
 
-            <quotation-options :showDialog.sync="showDialogOptions"
+            <quotation-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showGenerate="true"
                               :showClose="true"></quotation-options>
 
-            <quotation-options-pdf :showDialog.sync="showDialogOptionsPdf"
+            <quotation-options-pdf v-model:showDialog="showDialogOptionsPdf"
                               :recordId="recordId"
                               :showClose="true"></quotation-options-pdf>
 
 
-            <quotation-payments :showDialog.sync="showDialogPayments"
+            <quotation-payments v-model:showDialog="showDialogPayments"
                                 :recordId="recordId"></quotation-payments>
         </div>
     </div>

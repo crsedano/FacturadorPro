@@ -2153,14 +2153,14 @@
                 </el-tabs>
                 <terms-condition :form="form"
                                     :showClose="false"
-                                    :showDialog.sync="showDialogTermsCondition"></terms-condition>
+                                    v-model:showDialog="showDialogTermsCondition"></terms-condition>
                 <terms-condition-sale :form="form"
                                         :showClose="false"
-                                        :showDialog.sync="showDialogTermsConditionSales"></terms-condition-sale>
+                                        v-model:showDialog="showDialogTermsConditionSales"></terms-condition-sale>
 
                 <allowance-charge :form="form"
                                     :showClose="false"
-                                    :showDialog.sync="showDialogAllowanceCharge"></allowance-charge>
+                                    v-model:showDialog="showDialogAllowanceCharge"></allowance-charge>
             </form>
         </template>
     </div>

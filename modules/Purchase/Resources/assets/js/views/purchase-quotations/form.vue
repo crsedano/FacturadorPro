@@ -124,17 +124,17 @@
             </div>
         </div>
 
-        <quotation-form-item :showDialog.sync="showDialogAddItem" 
+        <quotation-form-item v-model:showDialog="showDialogAddItem" 
                            :currency-type-id-active="form.currency_type_id"
                            :exchange-rate-sale="form.exchange_rate_sale"
                            @add="addRow"></quotation-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                        type="suppliers"
                        :external="true"
                        :document_type_id = form.document_type_id></person-form>
 
-        <purchase-quotation-options :showDialog.sync="showDialogOptions"
+        <purchase-quotation-options v-model:showDialog="showDialogOptions"
                           :recordId="purchaseQuotationNewId"
                           :showGenerate="false"
                           :isUpdate="propIsUpdate"

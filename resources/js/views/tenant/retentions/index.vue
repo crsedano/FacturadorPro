@@ -50,7 +50,7 @@
                 </data-table>
             </div>
             
-            <retention-options :showDialog.sync="showDialogOptions"
+            <retention-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showClose="true"></retention-options>
         </div>

@@ -64,7 +64,7 @@
                                                 @current-change="getSalesRecords"
                                                 layout="total, prev, pager, next"
                                                 :total="sales_pagination.total"
-                                                :current-page.sync="sales_pagination.current_page"
+                                                v-model:current-page="sales_pagination.current_page"
                                                 :page-size="sales_pagination.per_page">
                                         </el-pagination>
                                     </div>
@@ -107,7 +107,7 @@
                                                 @current-change="getPurchasesRecords"
                                                 layout="total, prev, pager, next"
                                                 :total="purchases_pagination.total"
-                                                :current-page.sync="purchases_pagination.current_page"
+                                                v-model:current-page="purchases_pagination.current_page"
                                                 :page-size="purchases_pagination.per_page">
                                         </el-pagination>
                                     </div>
@@ -126,7 +126,7 @@
         </form>
         
         <item-lots-index
-            :showDialog.sync="showDialogItemLots"
+            v-model:showDialog="showDialogItemLots"
             :selecteWarehouse="selecteWarehouse"
         >
         </item-lots-index>

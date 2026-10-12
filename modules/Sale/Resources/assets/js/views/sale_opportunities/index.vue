@@ -121,7 +121,7 @@
             </div>
 
 
-            <sale-opportunities-options :showDialog.sync="showDialogOptions"
+            <sale-opportunities-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showGenerate="true"
                               :showClose="true"></sale-opportunities-options>

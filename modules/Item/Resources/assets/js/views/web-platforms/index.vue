@@ -40,7 +40,7 @@
                 </div>
             </div> -->
         </div>
-        <web-platforms-form :showDialog.sync="showDialog"
+        <web-platforms-form v-model:showDialog="showDialog"
                          :recordId="recordId"></web-platforms-form>
     </div>
 </template>

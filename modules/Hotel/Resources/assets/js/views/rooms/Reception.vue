@@ -135,7 +135,7 @@
         </div>
         <ModalRoomRates
             :room="room"
-            :visible.sync="openModalRoomRates"
+            v-model:visible="openModalRoomRates"
             @onAddRoomRate="onAddRoomRate"
             @onDeleteRate="onDeleteRate"
         ></ModalRoomRates>

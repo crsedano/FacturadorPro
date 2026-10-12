@@ -109,7 +109,7 @@
 
             <customers-form
                 :recordId="recordId"
-                :showDialog.sync="showDialog">
+                v-model:showDialog="showDialog">
             </customers-form>
         </div>
     </div>

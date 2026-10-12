@@ -90,16 +90,16 @@
         </data-table>
       </div>
 
-      <items-form :showDialog.sync="showDialog" :recordId="recordId"></items-form>
+      <items-form v-model:showDialog="showDialog" :recordId="recordId"></items-form>
 
-      <!-- <items-import :showDialog.sync="showImportDialog"></items-import> -->
+      <!-- <items-import v-model:showDialog="showImportDialog"></items-import> -->
 
-      <warehouses-detail :showDialog.sync="showWarehousesDetail" :warehouses="warehousesDetail"></warehouses-detail>
+      <warehouses-detail v-model:showDialog="showWarehousesDetail" :warehouses="warehousesDetail"></warehouses-detail>
 
-      <!-- <images-record :showDialog.sync="showImageDetail" :recordImages="recordImages"></images-record> -->
+      <!-- <images-record v-model:showDialog="showImageDetail" :recordImages="recordImages"></images-record> -->
 
       <el-dialog
-        :visible.sync="showImageDetail"
+        v-model:visible="showImageDetail"
         title="Imagenes de Producto"
         width="50%"
         append-to-body

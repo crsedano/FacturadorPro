@@ -272,10 +272,7 @@
                          class="col-md-12 col-sm-12 mt-2">
                         <div class="form-group">
                             <label class="control-label">Nombre producto en PDF</label>
-                            <vue-ckeditor
-                                v-model="form.name_product_pdf"
-                                :editors="editors"
-                                type="classic"></vue-ckeditor>
+                            <ckeditor :editor="ClassicEditor" v-model="form.name_product_pdf"></ckeditor>
                         </div>
                     </div>
                     <template v-if="!is_client">
@@ -508,12 +505,12 @@
             </div>
         </form>
         <item-form :external="true"
-                   :showDialog.sync="showDialogNewItem"></item-form>
+                   v-model:showDialog="showDialogNewItem"></item-form>
 
 
         <warehouses-detail
             :isUpdateWarehouseId="isUpdateWarehouseId"
-            :showDialog.sync="showWarehousesDetail"
+            v-model:showDialog="showWarehousesDetail"
             :warehouses="warehousesDetail">
         </warehouses-detail>
     </el-dialog>
@@ -533,7 +530,7 @@ import {calculateRowItem} from '../../../../helpers/functions'
 import WarehousesDetail from './warehouses.vue'
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import VueCkeditor from 'vue-ckeditor5'
+import CKEditor from '@ckeditor/ckeditor5-vue'
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../helpers/modal_item";
 
@@ -552,7 +549,7 @@ export default {
     components: {
         itemForm,
         WarehousesDetail,
-        'vue-ckeditor': VueCkeditor.component
+        ckeditor: CKEditor.component
     },
     data() {
         return {
@@ -594,10 +591,7 @@ export default {
             showDialogLots: false,
             showDialogSelectLots: false,
             lots: [],
-            editors: {
-                classic: ClassicEditor
-            },
-            value1: 'hello',
+                        value1: 'hello',
             readonly_total: 0,
             itemLastPrice: null
             //item_unit_type: {}
@@ -1211,7 +1205,7 @@ export default {
 
             if (this.form.item.calculate_quantity) {
                 if (this.total_item < 0.01)
-                    this.$set(this.errors, 'total_item', ['total venta item debe ser mayor a 0.01']);
+                    this.errors['total_item'] = ['total venta item debe ser mayor a 0.01'];
             }
 
             return this.errors

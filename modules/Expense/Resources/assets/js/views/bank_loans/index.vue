@@ -104,16 +104,16 @@
 
 
             <document-payments :expenseId="recordId"
-                               :showDialog.sync="showDialogPayments">
+                               v-model:showDialog="showDialogPayments">
             </document-payments>
             <expense-voided :expenseId="recordId"
-                            :showDialog.sync="showDialogVoided">
+                            v-model:showDialog="showDialogVoided">
             </expense-voided>
 
             <loan-payments
                 :expenseId="recordId"
                 :external="true"
-                :showDialog.sync="showDialogExpensePayments"
+                v-model:showDialog="showDialogExpensePayments"
             >
             </loan-payments>
         </div>

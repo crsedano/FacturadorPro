@@ -1,12 +1,11 @@
 <template>
     <div class="container-fluid p-0">
         <div class="row page-header pr-0 no-gutters" style="height:auto">
-            <Keypress
-                key-event="keyup"
+            <key-event="keyup"
                 :key-code="112"
                 @success="handleFn112"
             />
-            <!-- <Keypress key-event="keyup" :key-code="113" @success="handleFn113" /> -->
+            <!-- <key-event="keyup" :key-code="113" @success="handleFn113" /> -->
 
             <!-- <h2 class="text-sm">POS</h2>
       <div class="right-wrapper pull-right">
@@ -510,7 +509,7 @@
                             @current-change="getRecords"
                             layout="total, prev, pager, next"
                             :total="pagination.total"
-                            :current-page.sync="pagination.current_page"
+                            v-model:current-page="pagination.current_page"
                             :page-size="pagination.per_page"
                         >
                         </el-pagination>
@@ -786,7 +785,7 @@
             </div>
 
             <person-form
-                :showDialog.sync="showDialogNewPerson"
+                v-model:showDialog="showDialogNewPerson"
                 type="customers"
                 :input_person="input_person"
                 :external="true"
@@ -794,12 +793,12 @@
             ></person-form>
 
             <item-form
-                :showDialog.sync="showDialogNewItem"
+                v-model:showDialog="showDialogNewItem"
                 :external="true"
             ></item-form>
         </div>
         <fast-payment
-            :is_payment.sync="is_payment"
+            v-model:is_payment="is_payment"
             :form="form"
             :currency-type-id-active="form.currency_type_id"
             :currency-type-active="currency_type"
@@ -810,18 +809,18 @@
         ></fast-payment>
 
         <history-sales-form
-            :showDialog.sync="showDialogHistorySales"
+            v-model:showDialog="showDialogHistorySales"
             :item_id="history_item_id"
             :customer_id="form.customer_id"
         ></history-sales-form>
 
         <history-purchases-form
-            :showDialog.sync="showDialogHistoryPurchases"
+            v-model:showDialog="showDialogHistoryPurchases"
             :item_id="history_item_id"
         ></history-purchases-form>
 
         <warehouses-detail
-            :showDialog.sync="showWarehousesDetail"
+            v-model:showDialog="showWarehousesDetail"
             :warehouses="warehousesDetail"
             :unit_type="unittypeDetail"
             :item_unit_types="[]"
@@ -911,7 +910,6 @@
 </style>
 
 <script>
-import Keypress from "vue-keypress";
 import {calculateRowItem} from "../../../helpers/functions";
 import PaymentForm from "./partials/payment.vue";
 import FastPayment from "./partials/fast_payment.vue";
@@ -934,7 +932,6 @@ export default {
         HistoryPurchasesForm,
         PersonForm,
         WarehousesDetail,
-        Keypress,
         TableItems
     },
     mixins: [functions, exchangeRate],

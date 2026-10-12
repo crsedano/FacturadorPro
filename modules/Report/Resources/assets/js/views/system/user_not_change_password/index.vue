@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <record-form :showDialog.sync="showDialog"
+        <record-form v-model:showDialog="showDialog"
                            :recordId="recordId"></record-form>
     </div>
 </template>

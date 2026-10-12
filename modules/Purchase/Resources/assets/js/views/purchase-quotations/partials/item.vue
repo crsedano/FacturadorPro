@@ -101,10 +101,10 @@
             </div>
         </form>
         <item-form :external="true"
-                   :showDialog.sync="showDialogNewItem"></item-form>
+                   v-model:showDialog="showDialogNewItem"></item-form>
 
         <warehouses-detail
-            :showDialog.sync="showWarehousesDetail"
+            v-model:showDialog="showWarehousesDetail"
             :warehouses="warehousesDetail">
         </warehouses-detail>
 

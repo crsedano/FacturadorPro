@@ -42,7 +42,7 @@
                 </table>
             </div>
         </div>
-        <detraction-types-form :showDialog.sync="showDialog"
+        <detraction-types-form v-model:showDialog="showDialog"
                          :recordId="recordId"></detraction-types-form>
     </div>
 </template>

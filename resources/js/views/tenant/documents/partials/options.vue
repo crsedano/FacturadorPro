@@ -8,12 +8,11 @@
                width="30%"
                @open="create">
         <!--
-        <Keypress
-            key-event="keyup"
+        <key-event="keyup"
             @success="checkKey"
         />
         -->
-        <Keypress key-event="keyup" :multiple-keys="multiple" @success="checkKeyWithAlt"/>
+        <key-event="keyup" :multiple-keys="multiple" @success="checkKeyWithAlt"/>
         <div v-loading="loading">
             <div v-if="form.response_message"
                  class="row mb-4">
@@ -193,13 +192,11 @@
 
 <script>
 import {mapState, mapActions} from "vuex/dist/vuex.mjs";
-import Keypress from "vue-keypress";
 
 export default {
     props: ['showDialog', 'recordId', 'showClose', 'isContingency', 'generatDispatch', 'dispatchId', 'isUpdate', 'configuration', 'table'],
     components: {
-        Keypress
-    },
+        },
     data() {
         return {
             titleDialog: null,

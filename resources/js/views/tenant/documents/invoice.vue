@@ -1,11 +1,10 @@
 <template>
     <div>
-        <Keypress
-            key-event="keyup"
+        <key-event="keyup"
 
             @success="checkKey"
         />
-        <Keypress key-event="keyup" :multiple-keys="multiple" @success="checkKeyWithAlt" />
+        <key-event="keyup" :multiple-keys="multiple" @success="checkKeyWithAlt" />
 
         <div v-if="loading_form">
             <form autocomplete="off"
@@ -1373,7 +1372,7 @@
             :isEditItemNote="false"
             :operation-type-id="form.operation_type_id"
             :recordItem="recordItem"
-            :showDialog.sync="showDialogAddItem"
+            v-model:showDialog="showDialogAddItem"
             :typeUser="typeUser"
             :customer-id="form.customer_id"
             :currency-types="currency_types"
@@ -1384,7 +1383,7 @@
         <person-form :document_type_id=form.document_type_id
                      :external="true"
                      :input_person="input_person"
-                     :showDialog.sync="showDialogNewPerson"
+                     v-model:showDialog="showDialogNewPerson"
                      type="customers"></person-form>
 
         <document-options :configuration="config"
@@ -1392,17 +1391,17 @@
                           :isUpdate="isUpdate"
                           :recordId="documentNewId"
                           :showClose="false"
-                          :showDialog.sync="showDialogOptions"></document-options>
+                          v-model:showDialog="showDialogOptions"></document-options>
 
 
         <document-hotel-form
             :hotel="form.hotel"
-            :showDialog.sync="showDialogFormHotel"
+            v-model:showDialog="showDialogFormHotel"
             @addDocumentHotel="addDocumentHotel"
         ></document-hotel-form>
 
         <document-transport-form
-            :showDialog.sync="showDialogFormTransport"
+            v-model:showDialog="showDialogFormTransport"
             :transport="form.transport"
             @addDocumentTransport="addDocumentTransport"
         ></document-transport-form>
@@ -1412,7 +1411,7 @@
             :detraction="form.detraction"
             :exchange-rate-sale="form.exchange_rate_sale"
             :operation-type-id="form.operation_type_id"
-            :showDialog.sync="showDialogDocumentDetraction"
+            v-model:showDialog="showDialogDocumentDetraction"
             :total="form.total"
             :isUpdateDocument="isUpdateDocument"
             :detractionDecimalQuantity="detractionDecimalQuantity"
@@ -1458,7 +1457,6 @@ import DocumentTransportForm from '../../../../../modules/BusinessTurn/Resources
 import DocumentDetraction from './partials/detraction.vue'
 import moment from 'moment'
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
-import Keypress from "vue-keypress";
 
 export default {
     name: 'DocumentGenerate',
@@ -1475,7 +1473,6 @@ export default {
         DocumentOptions,
         Logo,
         DocumentHotelForm,
-        Keypress,
         DocumentDetraction,
         DocumentTransportForm
     },

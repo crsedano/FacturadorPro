@@ -48,7 +48,7 @@
                 </div>
             </div> -->
         </div>
-        <expense-method-types-form :showDialog.sync="showDialog"
+        <expense-method-types-form v-model:showDialog="showDialog"
                          :recordId="recordId"></expense-method-types-form>
     </div>
 </template>

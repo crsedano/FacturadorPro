@@ -55,18 +55,18 @@
                 </data-table>
             </div>
         </div>
-            <dispatch-options :showDialog.sync="showDialogOptions"
+            <dispatch-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showClose="true"></dispatch-options>
 
         <FormGenerateDocument
-            :showDialog.sync="showDialogGenerateDocument"
+            v-model:showDialog="showDialogGenerateDocument"
             :recordId="recordId"
             :showClose="true"
             :showGenerate="true"
             :configuration="configuration"
         ></FormGenerateDocument>
-        <ModalGenerateCPE :show.sync="showModalGenerateCPE"></ModalGenerateCPE>
+        <ModalGenerateCPE v-model:show="showModalGenerateCPE"></ModalGenerateCPE>
     </div>
 </template>
 

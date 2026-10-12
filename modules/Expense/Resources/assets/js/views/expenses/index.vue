@@ -71,13 +71,13 @@
             </div>
 
 
-            <document-payments :showDialog.sync="showDialogPayments"
+            <document-payments v-model:showDialog="showDialogPayments"
                                :expenseId="recordId"></document-payments>
-            <expense-voided :showDialog.sync="showDialogVoided"
+            <expense-voided v-model:showDialog="showDialogVoided"
                                :expenseId="recordId"></expense-voided>
 
             <expense-payments
-                :showDialog.sync="showDialogExpensePayments"
+                v-model:showDialog="showDialogExpensePayments"
                 :expenseId="recordId"
                 :external="true"
                 ></expense-payments>

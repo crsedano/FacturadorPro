@@ -73,9 +73,9 @@
               <td>
                 <span>{{ dis.series }}</span
                 >-
-                <span>{{ dis.number | pad(0, 3) }}</span>
+                <span>{{ $filters.pad(dis.number, 0, 3) }}</span>
               </td>
-              <td>{{ dis.date_of_issue | toDate }}</td>
+              <td>{{ $filters.toDate(dis.date_of_issue) }}</td>
             </tr>
           </tbody>
         </table>

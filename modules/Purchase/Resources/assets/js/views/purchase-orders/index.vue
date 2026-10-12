@@ -116,17 +116,17 @@
         </data-table>
       </div>
 
-      <!-- <documents-voided :showDialog.sync="showDialogVoided"
+      <!-- <documents-voided v-model:showDialog="showDialogVoided"
       :recordId="recordId"></documents-voided>-->
 
       <!-- <document-generate
-        :showDialog.sync="showDialogGenerateDocument"
+        v-model:showDialog="showDialogGenerateDocument"
         :recordId="recordId"
         :showClose="true"
       ></document-generate> -->
 
       
-        <purchase-options :showDialog.sync="showDialogOptions"
+        <purchase-options v-model:showDialog="showDialogOptions"
                           :recordId="recordId"
                           :showClose="true"></purchase-options>
     </div>

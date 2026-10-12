@@ -39,7 +39,7 @@
                 </data-table>
             </div>
 
-            <agents-form :showDialog.sync="showDialog"
+            <agents-form v-model:showDialog="showDialog"
                         :recordId="recordId"></agents-form>
  
         </div>

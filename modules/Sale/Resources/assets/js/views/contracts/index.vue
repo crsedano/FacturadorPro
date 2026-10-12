@@ -92,7 +92,7 @@
             </div>
 
 
-            <quotation-options-pdf :showDialog.sync="showDialogOptionsPdf"
+            <quotation-options-pdf v-model:showDialog="showDialogOptionsPdf"
                               :contractNewId="recordId"
                               :showClose="true"></quotation-options-pdf>
         </div>

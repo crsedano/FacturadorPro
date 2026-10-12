@@ -65,7 +65,7 @@
         </data-table>
       </div>
 
-      <promotions-form :showDialog.sync="showDialog" :recordId="recordId"></promotions-form>
+      <promotions-form v-model:showDialog="showDialog" :recordId="recordId"></promotions-form>
     </div>
   </div>
 </template>

@@ -41,7 +41,7 @@
             </div>
 
 
-            <!-- <quotation-options :showDialog.sync="showDialogOptions"
+            <!-- <quotation-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showGenerate="true"
                               :showClose="true"></quotation-options> -->

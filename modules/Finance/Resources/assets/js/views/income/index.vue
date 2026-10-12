@@ -65,7 +65,7 @@
             </div>
 
 
-            <income-payments :showDialog.sync="showDialogPayments"
+            <income-payments v-model:showDialog="showDialogPayments"
                                :recordId="recordId"></income-payments>
   
  

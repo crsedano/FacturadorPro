@@ -57,15 +57,15 @@
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Fecha/Hora Entrada:</span>
                                 <strong
-                                >{{ currentRent.input_date | toDate }} -
-                                    {{ currentRent.input_time | toTime }}</strong
+                                >{{ $filters.toDate(currentRent.input_date) }} -
+                                    {{ $filters.toTime(currentRent.input_time) }}</strong
                                 >
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Fecha/Hora Salida:</span>
                                 <strong
-                                >{{ currentRent.output_date | toDate }} -
-                                    {{ currentRent.output_time | toTime }}</strong
+                                >{{ $filters.toDate(currentRent.output_date) }} -
+                                    {{ $filters.toTime(currentRent.output_time) }}</strong
                                 >
                             </li>
                         </ul>
@@ -90,7 +90,7 @@
                                 </tr>
                                 <tr>
                                     <td>1</td>
-                                    <td>{{ room.item.unit_price | toDecimals }}</td>
+                                    <td>{{ $filters.toDecimals(room.item.unit_price) }}</td>
                                     <td>{{ room.item.quantity }}</td>
                                     <td class="text-center">
                                         <div class="d-d-inline-block"
@@ -130,12 +130,12 @@
                                 >
                                     <td>{{ i + 1 }}</td>
                                     <td>{{ it.item.item.description }}</td>
-                                    <td>{{ it.item.input_unit_price_value | toDecimals }}</td>
-                                    <td>{{ it.item.quantity | toDecimals }}</td>
+                                    <td>{{ $filters.toDecimals(it.item.input_unit_price_value) }}</td>
+                                    <td>{{ $filters.toDecimals(it.item.quantity) }}</td>
                                     <td>
                                         {{ it.payment_status === "PAID" ? "PAGADO" : "DEBE" }}
                                     </td>
-                                    <td>{{ it.item.total | toDecimals }}</td>
+                                    <td>{{ $filters.toDecimals(it.item.total) }}</td>
                                 </tr>
                                 </tbody>
                                 <tfoot>
@@ -146,7 +146,7 @@
                                     <td>
                                         <h3 class="my-0">
                                             <span class="badge badge-pill badge-info">
-                                                {{ totalPaid | toDecimals }}
+                                                {{ $filters.toDecimals(totalPaid) }}
                                             </span>
                                         </h3>
                                     </td>
@@ -158,7 +158,7 @@
                                     <td>
                                         <h3 class="my-0">
                                             <span class="badge badge-pill badge-danger">
-                                                {{ totalDebt | toDecimals }}
+                                                {{ $filters.toDecimals(totalDebt) }}
                                             </span>
                                         </h3>
                                     </td>
@@ -382,13 +382,13 @@
             :isContingency="false"
             :recordId="documentNewId"
             :showClose="true"
-            :showDialog.sync="showDialogDocumentOptions"
+            v-model:showDialog="showDialogDocumentOptions"
         ></document-options>
 
         <sale-note-options :configuration="config"
                            :recordId="documentNewId"
                            :showClose="true"
-                           :showDialog.sync="showDialogSaleNoteOptions">
+                           v-model:showDialog="showDialogSaleNoteOptions">
         </sale-note-options>
 
     </div>

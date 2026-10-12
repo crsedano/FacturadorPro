@@ -334,7 +334,7 @@
             </div>
         </div>
         <person-form
-            :showDialog.sync="showDialogNewPerson"
+            v-model:showDialog="showDialogNewPerson"
             type="customers"
             :external="true"
             :input_person="input_person"

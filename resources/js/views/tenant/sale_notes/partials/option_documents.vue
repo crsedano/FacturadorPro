@@ -230,7 +230,7 @@
                 <el-button class="submit" type="primary" @click="submit" :loading="loading_submit" v-if="flag_generate">Generar</el-button>
             </span>
 
-            <document-options :showDialog.sync="showDialogDocumentOptions"
+            <document-options v-model:showDialog="showDialogDocumentOptions"
                               :recordId="documentNewId"
                               :generatDispatch="generate_dispatch"
                               :dispatchId="dispatch_id"

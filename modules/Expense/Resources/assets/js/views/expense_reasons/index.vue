@@ -43,7 +43,7 @@
                 </div>
             </div> -->
         </div>
-        <expense-reasons-form :showDialog.sync="showDialog"
+        <expense-reasons-form v-model:showDialog="showDialog"
                          :recordId="recordId"></expense-reasons-form>
     </div>
 </template>

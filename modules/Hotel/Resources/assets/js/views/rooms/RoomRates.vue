@@ -18,7 +18,7 @@
         <tbody>
           <tr v-for="r in roomRates" :key="r.id">
             <td>{{ r.rate.description }}</td>
-            <td>{{ r.price | toDecimals }}</td>
+            <td>{{ $filters.toDecimals(r.price) }}</td>
             <td class="text-center">
               <el-button @click="onDeleteRate(r)" type="danger">
                 <i class="fa fa-trash"></i>

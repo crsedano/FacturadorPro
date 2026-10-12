@@ -3,7 +3,6 @@
 namespace Modules\Account\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 
 class AccountServiceProvider extends ServiceProvider
 {
@@ -17,7 +16,6 @@ class AccountServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }
 
@@ -79,18 +77,6 @@ class AccountServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom($langPath, 'account');
         } else {
             $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'account');
-        }
-    }
-
-    /**
-     * Register an additional directory of factories.
-     *
-     * @return void
-     */
-    public function registerFactories()
-    {
-        if (! app()->environment('production')) {
-            app(Factory::class)->load(__DIR__ . '/../Database/factories');
         }
     }
 

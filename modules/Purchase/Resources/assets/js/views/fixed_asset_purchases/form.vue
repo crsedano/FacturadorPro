@@ -224,18 +224,18 @@
             </form>
         </div>
 
-        <fa-purchase-form-item :showDialog.sync="showDialogAddItem"
+        <fa-purchase-form-item v-model:showDialog="showDialogAddItem"
                                :currency-type-id-active="form.currency_type_id"
                                :exchange-rate-sale="form.exchange_rate_sale"
                                :percentage-igv="percentage_igv"
                                @add="addRow"></fa-purchase-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                      type="suppliers"
                      :input_person="input_person"
                      :external="true"></person-form>
 
-        <fa-purchase-options :showDialog.sync="showDialogOptions"
+        <fa-purchase-options v-model:showDialog="showDialogOptions"
                              :recordId="purchaseNewId"
                              :type="id ? 'edit':'create'"
                              :showClose="false"></fa-purchase-options>

@@ -249,10 +249,7 @@
                          class="col-md-12 col-sm-12 mt-2">
                         <div class="form-group">
                             <label class="control-label">Nombre producto en PDF</label>
-                            <vue-ckeditor
-                                v-model="form.name_product_pdf"
-                                :editors="editors"
-                                type="classic"></vue-ckeditor>
+                            <ckeditor :editor="ClassicEditor" v-model="form.name_product_pdf"></ckeditor>
                         </div>
                     </div>
                     <!--<div class="col-md-6 mt-4" v-if="form.item_id && form.item.series_enabled">
@@ -488,19 +485,19 @@
             </div>
         </form>
         <item-form :external="true"
-                   :showDialog.sync="showDialogNewItem"></item-form>
+                   v-model:showDialog="showDialogNewItem"></item-form>
 
 
         <warehouses-detail
             :isUpdateWarehouseId="isUpdateWarehouseId"
-            :showDialog.sync="showWarehousesDetail"
+            v-model:showDialog="showWarehousesDetail"
             :warehouses="warehousesDetail">
         </warehouses-detail>
 
         <lots-group
             :lots_group="form.lots_group"
             :quantity="form.quantity"
-            :showDialog.sync="showDialogLots"
+            v-model:showDialog="showDialogLots"
             @addRowLotGroup="addRowLotGroup">
         </lots-group>
 
@@ -508,7 +505,7 @@
             :documentItemId="documentItem"
             :itemId="form.item_id"
             :lots="lots"
-            :showDialog.sync="showDialogSelectLots"
+            v-model:showDialog="showDialogSelectLots"
             @addRowSelectLot="addRowSelectLot">
         </select-lots-form>
 
@@ -532,7 +529,7 @@ import WarehousesDetail from '../../documents/partials/select_warehouses.vue'
 import SelectLotsForm from '../../documents/partials/lots.vue'
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import VueCkeditor from 'vue-ckeditor5'
+import CKEditor from '@ckeditor/ckeditor5-vue'
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../helpers/modal_item";
 
@@ -554,7 +551,7 @@ export default {
         WarehousesDetail,
         LotsGroup,
         SelectLotsForm,
-        'vue-ckeditor': VueCkeditor.component
+        ckeditor: CKEditor.component
     },
     data() {
         return {
@@ -593,10 +590,7 @@ export default {
             showDialogLots: false,
             showDialogSelectLots: false,
             lots: [],
-            editors: {
-                classic: ClassicEditor
-            },
-            value1: 'hello',
+                        value1: 'hello',
             readonly_total: 0
             //item_unit_type: {}
         }
@@ -1185,7 +1179,7 @@ export default {
 
             if (this.form.item.calculate_quantity) {
                 if (this.total_item < 0.01)
-                    this.$set(this.errors, 'total_item', ['total venta item debe ser mayor a 0.01']);
+                    this.errors['total_item'] = ['total venta item debe ser mayor a 0.01'];
             }
 
             return this.errors

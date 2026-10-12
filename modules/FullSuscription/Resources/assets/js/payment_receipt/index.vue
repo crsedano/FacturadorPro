@@ -353,26 +353,26 @@
         </div>
 
         <sale-note-payments :documentId="recordId"
-                            :showDialog.sync="showDialogPayments">
+                            v-model:showDialog="showDialogPayments">
         </sale-note-payments>
 
         <sale-notes-options :configuration="config"
                             :recordId="saleNotesNewId"
                             :showClose="true"
-                            :showDialog.sync="showDialogOptions">
+                            v-model:showDialog="showDialogOptions">
         </sale-notes-options>
 
         <sale-note-generate :recordId="recordId"
-                            :show.sync="showDialogGenerate"
+                            v-model:show="showDialogGenerate"
                             :showClose="false"
                             :showGenerate="true">
         </sale-note-generate>
-        <ModalGenerateCPE :show.sync="showModalGenerateCPE">
+        <ModalGenerateCPE v-model:show="showModalGenerateCPE">
         </ModalGenerateCPE>
         <!--
         <UploadToOtherServer
             :configuration="config"
-            :showMigrate.sync="showMigrateNv"
+            v-model:showMigrate="showMigrateNv"
         >
         </UploadToOtherServer>
         -->

@@ -35,7 +35,7 @@
                 </data-table>
             </div>
 
-            <person-types-form :showDialog.sync="showDialog"
+            <person-types-form v-model:showDialog="showDialog"
                           :recordId="recordId" ></person-types-form>
  
         </div>

@@ -322,9 +322,9 @@
             </form>
         </div>
         
-        <person-form :showDialog.sync="showDialogNewPerson" type="customers" :external="true"></person-form>
+        <person-form v-model:showDialog="showDialogNewPerson" type="customers" :external="true"></person-form>
         
-        <items :dialogVisible.sync="showDialogAddItems" @addItem="addItem"></items>
+        <items v-model:dialogVisible="showDialogAddItems" @addItem="addItem"></items>
     </div>
 </template>
 
@@ -397,8 +397,8 @@
                         'department_id': this.form.origin.department_id
                     });
                     
-                    this.$set(this.form.origin, 'province_id', null);
-                    this.$set(this.form.origin, 'location_id', null);
+                    this.form.origin['province_id'] = null;
+                    this.form.origin['location_id'] = null;
                     
                     return;
                 }
@@ -407,8 +407,8 @@
                     'department_id': this.form.delivery.department_id
                 });
                 
-                this.$set(this.form.delivery, 'province_id', null);
-                this.$set(this.form.delivery, 'location_id', null);
+                this.form.delivery['province_id'] = null;
+                this.form.delivery['location_id'] = null;
             },
             filterDistrict(origin = true) {
                 if (origin) {
@@ -416,7 +416,7 @@
                         'province_id': this.form.origin.province_id
                     });
                     
-                    this.$set(this.form.origin, 'location_id', null);
+                    this.form.origin['location_id'] = null;
                     
                     return;
                 }
@@ -425,7 +425,7 @@
                     'province_id': this.form.delivery.province_id
                 });
                 
-                this.$set(this.form.delivery, 'location_id', null);
+                this.form.delivery['location_id'] = null;
             },
             addItem(form) {
                 

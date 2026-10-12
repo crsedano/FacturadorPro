@@ -4,7 +4,6 @@ namespace Modules\Item\Providers;
 
 use App\Models\Tenant\Item;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 use Modules\Item\Observers\ItemObserver;
 
 class ItemServiceProvider extends ServiceProvider
@@ -19,7 +18,6 @@ class ItemServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
-        $this->registerFactories();
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         Item::observe(ItemObserver::class);
@@ -86,17 +84,6 @@ class ItemServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register an additional directory of factories.
-     *
-     * @return void
-     */
-    public function registerFactories()
-    {
-        if (! app()->environment('production') && $this->app->runningInConsole()) {
-            app(Factory::class)->load(__DIR__ . '/../Database/factories');
-        }
-    }
 
     /**
      * Get the services provided by the provider.

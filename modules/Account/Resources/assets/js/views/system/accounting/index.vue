@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <accounting-form :showDialog.sync="showDialog"
+        <accounting-form v-model:showDialog="showDialog"
                            :recordId="recordId"></accounting-form>
     </div>
 </template>

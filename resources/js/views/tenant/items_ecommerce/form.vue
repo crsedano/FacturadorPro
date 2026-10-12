@@ -566,13 +566,13 @@
             </div>
         </form>
         <!-- <percentage-perception
-                :showDialog.sync="showPercentagePerception"
+                v-model:showDialog="showPercentagePerception"
                 :percentage_perception="percentage_perception">
         </percentage-perception> -->
 
         <form-images ref="form_images"
                      :recordId="recordId"
-                     :showDialog.sync="showDialogImages"
+                     v-model:showDialog="showDialogImages"
                      @saveImages="saveImages"></form-images>
 
     </el-dialog>

@@ -40,7 +40,7 @@
                 </data-table>
             </div>
 
-            <drivers-form :showDialog.sync="showDialog"
+            <drivers-form v-model:showDialog="showDialog"
                           :recordId="recordId"></drivers-form>
 
 

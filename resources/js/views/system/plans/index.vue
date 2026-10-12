@@ -42,7 +42,7 @@
 						  
                 </div>
             
-        <system-plans-form :showDialog.sync="showDialog"
+        <system-plans-form v-model:showDialog="showDialog"
                             :plan_documents="plan_documents"
                              :recordId="recordId"></system-plans-form>
     </div>

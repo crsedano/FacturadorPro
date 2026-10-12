@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <el-dialog :visible.sync="modalImage" width="60">
+        <el-dialog v-model:visible="modalImage" width="60">
             <span>
                 <img
                     :src="

@@ -49,7 +49,7 @@
             </div>
         </form>
 
-        <lots :showDialog.sync="showDialogLots" :lots="lots" :stock="stock"></lots>
+        <lots v-model:showDialog="showDialogLots" :lots="lots" :stock="stock"></lots>
 
 
     </el-dialog>

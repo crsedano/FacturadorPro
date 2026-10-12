@@ -47,17 +47,17 @@
                 </div>
             </div>
 
-            <!-- <lots :showDialog.sync="showDialogLots" :lots="lots"></lots> -->
+            <!-- <lots v-model:showDialog="showDialogLots" :lots="lots"></lots> -->
 
             <select-lots-form
-                :showDialog.sync="showDialogLots"
+                v-model:showDialog="showDialogLots"
                 :lots="lots"
                 :itemId="item_id"
                 @addRowSelectLot="addRowSelectLot">
             </select-lots-form>
 
             <select-warehouses
-                :showDialog.sync="showSelectWarehouses"
+                v-model:showDialog="showSelectWarehouses"
                 :warehouses="selectWarehouses"
                 :item_index="item_index">
             </select-warehouses>
@@ -65,7 +65,7 @@
             <select-lots-group
                 :lots_group="lots_group"
                 :quantity="lots_group_quantity"
-                :showDialog.sync="showDialogLotsGroup"
+                v-model:showDialog="showDialogLotsGroup"
                 @addRowLotGroup="addRowLotGroup">
             </select-lots-group>
 

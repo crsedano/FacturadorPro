@@ -399,7 +399,7 @@
             :isEditItemNote="false"
             :operationTypeId="'0101'"
             :recordItem="recordItem"
-            :showDialog.sync="showDialogAddItem"
+            v-model:showDialog="showDialogAddItem"
             :typeUser="config.typeUser"
             :percentage-igv="percentage_igv"
             @add="addRow">
@@ -409,7 +409,7 @@
                      :external="true"
                      :exchange-rate-sale="form.exchange_rate_sale"
                      :currency_types = currency_types
-                     :showDialog.sync="showDialogNewPerson"
+                     v-model:showDialog="showDialogNewPerson"
                      type="customers"></person-form>
     </el-dialog>
 </template>

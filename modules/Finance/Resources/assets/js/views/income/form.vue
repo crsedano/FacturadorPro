@@ -171,13 +171,13 @@
             </form>
         </div>
 
-        <income-form-item :showDialog.sync="showDialogAddItem"
+        <income-form-item v-model:showDialog="showDialogAddItem"
                            :currency-type="currency_type"
                            :exchange-rate-sale="form.exchange_rate_sale"
                            @add="addRow"></income-form-item>
 
 
-        <income-options :showDialog.sync="showDialogOptions"
+        <income-options v-model:showDialog="showDialogOptions"
                           :recordId="incomeNewId"
                           :showClose="false"></income-options>
     </div>

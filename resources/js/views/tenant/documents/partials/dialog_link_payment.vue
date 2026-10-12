@@ -21,9 +21,7 @@
                                 <div class="payment-links-yape">
                                     <template v-if="has_payment_link">
                                         <el-button type="primary" class="mt-2" icon="el-icon-share"
-                                            v-clipboard:copy="form.user_payment_link"
-                                            v-clipboard:success="onCopy"
-                                            v-clipboard:error="onError"
+                                            @click="onCopy_clipboard(form.user_payment_link)"
                                         >
                                             Copiar Link
                                         </el-button>
@@ -110,9 +108,7 @@
                                     <template v-if="has_payment_link">
 
                                         <el-button type="primary" class="mt-2" icon="el-icon-share"
-                                            v-clipboard:copy="form.user_payment_link"
-                                            v-clipboard:success="onCopy"
-                                            v-clipboard:error="onError"
+                                            @click="onCopy_clipboard(form.user_payment_link)"
                                             >
                                             Copiar Link
                                         </el-button>

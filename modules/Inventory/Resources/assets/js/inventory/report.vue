@@ -81,9 +81,9 @@
                         <td>{{ row.id }}</td>
                         <td>{{ row.description }}</td>
                         <td>{{ row.category }}</td>
-                        <td>{{ row.stock | toDecimals }}</td>
-                        <td>{{ row.sale_unit_price | toDecimals }}</td>
-                        <td>{{ row.purchase_unit_price | toDecimals }}</td>
+                        <td>{{ $filters.toDecimals(row.stock) }}</td>
+                        <td>{{ $filters.toDecimals(row.sale_unit_price) }}</td>
+                        <td>{{ $filters.toDecimals(row.purchase_unit_price) }}</td>
                         <td>{{ row.brand }}</td>
                         <td>{{ row.date_of_due }}</td>
                         <td>{{ row.warehouse_description }}</td>

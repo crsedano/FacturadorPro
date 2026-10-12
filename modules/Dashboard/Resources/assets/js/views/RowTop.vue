@@ -43,7 +43,7 @@
       <div class="card card-dashboard">
         <div class="card-body border">
           <div class="card-title">Monto total <br />general</div>
-          <span class="font-weight-bold">{{ total | toDecimals }}</span>
+          <span class="font-weight-bold">{{ $filters.toDecimals(total) }}</span>
         </div>
       </div>
     </div>

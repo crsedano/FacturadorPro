@@ -235,14 +235,14 @@
             :currencyTypeId="document.currency_type_id"
             :exchangeRateSale="document.exchange_rate_sale"
             :payment="documentPayment.payment"
-            :showDialog.sync="showDialogLink"
+            v-model:showDialog="showDialogLink"
             :documentPayment="documentPayment"
             >
         </dialog-link-payment>
 
         <document-options
             :recordId="this.documentId"
-            :showDialogOptions.sync="showDialogOptions"
+            v-model:showDialogOptions="showDialogOptions"
             :showClose="showDialogClose"
             :type="this.type"
             :configuration="this.configuration"

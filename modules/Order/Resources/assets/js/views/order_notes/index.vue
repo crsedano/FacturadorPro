@@ -162,19 +162,19 @@
             </div>
 
 
-            <quotation-options :showDialog.sync="showDialogOptions"
+            <quotation-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showGenerate="true"
                               :showClose="true"
                               :configuration="configuration"></quotation-options>
 
-            <quotation-options-pdf :showDialog.sync="showDialogOptionsPdf"
+            <quotation-options-pdf v-model:showDialog="showDialogOptionsPdf"
                               :recordId="recordId"
                               :showClose="true"
                               :configuration="configuration"></quotation-options-pdf>
 
             <mi-tienda-pe
-                :showDialog.sync="showMiTiendaPeDialog"
+                v-model:showDialog="showMiTiendaPeDialog"
             ></mi-tienda-pe>
         </div>
 

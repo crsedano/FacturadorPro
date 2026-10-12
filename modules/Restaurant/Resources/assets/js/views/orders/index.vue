@@ -169,7 +169,7 @@
     </el-dialog>
 
     <options-form
-      :showDialog.sync="showDialogOptions"
+      v-model:showDialog="showDialogOptions"
       :recordId="documentNewId"
       :statusDocument="statusDocument"
       :resource="resource_options"
@@ -179,7 +179,7 @@
     </document-form>
     
     <sale-note-form 
-      :showDialog.sync="showDialogSaleNote"
+      v-model:showDialog="showDialogSaleNote"
       :orderId="order_id"
       :dataSaleNote="dataSaleNote" 
       >

@@ -158,9 +158,7 @@
                                     </tr>
                                     <tr>
 
-                                        <td>Porcentaje tramitado: {{
-                                                (item.complete * 100) / item.total|toDecimals
-                                            }}
+                                        <td>Porcentaje tramitado: {{ $filters.toDecimals((item.complete * 100) / item.total) }}
                                         </td>
                                     </tr>
                                 </table>

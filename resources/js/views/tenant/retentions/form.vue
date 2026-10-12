@@ -149,15 +149,15 @@
             </form>
         </div>
 
-        <retention-form-document :showDialog.sync="showDialogAddDocument"
+        <retention-form-document v-model:showDialog="showDialogAddDocument"
                            :active-retention-type="activeRetentionType"
                            @add="addDocument"></retention-form-document>
 
-        <supplier-form :showDialog.sync="showDialogNewSupplier"
+        <supplier-form v-model:showDialog="showDialogNewSupplier"
                        type="suppliers"
                        :external="true"></supplier-form>
 
-        <retention-options :showDialog.sync="showDialogOptions"
+        <retention-options v-model:showDialog="showDialogOptions"
                             :recordId="recordId"
                             :showClose="false"></retention-options>
     </div>

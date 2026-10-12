@@ -42,7 +42,7 @@
             </div>
 
             
-            <order-form-options :showDialog.sync="showDialogOptions"
+            <order-form-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showClose="true"></order-form-options>
         </div>

@@ -1009,7 +1009,7 @@
                              name="last">
                     <span slot="label">Informacion Adicional</span>
                     <extra-info
-                        :form.sync="form"
+                        v-model:form="form"
                     ></extra-info>
                 </el-tab-pane>
 
@@ -1173,7 +1173,7 @@
         <lots-form
             :lots="form.lots"
             :recordId="recordId"
-            :showDialog.sync="showDialogLots"
+            v-model:showDialog="showDialogLots"
             :stock="form.stock"
             @addRowLot="addRowLot">
         </lots-form>

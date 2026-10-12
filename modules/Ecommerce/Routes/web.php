@@ -26,7 +26,7 @@ Route::middleware(['locked.tenant'])->prefix('ecommerce')->group(function() {
     Route::get('login', 'EcommerceController@showLogin')->name('tenant_ecommerce_login');
     Route::get('logout', 'EcommerceController@logout')->name('tenant_ecommerce_logout');
     Route::get('items_bar', 'EcommerceController@itemsBar');
-    Route::post('login', 'EcommerceController@login')->name('tenant_ecommerce_login');
+    Route::post('login', 'EcommerceController@login');
     Route::post('storeUser', 'EcommerceController@storeUser')->name('tenant_ecommerce_store_user');
     Route::post('rating_item', 'EcommerceController@ratingItem')->name('tenant_ecommerce_rating_item');
     Route::get('rating_item/{id}', 'EcommerceController@getRating');

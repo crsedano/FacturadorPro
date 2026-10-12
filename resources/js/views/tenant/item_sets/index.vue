@@ -98,15 +98,15 @@
                 </data-table>
             </div>
 
-            <items-form :showDialog.sync="showDialog"
+            <items-form v-model:showDialog="showDialog"
                         :recordId="recordId"></items-form>
 
-            <items-import :showDialog.sync="showImportSetDialog"></items-import>
+            <items-import v-model:showDialog="showImportSetDialog"></items-import>
 
-            <items-import-set-individual :showDialog.sync="showImportSetIndividualDialog"></items-import-set-individual>
+            <items-import-set-individual v-model:showDialog="showImportSetIndividualDialog"></items-import-set-individual>
 
             <warehouses-detail
-                :showDialog.sync="showWarehousesDetail"
+                v-model:showDialog="showWarehousesDetail"
                 :warehouses="warehousesDetail">
             </warehouses-detail>
 

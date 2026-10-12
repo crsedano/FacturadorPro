@@ -86,14 +86,14 @@
             :documentItemId="null"
             :itemId="itemId"
             :lots="lots"
-            :showDialog.sync="showDialogSelectLots"
+            v-model:showDialog="showDialogSelectLots"
             @addRowSelectLot="addRowSelectLot">
         </select-lots-form>
          
         <lots-group
             :lots_group="lots_group"
             :quantity="lots_group_quantity"
-            :showDialog.sync="showDialogLotsGroup"
+            v-model:showDialog="showDialogLotsGroup"
             @addRowLotGroup="addRowLotGroup">
         </lots-group>
 

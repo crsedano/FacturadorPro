@@ -335,7 +335,7 @@
             </form>
         </div>
 
-        <document-form-item :showDialog.sync="showDialogAddItem"
+        <document-form-item v-model:showDialog="showDialogAddItem"
                             :recordItem="recordItem"
                             :isEditItemNote="isEditItemNote"
                             :documentTypeId="form.document_type_id"
@@ -349,7 +349,7 @@
                             :percentage-igv="percentage_igv"
                             @add="addRow"></document-form-item>
 
-        <document-options :showDialog.sync="showDialogOptions"
+        <document-options v-model:showDialog="showDialogOptions"
                           :recordId="documentNewId"
                           :showClose="false"></document-options>
     </div>

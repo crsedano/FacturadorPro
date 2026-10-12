@@ -749,30 +749,30 @@
         </div>
 
         <person-form :external="true"
-                     :showDialog.sync="showDialogNewPerson"
+                     v-model:showDialog="showDialogNewPerson"
                      :input_person="input_person"
                      type="customers"></person-form>
 
         <items
-            :dialogVisible.sync="showDialogAddItems"
+            v-model:dialogVisible="showDialogAddItems"
             @addItem="addItem"></items>
 
         <dispatch-options :isUpdate="(order_form_id) ? true:false"
                           :recordId="recordId"
                           :showClose="false"
-                          :showDialog.sync="showDialogOptions"></dispatch-options>
+                          v-model:showDialog="showDialogOptions"></dispatch-options>
         <item-form :external="true"
-                   :showDialog.sync="showDialogNewItem"></item-form>
+                   v-model:showDialog="showDialogNewItem"></item-form>
         <lots-group
             v-if="item"
             :lots_group="item.lots_group"
             :quantity="quantity"
-            :showDialog.sync="showDialogLots"
+            v-model:showDialog="showDialogLots"
             @addRowLotGroup="addRowLotGroup">
         </lots-group>
 
         <warehouses-detail
-            :showDialog.sync="showWarehousesDetail"
+            v-model:showDialog="showWarehousesDetail"
             :warehouses="warehousesDetail">
         </warehouses-detail>
 
@@ -1077,11 +1077,11 @@ export default {
             }
 
             if (this.current_item == null) {
-                this.$set(this.errors, 'items', ['Seleccione el producto']);
+                this.errors['items'] = ['Seleccione el producto'];
             }
 
             if (this.quantity == null) {
-                this.$set(this.errors, 'quantity', ['Digite la cantidad']);
+                this.errors['quantity'] = ['Digite la cantidad'];
             }
 
             this.IdLoteSelected = null;
@@ -1398,8 +1398,8 @@ export default {
                     'department_id': this.form.origin.department_id
                 });
 
-                this.$set(this.form.origin, 'province_id', null);
-                this.$set(this.form.origin, 'location_id', null);
+                this.form.origin['province_id'] = null;
+                this.form.origin['location_id'] = null;
 
                 return;
             }
@@ -1408,8 +1408,8 @@ export default {
                 'department_id': this.form.delivery.department_id
             });
 
-            this.$set(this.form.delivery, 'province_id', null);
-            this.$set(this.form.delivery, 'location_id', null);
+            this.form.delivery['province_id'] = null;
+            this.form.delivery['location_id'] = null;
         },
         filterDistrict(origin = true) {
             if (origin) {
@@ -1417,7 +1417,7 @@ export default {
                     'province_id': this.form.origin.province_id
                 });
 
-                this.$set(this.form.origin, 'location_id', null);
+                this.form.origin['location_id'] = null;
 
                 return;
             }
@@ -1426,7 +1426,7 @@ export default {
                 'province_id': this.form.delivery.province_id
             });
 
-            this.$set(this.form.delivery, 'location_id', null);
+            this.form.delivery['location_id'] = null;
         },
         addItem(form) {
             let it = form.item;

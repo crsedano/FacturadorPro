@@ -170,7 +170,7 @@
             :page-count="paginator.size"
             layout="prev, pager, next"
             :total="paginator.total"
-            :current-page.sync="filter.page"
+            v-model:current-page="filter.page"
             @current-change="onFilter"
           >
           </el-pagination>
@@ -178,7 +178,7 @@
       </div>
     </div>
     <ModalAddEdit
-      :visible.sync="openModalAddEdit"
+      v-model:visible="openModalAddEdit"
       @onAddItem="onAddItem"
       @onUpdateItem="onUpdateItem"
       :room="room"
@@ -187,7 +187,7 @@
     ></ModalAddEdit>
     <ModalRoomRates
       :room="room"
-      :visible.sync="openModalRoomRates"
+      v-model:visible="openModalRoomRates"
     ></ModalRoomRates>
   </div>
 </template>

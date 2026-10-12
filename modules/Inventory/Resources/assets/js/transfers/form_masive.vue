@@ -232,7 +232,7 @@
 
         <output-lots-form
             :lots="form_add.lots"
-            :showDialog.sync="showDialogLotsOutput"
+            v-model:showDialog="showDialogLotsOutput"
             @addRowOutputLot="addRowOutputLot"
         ></output-lots-form>
     </div>

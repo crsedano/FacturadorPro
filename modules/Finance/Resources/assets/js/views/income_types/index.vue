@@ -47,7 +47,7 @@
                 </div>
             </div> -->
         </div>
-        <income-types-form :showDialog.sync="showDialog"
+        <income-types-form v-model:showDialog="showDialog"
                          :recordId="recordId"></income-types-form>
     </div>
 </template>

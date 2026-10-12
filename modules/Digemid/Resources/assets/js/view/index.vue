@@ -299,48 +299,48 @@
             </div>
             <items-form
                 :recordId="recordId"
-                :showDialog.sync="showDialog"
+                v-model:showDialog="showDialog"
                 :type="type"
                 :pharmacy="pharmacy"
             ></items-form>
             <items-import
                 :pharmacy="pharmacy"
-                :showDialog.sync="showImportDialog"
+                v-model:showDialog="showImportDialog"
             ></items-import>
             <catalog-import
                 :pharmacy="pharmacy"
-                :showDialog.sync="showDigemidImportDialog"
+                v-model:showDialog="showDigemidImportDialog"
             ></catalog-import>
 
             <items-export
                 :pharmacy="pharmacy"
-                :showDialog.sync="showExportDialog"
+                v-model:showDialog="showExportDialog"
             ></items-export>
             <items-export-wp
                 :pharmacy="pharmacy"
-                :showDialog.sync="showExportWpDialog"
+                v-model:showDialog="showExportWpDialog"
             ></items-export-wp>
 
             <items-export-barcode
                 :pharmacy="pharmacy"
-                :showDialog.sync="showExportBarcodeDialog"
+                v-model:showDialog="showExportBarcodeDialog"
             ></items-export-barcode>
 
             <item-export-digemid
                 :pharmacy="pharmacy"
-                :showDialog.sync="showExportDigemid"
+                v-model:showDialog="showExportDigemid"
             ></item-export-digemid>
 
             <warehouses-detail
                 :item_unit_types="item_unit_types"
-                :showDialog.sync="showWarehousesDetail"
+                v-model:showDialog="showWarehousesDetail"
                 :warehouses="warehousesDetail"
             >
             </warehouses-detail>
 
             <items-import-list-price
                 :pharmacy="pharmacy"
-                :showDialog.sync="showImportListPriceDialog"
+                v-model:showDialog="showImportListPriceDialog"
             ></items-import-list-price>
         </div>
     </div>

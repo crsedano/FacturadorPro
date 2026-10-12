@@ -261,7 +261,7 @@
         </div>
 
        <el-button @click.prevent="generateFact()">prueba</el-button>
-        <document-form-item :showDialog.sync="showDialogAddItem"
+        <document-form-item v-model:showDialog="showDialogAddItem"
                            :recordItem="recordItem"
                            :operation-type-id="form.operation_type_id"
                            :currency-type-id-active="form.currency_type_id"
@@ -269,12 +269,12 @@
                            :user="user"
                            @add="addRow"></document-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                        type="customers"
                        :external="true"
                        :document_type_id = form.document_type_id></person-form>
 
-        <document-options :showDialog.sync="showDialogOptions"
+        <document-options v-model:showDialog="showDialogOptions"
                           :recordId="documentNewId"
                           :isContingency="is_contingency"
                           :showClose="false"></document-options>

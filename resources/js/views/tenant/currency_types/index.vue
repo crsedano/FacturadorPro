@@ -37,7 +37,7 @@
                 <!--</div>-->
             <!--</div>-->
         </div>
-        <currency-types-form :showDialog.sync="showDialog"
+        <currency-types-form v-model:showDialog="showDialog"
                             :recordId="recordId"></currency-types-form>
     </div>
 </template>

@@ -57,22 +57,22 @@
             </div>
 
             <inventories-form
-                            :showDialog.sync="showDialog"
+                            v-model:showDialog="showDialog"
                             :type="typeTransaction"
                                 ></inventories-form>
 
             <inventories-form-output
-                            :showDialog.sync="showDialogOutput"
+                            v-model:showDialog="showDialogOutput"
                             ></inventories-form-output>
 
-            <inventories-move :showDialog.sync="showDialogMove"
+            <inventories-move v-model:showDialog="showDialogMove"
                               :recordId="recordId"></inventories-move>
-            <inventories-remove :showDialog.sync="showDialogRemove"
+            <inventories-remove v-model:showDialog="showDialogRemove"
                                 :recordId="recordId"></inventories-remove>
-            <MoveGlobal :products="selectedItems" :show.sync="showHideModalMoveGlobal"></MoveGlobal>
+            <MoveGlobal :products="selectedItems" v-model:show="showHideModalMoveGlobal"></MoveGlobal>
 
             <movement-report
-                            :showDialog.sync="showDialogMovementReport"
+                            v-model:showDialog="showDialogMovementReport"
                                 ></movement-report>
 
         </div>

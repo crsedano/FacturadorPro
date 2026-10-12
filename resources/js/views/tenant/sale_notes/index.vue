@@ -293,22 +293,22 @@
             </table>
         </el-dialog> -->
 
-        <sale-note-payments :showDialog.sync="showDialogPayments"
+        <sale-note-payments v-model:showDialog="showDialogPayments"
                             :documentId="recordId"></sale-note-payments>
 
-        <sale-notes-options :showDialog.sync="showDialogOptions"
+        <sale-notes-options v-model:showDialog="showDialogOptions"
                           :recordId="saleNotesNewId"
                           :showClose="true"
                           :configuration="config"></sale-notes-options>
 
-        <sale-note-generate :show.sync="showDialogGenerate"
+        <sale-note-generate v-model:show="showDialogGenerate"
                            :recordId="recordId"
                            :showGenerate="true"
                            :showClose="false"></sale-note-generate>
-        <ModalGenerateCPE :show.sync="showModalGenerateCPE"></ModalGenerateCPE>
+        <ModalGenerateCPE v-model:show="showModalGenerateCPE"></ModalGenerateCPE>
         <UploadToOtherServer
             :configuration="config"
-            :showMigrate.sync="showMigrateNv"
+            v-model:showMigrate="showMigrateNv"
         ></UploadToOtherServer>
     </div>
 </template>

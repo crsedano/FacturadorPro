@@ -1,8 +1,8 @@
 <template>
     <el-dialog   :title="titleDialog" :visible="showDialog" :close-on-click-modal="true" @close="close" @open="create" append-to-body top="7vh" width="30%">
-        <Keypress key-event="keyup" :key-code="119" @success="handleUp119" />
-        <Keypress key-event="keyup" :key-code="120" @success="handleDown120" />
-        <Keypress key-event="keyup" :key-code="115" @success="handleSetPrice115" />
+        <key-event="keyup" :key-code="119" @success="handleUp119" />
+        <key-event="keyup" :key-code="120" @success="handleDown120" />
+        <key-event="keyup" :key-code="115" @success="handleSetPrice115" />
 
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
@@ -44,10 +44,9 @@
 </template> 
 <script>
 
-    import Keypress from "vue-keypress";
-
+    
     export default {
-        components: { Keypress },
+        components: { },
         props: ['showDialog', 'itemUnitTypes'],
         data() {
             return {

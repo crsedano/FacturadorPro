@@ -328,24 +328,24 @@
             </div>
         </div>
 
-        <contract-form-item :showDialog.sync="showDialogAddItem"
+        <contract-form-item v-model:showDialog="showDialogAddItem"
                             :currency-type-id-active="form.currency_type_id"
                             :exchange-rate-sale="form.exchange_rate_sale"
                             :percentage-igv="percentage_igv"
                             @add="addRow"></contract-form-item>
 
-        <person-form :showDialog.sync="showDialogNewPerson"
+        <person-form v-model:showDialog="showDialogNewPerson"
                      type="customers"
                      :external="true"
                      :input_person="input_person"
                      :document_type_id=form.document_type_id></person-form>
 
 
-        <contract-options-pdf :showDialog.sync="showDialogOptionsPdf"
+        <contract-options-pdf v-model:showDialog="showDialogOptionsPdf"
                               :contractNewId="contractNewId"
                               :showClose="true"></contract-options-pdf>
 
-        <terms-condition :showDialog.sync="showDialogTermsCondition"
+        <terms-condition v-model:showDialog="showDialogTermsCondition"
                          :form="form"
                          :showClose="false"></terms-condition>
     </div>

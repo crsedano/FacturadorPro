@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <permission-form :showDialog.sync="showDialog"
+            <permission-form v-model:showDialog="showDialog"
                         :typeUser="typeUser"
                         :recordId="recordId"></permission-form>
         </div>

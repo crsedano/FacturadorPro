@@ -161,7 +161,7 @@
                             @current-change="getRecords"
                             layout="total, prev, pager, next"
                             :total="pagination.total"
-                            :current-page.sync="pagination.current_page"
+                            v-model:current-page="pagination.current_page"
                             :page-size="pagination.per_page">
                         </el-pagination>
                     </div>
@@ -169,13 +169,13 @@
             </div>
 
             <!--
-            <document-payments :showDialog.sync="showDialogPayments"
+            <document-payments v-model:showDialog="showDialogPayments"
                                :expenseId="recordId"></document-payments>
-            <expense-voided :showDialog.sync="showDialogVoided"
+            <expense-voided v-model:showDialog="showDialogVoided"
                             :expenseId="recordId"></expense-voided>
 
             <expense-payments
-                :showDialog.sync="showDialogExpensePayments"
+                v-model:showDialog="showDialogExpensePayments"
                 :expenseId="recordId"
                 :external="true"
             ></expense-payments>

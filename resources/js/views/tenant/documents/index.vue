@@ -472,33 +472,33 @@
                 </data-table>
             </div>
 
-            <documents-voided :showDialog.sync="showDialogVoided"
+            <documents-voided v-model:showDialog="showDialogVoided"
                               :recordId="recordId"></documents-voided>
 
-            <items-import :showDialog.sync="showImportDialog"></items-import>
+            <items-import v-model:showDialog="showImportDialog"></items-import>
 
-            <document-import-second :showDialog.sync="showImportSecondDialog"></document-import-second>
+            <document-import-second v-model:showDialog="showImportSecondDialog"></document-import-second>
 
-            <document-options :showDialog.sync="showDialogOptions"
+            <document-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showClose="true"
                               :configuration="configuration"></document-options>
 
-            <document-payments :showDialog.sync="showDialogPayments"
+            <document-payments v-model:showDialog="showDialogPayments"
                                :documentId="recordId"></document-payments>
 
 
-            <document-constancy-detraction :showDialog.sync="showDialogCDetraction"
+            <document-constancy-detraction v-model:showDialog="showDialogCDetraction"
                                            :recordId="recordId"></document-constancy-detraction>
-            <report-payment :showDialog.sync="showDialogReportPayment"></report-payment>
+            <report-payment v-model:showDialog="showDialogReportPayment"></report-payment>
 
-            <report-payment-complete :showDialog.sync="showDialogReportPaymentComplete"></report-payment-complete>
+            <report-payment-complete v-model:showDialog="showDialogReportPaymentComplete"></report-payment-complete>
 
-            <DocumentValidate :showDialogValidate.sync="showDialogValidate"></DocumentValidate>
+            <DocumentValidate v-model:showDialogValidate="showDialogValidate"></DocumentValidate>
 
-            <massive-validate-cpe :showDialogValidate.sync="showDialogApiPeruDevValidate"></massive-validate-cpe>
+            <massive-validate-cpe v-model:showDialogValidate="showDialogApiPeruDevValidate"></massive-validate-cpe>
 
-            <document-import-excel :showDialog.sync="showImportExcelDialog"></document-import-excel>
+            <document-import-excel v-model:showDialog="showImportExcelDialog"></document-import-excel>
         </div>
     </div>
 </template>

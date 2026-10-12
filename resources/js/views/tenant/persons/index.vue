@@ -125,13 +125,13 @@
 
             <persons-form :api_service_token="api_service_token"
                           :recordId="recordId"
-                          :showDialog.sync="showDialog"
+                          v-model:showDialog="showDialog"
                           :type="type"></persons-form>
 
-            <persons-import :showDialog.sync="showImportDialog"
+            <persons-import v-model:showDialog="showImportDialog"
                             :type="type"></persons-import>
 
-            <persons-export :showDialog.sync="showExportDialog"
+            <persons-export v-model:showDialog="showExportDialog"
                             :type="type"></persons-export>
 
         </div>

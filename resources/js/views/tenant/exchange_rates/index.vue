@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <exchange-rates-form :showDialog.sync="showDialog"></exchange-rates-form>
+        <exchange-rates-form v-model:showDialog="showDialog"></exchange-rates-form>
     </div>
 </template>
 

@@ -45,7 +45,7 @@
                 </div>
             </div> -->
         </div>
-        <transfer-reason-types-form :showDialog.sync="showDialog"
+        <transfer-reason-types-form v-model:showDialog="showDialog"
                          :recordId="recordId"></transfer-reason-types-form>
     </div>
 </template>

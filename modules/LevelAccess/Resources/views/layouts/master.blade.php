@@ -7,13 +7,13 @@
         <title>Module LevelAccess</title>
 
        {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/levelaccess.css') }}"> --}}
+       {{-- <link rel="stylesheet" href="@vite(['css/levelaccess.css'])"> --}}
 
     </head>
     <body>
         @yield('content')
 
         {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/levelaccess.js') }}"></script> --}}
+        {{-- <script src="@vite(['js/levelaccess.js'])"></script> --}}
     </body>
 </html>

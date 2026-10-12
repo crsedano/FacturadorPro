@@ -43,7 +43,7 @@
                 </table>
             </div> 
         </div>
-        <series-configurations-form :showDialog.sync="showDialog"
+        <series-configurations-form v-model:showDialog="showDialog"
                          :recordId="recordId"></series-configurations-form>
     </div>
 </template>

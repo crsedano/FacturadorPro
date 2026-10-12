@@ -65,7 +65,7 @@
                 </el-table>
             </template>
         </div>
-        <tenant-tasks-form :showDialog.sync="showDialog" :tableData.sync="tableData" @refresh="refresh"></tenant-tasks-form>
+        <tenant-tasks-form v-model:showDialog="showDialog" v-model:tableData="tableData" @refresh="refresh"></tenant-tasks-form>
     </div>
 </template>
 

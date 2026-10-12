@@ -3,7 +3,6 @@
 namespace Modules\Hotel\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 
 class HotelServiceProvider extends ServiceProvider
 {

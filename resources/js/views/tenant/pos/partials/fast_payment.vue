@@ -1,6 +1,6 @@
 <template>
     <div class="row col-lg-12 m-0 p-0">
-        <Keypress :key-code="113"
+        <:key-code="113"
                   key-event="keyup"
                   @success="handleFn113"/>
 
@@ -187,24 +187,24 @@
         <options-form
             :recordId="documentNewId"
             :resource="resource_options"
-            :showDialog.sync="showDialogOptions"
+            v-model:showDialog="showDialogOptions"
             :statusDocument="statusDocument"
         ></options-form>
 
         <multiple-payment-form
             :payments="payments"
-            :showDialog.sync="showDialogMultiplePayment"
+            v-model:showDialog="showDialogMultiplePayment"
             :total="form.total"
             @add="addRow"
         ></multiple-payment-form>
 
-        <!-- <sale-notes-options :showDialog.sync="showDialogSaleNote"
+        <!-- <sale-notes-options v-model:showDialog="showDialogSaleNote"
                           :recordId="saleNotesNewId"
                           :showClose="true"></sale-notes-options>  -->
 
         <card-brands-form :external="true"
                           :recordId="null"
-                          :showDialog.sync="showDialogNewCardBrand"></card-brands-form>
+                          v-model:showDialog="showDialogNewCardBrand"></card-brands-form>
     </div>
 </template>
 <style>
@@ -242,15 +242,13 @@
 </style>
 
 <script>
-import Keypress from 'vue-keypress'
-
 import CardBrandsForm from '../../card_brands/form.vue'
 import SaleNotesOptions from '../../sale_notes/partials/options.vue'
 import OptionsForm from './options.vue'
 import MultiplePaymentForm from './multiple_payment.vue'
 
 export default {
-    components: {OptionsForm, CardBrandsForm, SaleNotesOptions, MultiplePaymentForm, Keypress},
+    components: {OptionsForm, CardBrandsForm, SaleNotesOptions, MultiplePaymentForm, },
 
     props: ['form', 'customer', 'currencyTypeActive', 'exchangeRateSale', 'is_payment', 'soapCompany', 'businessTurns', 'isPrint', 'rowsItems'],
     data() {

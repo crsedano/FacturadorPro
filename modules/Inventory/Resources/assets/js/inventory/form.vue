@@ -110,14 +110,14 @@
         </form>
 
         <input-lots-form
-            :showDialog.sync="showDialogLots"
+            v-model:showDialog="showDialogLots"
             :stock="form.quantity"
             :lots="form.lots"
             @addRowLot="addRowLot">
         </input-lots-form>
 
         <output-lots-form
-            :showDialog.sync="showDialogLotsOutput"
+            v-model:showDialog="showDialogLotsOutput"
             :lots="form.lots"
             @addRowOutputLot="addRowOutputLot">
         </output-lots-form>

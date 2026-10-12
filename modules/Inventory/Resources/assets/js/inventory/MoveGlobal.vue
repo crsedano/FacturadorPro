@@ -57,7 +57,7 @@
           <tr v-for="row in records" :key="row.id">
             <td>{{ row.item_description }}</td>
             <td>{{ row.warehouse_description }}</td>
-            <td>{{ row.quantity | toDecimals }}</td>
+            <td>{{ $filters.toDecimals(row.quantity) }}</td>
             <td>
               <el-select v-model="row.warehouse_new_id">
                 <el-option

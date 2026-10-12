@@ -238,11 +238,11 @@
         <document-options :isContingency="false"
                           :recordId="documentNewId"
                           :showClose="true"
-                          :showDialog.sync="showDialogDocumentOptions"></document-options>
+                          v-model:showDialog="showDialogDocumentOptions"></document-options>
 
         <sale-note-options :recordId="documentNewId"
                            :showClose="true"
-                           :showDialog.sync="showDialogSaleNoteOptions"></sale-note-options>
+                           v-model:showDialog="showDialogSaleNoteOptions"></sale-note-options>
     </div>
 </template>
 

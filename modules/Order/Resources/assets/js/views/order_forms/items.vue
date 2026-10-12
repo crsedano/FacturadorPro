@@ -28,7 +28,7 @@
             <el-button type="primary" @click="clickAddItem">Guardar</el-button>
         </span>
 
-        <item-form :showDialog.sync="showDialogNewItem" :external="true"></item-form>
+        <item-form v-model:showDialog="showDialogNewItem" :external="true"></item-form>
     </el-dialog>
 </template>
 
@@ -90,9 +90,9 @@
                         return;
                     }
 
-                    if (this.form.item == null) this.$set(this.errors, 'items', ['Seleccione el producto']);
+                    if (this.form.item == null) this.errors['items'] = ['Seleccione el producto'];
 
-                    if (this.form.quantity == null) this.$set(this.errors, 'quantity', ['Digite la cantidad']);
+                    if (this.form.quantity == null) this.errors['quantity'] = ['Digite la cantidad'];
                 }
 
 

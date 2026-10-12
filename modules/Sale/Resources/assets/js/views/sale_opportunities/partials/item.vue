@@ -189,11 +189,11 @@
             </div>
         </form>
         <item-form :external="true"
-                   :showDialog.sync="showDialogNewItem"></item-form>
+                   v-model:showDialog="showDialogNewItem"></item-form>
 
 
         <warehouses-detail
-            :showDialog.sync="showWarehousesDetail"
+            v-model:showDialog="showWarehousesDetail"
             :warehouses="warehousesDetail">
         </warehouses-detail>
     </el-dialog>
@@ -211,7 +211,7 @@ import {calculateRowItem} from '@helpers/functions'
 import WarehousesDetail from './warehouses.vue'
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import VueCkeditor from "vue-ckeditor5";
+import CKEditor from '@ckeditor/ckeditor5-vue';
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../../../../../resources/js/helpers/modal_item";
 
@@ -222,7 +222,7 @@ export default {
         'exchangeRateSale',
         'percentageIgv'
     ],
-    components: {itemForm, WarehousesDetail, 'vue-ckeditor': VueCkeditor.component},
+    components: {itemForm, WarehousesDetail, ckeditor: CKEditor.component},
 
     data() {
         return {
@@ -260,10 +260,7 @@ export default {
             showDialogLots: false,
             showDialogSelectLots: false,
             lots: [],
-            editors: {
-                classic: ClassicEditor
-            },
-        }
+                    }
     },
     created() {
         this.loadConfiguration()
@@ -530,7 +527,7 @@ export default {
 
             if (this.form.item.calculate_quantity) {
                 if (this.total_item < 0.01)
-                    this.$set(this.errors, 'total_item', ['total venta producto debe ser mayor a 0']);
+                    this.errors['total_item'] = ['total venta producto debe ser mayor a 0'];
             }
 
             return this.errors

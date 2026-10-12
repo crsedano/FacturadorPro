@@ -59,7 +59,7 @@
             :from_documents="true"
             :item="recordItem"
             :room_name="room_name"
-            :showDialog.sync="showItemModal"
+            v-model:showDialog="showItemModal"
         ></item-modal>
     </div>
 </template>

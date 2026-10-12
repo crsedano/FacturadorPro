@@ -3,7 +3,6 @@
     namespace Modules\FullSuscription\Providers;
 
     use Config;
-    use Illuminate\Database\Eloquent\Factory;
     use Illuminate\Support\ServiceProvider;
 
     class SuscriptionServiceProvider extends ServiceProvider
@@ -18,7 +17,6 @@
             $this->registerTranslations();
             $this->registerConfig();
             $this->registerViews();
-            $this->registerFactories();
             $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         }
 
@@ -71,18 +69,6 @@
             $this->loadViewsFrom(array_merge(array_map(function ($path) {
                 return $path . '/modules/full_suscription';
             }, Config::get('view.paths')), [$sourcePath]), 'full_suscription');
-        }
-
-        /**
-         * Register an additional directory of factories.
-         *
-         * @return void
-         */
-        public function registerFactories()
-        {
-            if (!app()->environment('production') && $this->app->runningInConsole()) {
-                app(Factory::class)->load(__DIR__ . '/../Database/factories');
-            }
         }
 
         /**

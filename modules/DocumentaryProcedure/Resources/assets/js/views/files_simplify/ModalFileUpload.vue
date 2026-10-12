@@ -101,13 +101,10 @@
 
 <script>
 import moment from "moment";
-import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import {mapActions, mapState} from "vuex";
 
 export default {
     components: {
-        vueDropzone: vue2Dropzone
     },
     props: {
         visible: {

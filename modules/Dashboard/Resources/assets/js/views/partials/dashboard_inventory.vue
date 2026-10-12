@@ -60,10 +60,10 @@
 <script>
 
     import InventoryDataTable from '../../components/InventoryDataTable.vue'
-    import { VclTable } from 'vue-content-loading';
+    // vue-content-loading removed — using el-skeleton;
 
     export default {
-        components: {InventoryDataTable, VclTable},
+        components: {InventoryDataTable, },
 
         data () {
             return {

@@ -33,7 +33,7 @@
             </div>
 
             <category-form
-                :showDialog.sync="showDialog"
+                v-model:showDialog="showDialog"
                 :recordId="recordId"
                     ></category-form>
         </div>

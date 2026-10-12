@@ -113,7 +113,7 @@
             </div>
         </div>
         <ModalAddEdit
-            :visible.sync="openModalAddEdit"
+            v-model:visible="openModalAddEdit"
             @onAddItem="onFilter"
             @onUpdateItem="onUpdateItem"
         ></ModalAddEdit>

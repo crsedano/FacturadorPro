@@ -98,10 +98,10 @@
             </div>
 
         </div>
-        <cash-form :showDialog.sync="showDialog" :typeUser="typeUser"
+        <cash-form v-model:showDialog="showDialog" :typeUser="typeUser"
                             :recordId="recordId"></cash-form>
 
-        <cash-options :showDialog.sync="showDialogOptions"
+        <cash-options v-model:showDialog="showDialogOptions"
                             :recordId="recordId"></cash-options>
     </div>
 </template>

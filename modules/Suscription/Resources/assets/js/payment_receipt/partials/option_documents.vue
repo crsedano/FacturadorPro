@@ -289,7 +289,7 @@
                               :isContingency="false"
                               :recordId="documentNewId"
                               :showClose="true"
-                              :showDialog.sync="showDialogDocumentOptions"></document-options>
+                              v-model:showDialog="showDialogDocumentOptions"></document-options>
             <div v-show="document.total > 0"
                  class="col-lg-12">
                 <div class="form-group pull-right">

@@ -51,7 +51,7 @@
             </div>
  
 
-            <purchase-quotation-options :showDialog.sync="showDialogOptions"
+            <purchase-quotation-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showGenerate="true"
                               :showClose="true"></purchase-quotation-options>

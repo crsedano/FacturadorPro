@@ -56,7 +56,7 @@
         </table>
       </div>
     </div>
-    <payment-method-form :showDialog.sync="showDialog" :recordId="recordId"></payment-method-form>
+    <payment-method-form v-model:showDialog="showDialog" :recordId="recordId"></payment-method-form>
   </div>
 </template>
 

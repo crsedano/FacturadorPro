@@ -8,7 +8,7 @@
                             <!-- <label class="control-label">
                             </label> -->
                             <!-- <el-input  type="textarea"  :rows="3" v-model="form.terms_condition"></el-input> -->
-                            <vue-ckeditor type="classic" v-model="form.terms_condition" :editors="editors"></vue-ckeditor>
+                            <ckeditor :editor="ClassicEditor" v-model="form.terms_condition"></ckeditor>
                         </div>
                     </div>
                 </div>
@@ -24,10 +24,10 @@
 <script>
 
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-    import VueCkeditor from 'vue-ckeditor5'
+    import CKEditor from '@ckeditor/ckeditor5-vue'
 
     export default {
-        components: {'vue-ckeditor': VueCkeditor.component},
+        components: {ckeditor: CKEditor.component},
         props:['showDialog', 'form'],
         data() {
             return {
@@ -35,10 +35,7 @@
                 resource: 'items',
                 recordId: null,
                 titleDialog: 'Términos y condiciones',
-                editors: {
-                  classic: ClassicEditor
-                },
-            }
+                            }
         },
         created() {
         },

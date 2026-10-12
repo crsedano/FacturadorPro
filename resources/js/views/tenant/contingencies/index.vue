@@ -117,10 +117,10 @@
                 </data-table>
             </div>
 
-            <documents-voided :showDialog.sync="showDialogVoided"
+            <documents-voided v-model:showDialog="showDialogVoided"
                             :recordId="recordId"></documents-voided>
 
-            <document-options :showDialog.sync="showDialogOptions"
+            <document-options v-model:showDialog="showDialogOptions"
                               :recordId="recordId"
                               :showClose="true"></document-options>
         </div>

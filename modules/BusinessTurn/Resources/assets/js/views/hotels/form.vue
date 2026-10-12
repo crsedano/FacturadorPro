@@ -197,7 +197,7 @@
                 <el-button type="primary" native-type="submit" :loading="loading_submit">Guardar</el-button>
             </div>
         </form>
-        <guest :showDialog.sync="showDialogGuest" :identity_document_types = "identity_document_types" :api_service_token="api_service_token" :sexs="sexs" :civil_status="civil_status" @addRowGuest="addRowGuest"></guest>
+        <guest v-model:showDialog="showDialogGuest" :identity_document_types = "identity_document_types" :api_service_token="api_service_token" :sexs="sexs" :civil_status="civil_status" @addRowGuest="addRowGuest"></guest>
     </el-dialog>
 </template>
 

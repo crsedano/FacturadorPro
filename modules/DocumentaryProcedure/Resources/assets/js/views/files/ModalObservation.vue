@@ -54,21 +54,21 @@
                     </el-tab-pane>
                     <el-tab-pane class name="thirdhob">
                         <span slot="label">Complemento de archivos</span>
-                        <vue-dropzone
-                            id="dropzone"
-                            ref="myVueDropObservaction"
-                            :options="dropzoneOptions"
-
-                            @vdropzone-upload-progress="uploadProgress"
-                            @vdropzone-file-added="fileAdded"
-                            @vdropzone-sending-multiple="sendingFiles"
-                            @vdropzone-error="error"
-                            @vdropzone-error-multiple="errormultiple"
-                            @vdropzone-success-multiple="success"
-                            @vdropzone-sending="sendingEvent"
-                            @vdropzone-removed-file="getFileCount"
-                            @vdropzone-file-added-manually="getFileCount">
-                        </vue-dropzone>
+                        <el-upload
+                            ref="elUpload"
+                            class="upload-demo"
+                            drag
+                            multiple
+                            :action="uploadUrl"
+                            :auto-upload="false"
+                            :headers="uploadHeaders"
+                            :data="uploadData"
+                            :on-change="onFileListChange"
+                            :on-remove="onFileListChange"
+                            :on-success="onUploadSuccess">
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">Arrastra y suelta archivos aquí. o <em>haz clic para seleccionar</em></div>
+                        </el-upload>
                     </el-tab-pane>
                     <el-tab-pane class name="four" v-if="haveObservation(file)">
                         <span slot="label">Observaciones</span>
@@ -91,8 +91,6 @@
 </template>
 
 <script>
-import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import {mapState} from "vuex";
 import TableArchives from "./TableArchives";
 import TableObservation from "./TableObservation";
@@ -101,7 +99,6 @@ export default {
     components: {
         TableArchives,
         TableObservation,
-        vueDropzone: vue2Dropzone
     },
     props: {
         visible: {
@@ -136,31 +133,13 @@ export default {
     },
     data() {
         return {
-            // form: {},
             tabActive: 'first',
-            dropzoneOptions: {
-                url: 'https://httpbin.org/post',
-                // thumbnailWidth: 50,
-                // thumbnailHeight: 50,
-                //maxFilesize: 0.5,
-                headers: {
-                    "X-Requested-With": "X-Requested-With",
-                    "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]').content,
-                },
-
-                autoProcessQueue: false,
-
-                // The way you want to receive the files in the server
-                paramName: function (n) {
-                    return "file[]";
-                },
-                dictDefaultMessage: "Arrastra y suelta los archivos aqui.",
-                // includeStyling: false,
-                // previewsContainer: false,
-                parallelUploads: 10,
-                maxFiles: 10,
-                uploadMultiple: true,
+            uploadUrl: '/documentary-procedure/files/next',
+            uploadHeaders: {
+                "X-Requested-With": "X-Requested-With",
+                "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]') ? document.head.querySelector('meta[name="csrf-token"]').content : '',
             },
+            uploadFileList: [],
             loading: false,
             title: "",
         };
@@ -171,6 +150,14 @@ export default {
             'actions',
             'offices',
         ]),
+        uploadData() {
+            return {
+                documentary_office_id: this.form.documentary_office_id,
+                documentary_action_id: this.form.documentary_action_id,
+                observation: this.form.observation,
+                id: this.form.id,
+            }
+        },
         form: function () {
             if (this.file === null) return {documentary_office_id: ''};
             return this.file
@@ -215,100 +202,14 @@ export default {
             if(file.observations.length < 1) return false;
             return true
         },
-        fileAdded(file) {
-            console.log("File Dropped => ", file);
-            // Construct your file object to render in the UI
-            this.filesa = [...this.filesa, file]
-            let attachment = {};
-
-
-            attachment._id = file.upload.uuid;
-            attachment.title = file.name;
-            attachment.type = "file";
-            attachment.extension = "." + file.type.split("/")[1];
-            attachment.user = JSON.parse(localStorage.getItem("user"));
-            attachment.content = "File Upload by Select or Drop";
-            attachment.thumb = file.dataURL;
-            attachment.thumb_list = file.dataURL;
-            attachment.isLoading = true;
-            attachment.progress = null;
-            attachment.size = file.size;
-            this.tempAttachments = [...this.tempAttachments, attachment];
+        onFileListChange(file, fileList) {
+            this.uploadFileList = fileList || [];
         },
-        // a middle layer function where you can change the XHR request properties
-        sendingFiles(files, xhr, formData) {
-            this.current_files = files;
-        },
-        // function where we get the upload progress
-        uploadProgress(file, progress, bytesSent) {
-            this.tempAttachments.map(attachment => {
-                if (attachment.title === file.name) {
-                    attachment.progress = `${Math.floor(progress)}`;
-                }
-            });
-        },
-        // called on successful upload of a file
-        error(file, response) {
-            if (response !== undefined && response.status !== undefined) {
-                this.axiosError(response)
-            }
-            if (response !== undefined && response.message !== undefined) {
-                this.errors = response.message
-            }
-            let dropzone = this.$refs.myVueDropObservaction.dropzone;
-            file.previewTemplate.classList.toggle('dz-error');
-            // file.previewTemplate.classList.toggle('dz-complete');
-
-            if (file.status === 'error') file.status = 'added';
-            // if(file.status === 'error') file.status = 'queued';
-            this.addOnError(dropzone, file)
-
-        },
-        errormultiple(file, response, other) {
-            console.log('errormultiple')
-            if (response.message !== undefined) {
-                response.status = 422
-                if (response.data === undefined) {
-                    response.data = {
-                        message: response.message,
-                    }
-
-
-                }
-            }
-            if (response !== undefined && response.status !== undefined) {
-                this.axiosError(response)
-            }
-        },
-        addOnError(dropzone, file) {
-            dropzone.enqueueFile(file)
-            // this.$refs.myVueDropObservaction.dropzone.enqueueFile(file)
-        },
-        // called on successful upload of a file
-        success(file, response) {
-
+        onUploadSuccess(response) {
             this.$emit("onUploadComplete", null);
-            this.onClose();
             this.tabActive = 'first';
-            this.updateFiles()
-        },
-        sendingEvent(file, xhr, formData) {
-            formData.append("documentary_office_id", this.form.documentary_office_id);
-            formData.append("documentary_action_id", this.form.documentary_action_id);
-            formData.append("observation", this.form.observation);
-            formData.append("id", this.form.id);
-        },
-        getFileCount() {
-            if ('undefined' !== typeof this.$refs.myVueDropObservaction.dropzone) {
-                this.fileCount = this.$refs.myVueDropObservaction.dropzone.files.length
-            } else {
-                this.fileCount = 0;
-            }
-        },
-        addFile() {
-            var file = {size: 123, name: "XYZ.pdf"};
-            var url = "xyz.pdf";
-            this.$refs.myVueDropObservaction.manuallyAddFile(file, url);
+            this.updateFiles();
+            this.onClose();
         },
         onGenerateData() {
             const data = new FormData();
@@ -372,67 +273,44 @@ export default {
             this.$emit("updateFiles");
         },
         NextStep() {
-
-
             if (this.hasError) {
-
                 return null;
             } else {
-                this.getFileCount()
-                if (this.fileCount > 0) {
-                    this.$refs.myVueDropObservaction.dropzone.options.url = `/documentary-procedure/files/next`
-                    this.$refs.myVueDropObservaction.dropzone.processQueue()
-
+                if (this.uploadFileList.length > 0) {
+                    this.uploadUrl = `/documentary-procedure/files/next`
+                    this.$nextTick(() => this.$refs.elUpload.submit())
                 } else {
                     this.loading = true;
                     this.$http
-                        .post(
-                            `/documentary-procedure/files/next`,
-                            this.onGenerateData()
-                        )
+                        .post(`/documentary-procedure/files/next`, this.onGenerateData())
                         .then((response) => {
-                            this.$message({
-                                message: response.data.message,
-                                type: "success",
-                            });
+                            this.$message({ message: response.data.message, type: "success" });
                             this.$store.commit('setFiles', response.data.files)
                             this.$emit("onNextStep", response.data.data);
                             this.onClose();
                         });
                 }
             }
-
-
         },
         BackStep() {
             if (this.hasError) {
                 return null;
             } else {
-
-                this.getFileCount()
-                if (this.fileCount > 0) {
-                    this.$refs.myVueDropObservaction.dropzone.options.url = `/documentary-procedure/files/back`
-                    this.$refs.myVueDropObservaction.dropzone.processQueue()
+                if (this.uploadFileList.length > 0) {
+                    this.uploadUrl = `/documentary-procedure/files/back`
+                    this.$nextTick(() => this.$refs.elUpload.submit())
                 } else {
-
                     this.loading = true;
                     this.$http
-                        .post(
-                            `/documentary-procedure/files/back`,
-                            this.onGenerateData()
-                        )
+                        .post(`/documentary-procedure/files/back`, this.onGenerateData())
                         .then((response) => {
-                            this.$message({
-                                message: response.data.message,
-                                type: "success",
-                            });
+                            this.$message({ message: response.data.message, type: "success" });
                             this.$store.commit('setFiles', response.data.files)
                             this.$emit("onBackStep", response.data.data);
                             this.onClose();
                         });
                 }
             }
-
         },
         /*
         onSubmit() {
@@ -482,7 +360,10 @@ export default {
         },
         */
         onClose() {
-            this.$refs.myVueDropObservaction.dropzone.removeAllFiles(true);
+            if (this.$refs.elUpload) {
+                this.$refs.elUpload.clearFiles();
+            }
+            this.uploadFileList = [];
             this.$emit("update:visible", false);
         },
     },
