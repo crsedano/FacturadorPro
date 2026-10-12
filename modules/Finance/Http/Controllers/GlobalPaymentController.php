@@ -166,12 +166,12 @@ class GlobalPaymentController extends Controller
      */
     private function processJobReport($request, $type)
     {
-        $website = $this->getTenantWebsite();
+        $tenant = $this->getTenantWebsite();
         $user = $this->getCurrentUser();
 
         $additional_params = [
-            'user_id' => $user->id, 
-            'type' => $user->type, 
+            'user_id' => $user->id,
+            'type' => $user->type,
             'establishment_id' => $user->establishment_id
         ];
 
@@ -179,7 +179,7 @@ class GlobalPaymentController extends Controller
 
         $tray = $this->createDownloadTray($user->id, 'FINANCE', $type, 'Reporte Pagos');
 
-        ProcessGlobalPaymentReport::dispatch($params, $tray->id, $website->id);
+        ProcessGlobalPaymentReport::dispatch($params, $tray->id, $tenant->id);
 
         return $this->getJobResponse();
     }

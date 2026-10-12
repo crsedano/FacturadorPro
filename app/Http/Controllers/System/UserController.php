@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\System\UserRequest;
 use App\Http\Resources\System\UserResource;
 use App\Models\System\User;
-use Hyn\Tenancy\Environment;
 use App\Models\System\Client;
 use Illuminate\Support\Facades\DB;
 use App\Models\System\Configuration;
@@ -61,14 +60,13 @@ class UserController extends Controller
             $records = Client::get();
 
             foreach ($records as $row) {
-
-                $tenancy = app(Environment::class);
-                $tenancy->tenant($row->hostname->website);
-
+                if (!$row->tenant) continue;
+                tenancy()->initialize($row->tenant);
                 DB::connection('tenant')->table('configurations')->where('id', 1)->update([
                     'phone_whatsapp' => $phone,
                     'enable_whatsapp' => $enable_whatsapp
                 ]);
+                tenancy()->end();
             }
 
         });

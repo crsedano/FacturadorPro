@@ -7,12 +7,11 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Hyn\Tenancy\Models\Website;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use App\Models\Tenant\DownloadTray;
-use Hyn\Tenancy\Environment;
+use App\Models\System\Tenant;
 use App\CoreFacturalo\Helpers\Storage\StorageDocument;
 use App\Models\Tenant\Company;
 use App\Models\Tenant\Establishment;
@@ -31,17 +30,17 @@ class ProcessMovementsReport implements ShouldQueue
 
     public $params;
     public $tray_id;
-    public $website_id;
+    public $tenant_id;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct( Object $params, int $tray_id, int $website_id ) {
+    public function __construct( Object $params, int $tray_id, string $tenant_id ) {
         $this->params = $params;
         $this->tray_id = $tray_id;
-        $this->website_id = $website_id;
+        $this->tenant_id = $tenant_id;
     }
 
     /**
@@ -51,12 +50,9 @@ class ProcessMovementsReport implements ShouldQueue
      */
     public function handle()
     {
-        Log::debug("ProcessMovementsReport Start WebsiteId => " . $this->website_id);
+        Log::debug("ProcessMovementsReport Start TenantId => " . $this->tenant_id);
 
-        $website = Website::find($this->website_id);
-        $tenancy = app(Environment::class);
-        $tenancy->tenant($website);
-
+        tenancy()->initialize(Tenant::find($this->tenant_id));
         $path = null;
         try {
 
@@ -103,6 +99,7 @@ class ProcessMovementsReport implements ShouldQueue
             Log::debug("ProcessMovementsReport Error transaction ". $e);
         }
 
+        tenancy()->end();
         Log::debug("ProcessMovementsReport Finish transaction");
     }
 

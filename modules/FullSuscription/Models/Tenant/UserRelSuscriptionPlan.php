@@ -19,7 +19,7 @@
     use Auth;
     use Carbon\Carbon;
     use Eloquent;
-    use Hyn\Tenancy\Traits\UsesTenantConnection;
+    use App\Traits\UsesTenantConnection;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

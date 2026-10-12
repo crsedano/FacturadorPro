@@ -9,7 +9,6 @@ use App\Models\System\Client;
 use App\Models\System\ClientPayment;
 use App\Models\System\PaymentMethodType;
 use App\Models\System\CardBrand;
-use Hyn\Tenancy\Environment;
 use Illuminate\Support\Facades\DB;
 
 
@@ -57,13 +56,12 @@ class ClientPaymentController extends Controller
         $record->save();
 
         $client = Client::findOrFail($request->client_id);
-        $tenancy = app(Environment::class);
-        $tenancy->tenant($client->hostname->website);
-
+        tenancy()->initialize($client->tenant);
         DB::connection('tenant')->table('account_payments')->insert(
 
             ['date_of_payment' => $record->date_of_payment, 'reference_id' => $record->id, 'payment_method_type_id'=> $record->payment_method_type_id, 'card_brand_id' =>$record->card_brand_id, 'reference' => $record->reference, 'payment' => $record->payment, 'state' => 0, 'created_at' => date('Y-m-d H:i:s')]
         );
+        tenancy()->end();
 
         return [
             'success' => true,
@@ -90,13 +88,13 @@ class ClientPaymentController extends Controller
         $client_payment->save();
 
         $client = Client::findOrFail($client_payment->client_id);
-        $tenancy = app(Environment::class);
-        $tenancy->tenant($client->hostname->website);
+        tenancy()->initialize($client->tenant);
         DB::connection('tenant')->table('account_payments')->where('reference_id', $client_payment->id)->update(['state' => 1, 'date_of_payment_real' => date('Y-m-d')]);
+        tenancy()->end();
 
         return [
             'success' => true,
-            'message' => 'Monto pagado', 
+            'message' => 'Monto pagado',
         ];
 
     } 

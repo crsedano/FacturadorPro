@@ -6,7 +6,7 @@
     use App\Models\Tenant\Catalogs\DocumentType;
     use App\Traits\SellerIdTrait;
     use Carbon\Carbon;
-    use Hyn\Tenancy\Traits\UsesTenantConnection;
+    use App\Traits\UsesTenantConnection;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Database\Eloquent\Relations\BelongsTo;
     use Illuminate\Database\Eloquent\Relations\HasMany;

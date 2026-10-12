@@ -9,15 +9,12 @@
     use App\Http\Resources\System\ClientResource;
     use App\Models\System\Client;
     use App\Models\System\Configuration;
+    use App\Models\System\Domain;
     use App\Models\System\Module;
     use App\Models\System\Plan;
+    use App\Models\System\Tenant;
     use Carbon\Carbon;
     use Exception;
-    use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
-    use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
-    use Hyn\Tenancy\Environment;
-    use Hyn\Tenancy\Models\Hostname;
-    use Hyn\Tenancy\Models\Website;
     use Illuminate\Http\Request;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\DB;
@@ -159,8 +156,8 @@
             $records = Client::latest()
                 ->get();
             foreach ($records as &$row) {
-                $tenancy = app(Environment::class);
-                $tenancy->tenant($row->hostname->website);
+                if (!$row->tenant) continue;
+                tenancy()->initialize($row->tenant);
                 // $row->count_doc = DB::connection('tenant')-> table('documents') ->count();
                 $row->count_doc = DB::connection('tenant')
                     ->table('configurations')
@@ -188,18 +185,13 @@
                     $init = $start_end_date['start_date'];
                     $end = $start_end_date['end_date'];
 
-                    // $row->init_cycle = $init;
-                    // $row->end_cycle = $end;
-                    // dd($start_end_date);
-
                     $row->count_doc_month = DB::connection('tenant')->table('documents')->whereBetween('date_of_issue', [$init, $end])->count();
 
                     $row->count_sales_notes_month = DB::connection('tenant')->table('sale_notes')->whereBetween('date_of_issue', [$init, $end])->count();
 
                     if ($row->count_sales_notes_month>0) {
                         if ($row->count_sales_notes!=$row->count_sales_notes_month) {
-                            $row->count_sales_notes = DB::connection('tenant')
-                            ->table('configurations')
+                            $row->count_sales_notes = DB::connection('tenant')->table('configurations')
                             ->where('id', 1)
                             ->update([
                                 'quantity_sales_notes' => $row->count_sales_notes_month
@@ -210,10 +202,10 @@
                     ->table('configurations')
                     ->first()
                     ->quantity_sales_notes;
-                    //dd($row->count_sales_notes);
 
                 }
 
+                tenancy()->end();
             }
 
             return new ClientCollection($records);
@@ -235,8 +227,7 @@
         public function record($id)
         {
             $client = Client::findOrFail($id);
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($client->hostname->website);
+            tenancy()->initialize($client->tenant);
             $user_id = 1;
             // Se buscan los valores en las tablas de los clientes, luego se compara con las tablas de admin para mostrar
             // correctamente la seleccion en la seccion de modulos de permisos
@@ -256,8 +247,6 @@
                 ->get()
                 ->pluck('id');
 
-            // Se buscan los valores en las tablas de los clientes, luego se compara con las tablas de admin para mostrar
-            // correctamente la seleccion en la seccion de modulos de permisos
             // Apps
             $apps = DB::connection('tenant')
                 ->table('modules')
@@ -276,8 +265,6 @@
                 ->get()
                 ->pluck('id');
 
-            // Se buscan los valores en las tablas de los clientes, luego se compara con las tablas de admin para mostrar
-            // correctamente la seleccion en la seccion de modulos de permisos
             $levels = DB::connection('tenant')
                 ->table('module_level_user')
                 ->where('module_level_user.user_id', $user_id)
@@ -311,6 +298,8 @@
             $client->certificate = $company->certificate;
             $client->number = $company->number;
 
+            tenancy()->end();
+
             return new ClientResource($client);
 
         }
@@ -320,8 +309,8 @@
             $records = Client::all();
             $count_documents = [];
             foreach ($records as $row) {
-                $tenancy = app(Environment::class);
-                $tenancy->tenant($row->hostname->website);
+                if (!$row->tenant) continue;
+                tenancy()->initialize($row->tenant);
                 for ($i = 1; $i <= 12; $i++) {
                     $date_initial = Carbon::parse(date('Y') . '-' . $i . '-1');
                     $year_before = Carbon::now()->subYear()->format('Y');
@@ -335,6 +324,7 @@
                             ->count()
                     ];
                 }
+                tenancy()->end();
             }
 
             $total_documents = collect($count_documents)->sum('count');
@@ -419,8 +409,7 @@
 
                 $plan = Plan::find($request->plan_id);
 
-                $tenancy = app(Environment::class);
-                $tenancy->tenant($client->hostname->website);
+                tenancy()->initialize($client->tenant);
                 $clientData = [
                     'plan' => json_encode($plan),
                     'config_system_env' => $request->config_system_env,
@@ -512,6 +501,9 @@
                 DB::connection('tenant')
                     ->table('configurations')
                     ->update($config);
+
+                tenancy()->end();
+
                 return [
                     'success' => true,
                     'message' => 'Cliente Actualizado satisfactoriamente',
@@ -520,6 +512,7 @@
                 ];
 
             } catch (Exception $e) {
+                tenancy()->end();
                 return [
                     'success' => false,
                     'message' => $e->getMessage()
@@ -586,24 +579,24 @@
             $uuid = config('tenant.prefix_database') . '_' . $subDom;
             $fqdn = $subDom . '.' . config('tenant.app_url_base');
 
-            $website = new Website();
-            $hostname = new Hostname();
-            $this->validateWebsite($uuid, $website);
+            $this->validateWebsite($uuid);
 
-            DB::connection('system')->beginTransaction();
+            $tenant = null;
             try {
-                $website->uuid = $uuid;
-                app(WebsiteRepository::class)->create($website);
-                $hostname->fqdn = $fqdn;
-                app(HostnameRepository::class)->attach($hostname, $website);
+                $tenant = Tenant::create([
+                    'id' => $uuid,
+                    'tenancy_db_name' => $uuid,
+                    'tenancy_db_username' => $uuid,
+                    'tenancy_db_password' => Str::random(32),
+                ]);
+                Domain::create(['domain' => $fqdn, 'tenant_id' => $uuid]);
 
-                $tenancy = app(Environment::class);
-                $tenancy->tenant($website);
+                tenancy()->initialize($tenant);
 
                 $token = Str::random(50);
 
                 $client = new Client();
-                $client->hostname_id = $hostname->id;
+                $client->tenant_id = $uuid;
                 $client->token = $token;
                 $client->email = strtolower($request->input('email'));
                 $client->name = $request->input('name');
@@ -612,12 +605,11 @@
                 $client->locked_emission = $request->input('locked_emission');
                 $client->save();
 
-                DB::connection('system')->commit();
             } catch (Exception $e) {
-                DB::connection('system')->rollBack();
-                app(HostnameRepository::class)->delete($hostname, true);
-                app(WebsiteRepository::class)->delete($website, true);
-
+                if ($tenant && $tenant->exists) {
+                    $tenant->delete();
+                }
+                tenancy()->end();
                 return [
                     'success' => false,
                     'message' => $e->getMessage()
@@ -751,21 +743,19 @@
                 ]);
             }
 
+            tenancy()->end();
+
             return [
                 'success' => true,
                 'message' => 'Cliente Registrado satisfactoriamente'
             ];
         }
 
-        public function validateWebsite($uuid, $website)
+        public function validateWebsite($uuid)
         {
-
-            $exists = $website::where('uuid', $uuid)->first();
-
-            if ($exists) {
+            if (Tenant::find($uuid)) {
                 throw new Exception("El subdominio ya se encuentra registrado");
             }
-
         }
 
 
@@ -791,11 +781,8 @@
 
         public function renewPlan(Request $request)
         {
-
-            // dd($request->all());
             $client = Client::findOrFail($request->id);
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($client->hostname->website);
+            tenancy()->initialize($client->tenant);
 
             DB::connection('tenant')->table('billing_cycles')->insert([
                 'date_time_start' => date('Y-m-d H:i:s'),
@@ -808,6 +795,7 @@
             DB::connection('tenant')->table('configurations')->where('id', 1)->update(['quantity_documents' => 0]);
             DB::connection('tenant')->table('configurations')->where('id', 1)->update(['quantity_sales_notes' => 0]);
 
+            tenancy()->end();
 
             return [
                 'success' => true,
@@ -824,9 +812,9 @@
             $client->locked_users = $request->locked_users;
             $client->save();
 
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($client->hostname->website);
+            tenancy()->initialize($client->tenant);
             DB::connection('tenant')->table('configurations')->where('id', 1)->update(['locked_users' => $client->locked_users]);
+            tenancy()->end();
 
             return [
                 'success' => true,
@@ -843,9 +831,9 @@
             $client->locked_emission = $request->locked_emission;
             $client->save();
 
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($client->hostname->website);
+            tenancy()->initialize($client->tenant);
             DB::connection('tenant')->table('configurations')->where('id', 1)->update(['locked_emission' => $client->locked_emission]);
+            tenancy()->end();
 
             return [
                 'success' => true,
@@ -862,9 +850,9 @@
             $client->locked_tenant = $request->locked_tenant;
             $client->save();
 
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($client->hostname->website);
+            tenancy()->initialize($client->tenant);
             DB::connection('tenant')->table('configurations')->where('id', 1)->update(['locked_tenant' => $client->locked_tenant]);
+            tenancy()->end();
 
             return [
                 'success' => true,
@@ -918,11 +906,12 @@
                 ];
             }
 
-            $hostname = Hostname::find($client->hostname_id);
-            $website = Website::find($hostname->website_id);
-
-            app(HostnameRepository::class)->delete($hostname, true);
-            app(WebsiteRepository::class)->delete($website, true);
+            $tenant = $client->tenant;
+            if ($tenant) {
+                $tenant->delete(); // cascades to domains and client; fires DeleteDatabase
+            } else {
+                $client->delete();
+            }
 
             return [
                 'success' => true,
@@ -933,12 +922,11 @@
         public function password($id)
         {
             $client = Client::find($id);
-            $website = Website::find($client->hostname->website_id);
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($website);
+            tenancy()->initialize($client->tenant);
             DB::connection('tenant')->table('users')
                 ->where('id', 1)
                 ->update(['password' => bcrypt($client->number)]);
+            tenancy()->end();
 
             return [
                 'success' => true,

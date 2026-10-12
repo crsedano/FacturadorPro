@@ -3,7 +3,7 @@
 namespace Modules\DocumentaryProcedure\Models;
 
 use App\Models\Tenant\ModelTenant;
-use Hyn\Tenancy\Traits\UsesTenantConnection;
+use App\Traits\UsesTenantConnection;
 
 /**
  * Modules\DocumentaryProcedure\Models\DocumentaryDocument

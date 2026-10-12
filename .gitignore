@@ -32,13 +32,11 @@ error_log
 .env.dusk.local
 debug.log
 phpunit.dusk.xml
-docker-compose.yml
 composer.lock
 /ssh
 /.project
 app/CoreFacturalo/Templates/pdf/personalizada*
 public/templates/pdf/personalizada*
-supervisor.conf
 /public/js/*.js
 /public/js/*.map
 /public/css/*.css

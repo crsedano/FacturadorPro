@@ -2,8 +2,8 @@
 
 namespace App\Models\System;
 
-use Hyn\Tenancy\Models\Hostname;
-use Hyn\Tenancy\Traits\UsesSystemConnection;
+use App\Models\System\Tenant;
+use App\Traits\UsesSystemConnection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 
@@ -61,9 +61,10 @@ class Client extends Model
 {
     use UsesSystemConnection;
 
-    protected $with = ['hostname','plan'];
+    protected $with = ['tenant','plan'];
     protected $fillable = [
         'hostname_id',
+        'tenant_id',
         'number',
         'name',
         'email',
@@ -182,9 +183,9 @@ class Client extends Model
         'smtp_port' => 'int',
     ];
 
-    public function hostname()
+    public function tenant()
     {
-        return $this->belongsTo(Hostname::class)->with(['website']);
+        return $this->belongsTo(Tenant::class);
     }
 
     public function plan()

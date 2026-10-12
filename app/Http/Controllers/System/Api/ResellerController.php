@@ -5,16 +5,11 @@ namespace App\Http\Controllers\System\Api;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Exception;
-use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
-use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
 use App\Http\Resources\System\ClientCollection;
 use App\Http\Requests\System\ClientRequest;
-use Hyn\Tenancy\Environment;
 use App\Models\System\Client;
 use App\Models\System\Plan;
 use App\Models\System\Configuration;
-use Hyn\Tenancy\Models\Hostname;
-use Hyn\Tenancy\Models\Website;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tenant\User;
 use Illuminate\Http\Request;
@@ -31,10 +26,11 @@ class ResellerController extends Controller
         $records = Client::latest()->get();
 
         foreach ($records as &$row) {
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($row->hostname->website);
+            if (!$row->tenant) continue;
+            tenancy()->initialize($row->tenant);
             $row->count_doc = DB::connection('tenant')->table('documents')->count();
             $row->count_user = DB::connection('tenant')->table('users')->count();
+            tenancy()->end();
         }
 
         return new ClientCollection($records);
@@ -75,9 +71,11 @@ class ResellerController extends Controller
             $client->locked_tenant = $configuration->locked_admin;
             $client->save();
 
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($client->hostname->website);
-            DB::connection('tenant')->table('configurations')->where('id', 1)->update(['locked_tenant' => $client->locked_tenant]);
+            if ($client->tenant) {
+                tenancy()->initialize($client->tenant);
+                DB::connection('tenant')->table('configurations')->where('id', 1)->update(['locked_tenant' => $client->locked_tenant]);
+                tenancy()->end();
+            }
 
         }
 

@@ -4,8 +4,7 @@ namespace App\Traits;
 
 
 use Illuminate\Database\Eloquent\Builder;
-use Hyn\Tenancy\Models\Website;
-use Hyn\Tenancy\Environment;
+use App\Models\System\Tenant;
 use App\Models\Tenant\{
     User,
     DownloadTray,
@@ -27,19 +26,18 @@ trait JobReportTrait
      */
     public function getTenantWebsite()
     {
-        return app(Environment::class)->tenant();
+        return tenancy()->tenant;
     }
 
 
     /**
-     * 
-     * Buscar website
-     * 
-     * @return Website
+     * Find tenant by legacy numeric website_id
+     *
+     * @return Tenant|null
      */
-    public function findWebsite($website_id)
+    public function findTenant($website_id)
     {
-        return Website::find($website_id);
+        return Tenant::findByWebsiteId($website_id);
     }
 
         

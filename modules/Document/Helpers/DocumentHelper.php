@@ -8,7 +8,6 @@ use App\Models\Tenant\{
     Configuration,
     Document
 };
-use Hyn\Tenancy\Environment;
 use App\Models\System\Client;
 
 
@@ -20,9 +19,7 @@ class DocumentHelper
      */
     public static function getStartBillingCycleFromSystem()
     {
-        $tenancy = app(Environment::class);
-        $hostname = $tenancy->hostname();
-        $client = Client::select('start_billing_cycle')->where('hostname_id', $hostname->id)->first();
+        $client = Client::select('start_billing_cycle')->where('tenant_id', tenancy()->tenant->id)->first();
 
         return $client->start_billing_cycle;
     }

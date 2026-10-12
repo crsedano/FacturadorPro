@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\System\Client;
-use Hyn\Tenancy\Environment;
 use Modules\LevelAccess\Http\Controllers\SystemActivityLogGeneralController;
 use App\Models\Tenant\{
     User,
@@ -37,8 +36,7 @@ class ReportUserNotChangePasswordController extends Controller
     public function records(Request $request)
     {
         $client = Client::findOrFail($request->record_id);
-        $tenancy = app(Environment::class);
-        $tenancy->tenant($client->hostname->website);
+        tenancy()->initialize($client->tenant);
 
         $all_users = User::whereFilterWithOutRelations()->get();
         $quantity_month_remember_change_password = Configuration::getRecordIndividualColumn('quantity_month_remember_change_password');
@@ -62,6 +60,8 @@ class ReportUserNotChangePasswordController extends Controller
     
             return $change_success;
         });
+
+        tenancy()->end();
 
         return new UserCollection($users_not_change_password);
 

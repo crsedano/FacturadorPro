@@ -6,7 +6,7 @@
 
     use Auth;
     use Carbon\Carbon;
-    use Hyn\Tenancy\Traits\UsesTenantConnection;
+    use App\Traits\UsesTenantConnection;
     use Modules\Finance\Models\GlobalPayment;
     use Illuminate\Database\Eloquent\Relations\MorphTo;
 

@@ -3,10 +3,10 @@
 
     use Illuminate\Support\Facades\Route;
 
-    $current_hostname = app(Hyn\Tenancy\Contracts\CurrentHostname::class);
+    try { $host = app('request')->getHost(); $current_hostname = $host ? \App\Models\System\Domain::where('domain', $host)->first() : null; } catch (\Throwable $_e) { $current_hostname = null; }
 
     if ($current_hostname) {
-        Route::domain($current_hostname->fqdn)
+        Route::domain($current_hostname->domain)
             ->middleware(['redirect.level'])
             ->group(function () {
                 Route::middleware(['auth', 'locked.tenant'])

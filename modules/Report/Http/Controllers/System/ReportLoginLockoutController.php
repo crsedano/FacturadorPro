@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
 use App\Models\System\Client;
-use Hyn\Tenancy\Environment;
 use Modules\LevelAccess\Http\Controllers\SystemActivityLogGeneralController;
 
 
@@ -31,10 +30,11 @@ class ReportLoginLockoutController extends Controller
     public function records(Request $request)
     {
         $client = Client::findOrFail($request->record_id);
-        $tenancy = app(Environment::class);
-        $tenancy->tenant($client->hostname->website);
+        tenancy()->initialize($client->tenant);
+        $result = app(SystemActivityLogGeneralController::class)->records($request);
+        tenancy()->end();
 
-        return app(SystemActivityLogGeneralController::class)->records($request);
+        return $result;
     }
 
 }

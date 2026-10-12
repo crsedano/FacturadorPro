@@ -3,9 +3,8 @@
     namespace App\Console\Commands;
 
     use GuzzleHttp\Client as ClientGuzzleHttp;
-    use Hyn\Tenancy\Environment;
     use Illuminate\Console\Command;
-    use Hyn\Tenancy\Models\Website;
+    use App\Models\System\Domain;
     use App\Models\Tenant\{
         Configuration,
         Document,
@@ -55,11 +54,7 @@
             Auth::login(User::firstOrFail());
 
             if (Configuration::firstOrFail()->cron) {
-                $hostname = Website::query()
-                    ->where('uuid', app(Environment::class)->tenant()->uuid)
-                    ->first()
-                    ->hostnames
-                    ->first();
+                $hostname = Domain::where('tenant_id', tenancy()->tenant->id)->first();
 
                 $documents = Document::query()
                     ->select('date_of_issue')
@@ -85,7 +80,7 @@
                     // }
 
                     $constructor_params = [
-                        'base_uri' => config('tenant.force_https') ? "https://{$hostname->fqdn}" : "http://{$hostname->fqdn}",
+                        'base_uri' => config('tenant.force_https') ? "https://{$hostname->domain}" : "http://{$hostname->domain}",
                         'verify' => false
                     ];
 

@@ -9,8 +9,6 @@ use Exception;
 use App\Traits\BackupTrait;
 use Illuminate\Http\Request;
 use App\Models\System\Client;
-use Hyn\Tenancy\Models\Website;
-use Hyn\Tenancy\Models\Hostname;
 use App\Http\Controllers\Controller;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Storage;
@@ -32,8 +30,8 @@ class BackupController extends Controller
 
         $most_recent = $this->mostRecent();
 
-        $clients = Client::without(['hostname','plan'])
-            ->select('hostname_id', 'name')
+        $clients = Client::without(['tenant','plan'])
+            ->select('id', 'hostname_id', 'tenant_id', 'name')
             ->get();
 
         return view('system.backup.index')->with('disc_used', $disc_used)->with('storage_size', $storage_size)->with('last_zip', $most_recent)->with('clients', $clients);
@@ -48,9 +46,8 @@ class BackupController extends Controller
 
         $database = '';
         if ($request->type === 'individual') {
-            $hostname = Hostname::findOrFail($request->hostname_id);
-            $website = Website::findOrFail($hostname->website_id);
-            $database = $website->uuid;
+            $client = Client::where('hostname_id', $request->hostname_id)->firstOrFail();
+            $database = $client->tenant_id;
         }
         $output = Artisan::call('bk:bd', [
             'type' => $request->type,
@@ -68,9 +65,8 @@ class BackupController extends Controller
 
         $folder = '';
         if ($request->type === 'individual') {
-            $hostname = Hostname::findOrFail($request->hostname_id);
-            $website = Website::findOrFail($hostname->website_id);
-            $folder = $website->uuid;
+            $client = Client::where('hostname_id', $request->hostname_id)->firstOrFail();
+            $folder = $client->tenant_id;
         }
         $output = Artisan::call('bk:files', [
             'type' => $request->type,

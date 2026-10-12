@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 use App\Models\System\Configuration;
 use App\Models\System\Client;
 use Illuminate\Support\Facades\DB;
-use Hyn\Tenancy\Environment;
 
 
 class AddForceUnlockedConfigurations extends Migration
@@ -32,9 +31,11 @@ class AddForceUnlockedConfigurations extends Migration
             $client->locked_tenant = false;
             $client->save();
 
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($client->hostname->website);
-            DB::connection('tenant')->table('configurations')->where('id', 1)->update(['locked_tenant' => false]);
+            if ($client->tenant) {
+                tenancy()->initialize($client->tenant);
+                DB::connection('tenant')->table('configurations')->where('id', 1)->update(['locked_tenant' => false]);
+                tenancy()->end();
+            }
 
         }
 

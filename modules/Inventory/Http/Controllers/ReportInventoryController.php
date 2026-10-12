@@ -15,8 +15,8 @@ use Modules\Inventory\Models\ItemWarehouse;
 use Modules\Inventory\Models\Warehouse;
 use Modules\Item\Models\Brand;
 use Modules\Item\Models\Category;
-use Hyn\Tenancy\Models\Hostname;
 use App\Models\System\Client;
+use App\Models\System\Domain;
 use Illuminate\Support\Facades\DB;
 use Modules\Inventory\Jobs\ProcessInventoryReport;
 use Modules\Inventory\Http\Resources\ReportInventoryCollection;
@@ -154,9 +154,9 @@ class ReportInventoryController extends Controller
 
         $company = Company::active();
         $client = Client::where('number', $company->number)->first();
-        $website_id = $client->hostname->website_id;
+        $tenant_id = $client->tenant_id;
 
-        ProcessInventoryReport::dispatch($website_id, $tray->id)->onQueue('process_inventory_report');
+        ProcessInventoryReport::dispatch($tenant_id, $tray->id)->onQueue('process_inventory_report');
 
         return  [
             'success' => true,
@@ -175,16 +175,15 @@ class ReportInventoryController extends Controller
             'type' => 'Reporte Inventario'
         ]);
         $trayId = $tray->id;
-        $hostname = Hostname::where('fqdn',$host)->first();
-        if(empty($hostname)) {
+        $domain = Domain::where('domain', $host)->first();
+        if (empty($domain)) {
             $company = Company::active();
-            $number = $company->number;
-            $client = Client::where('number', $number)->first();
-            $website_id = $client->hostname->website_id;
-        }else{
-            $website_id = $hostname->website_id;
+            $client = Client::where('number', $company->number)->first();
+            $tenant_id = $client->tenant_id;
+        } else {
+            $tenant_id = $domain->tenant_id;
         }
-        ProcessInventoryReport::dispatch($website_id,$trayId, ($request->warehouse_id == 'all' ? 0 :  $request->warehouse_id), $request->input('format'), $request->all() );
+        ProcessInventoryReport::dispatch($tenant_id, $trayId, ($request->warehouse_id == 'all' ? 0 :  $request->warehouse_id), $request->input('format'), $request->all() );
 
         return  [
             'success' => true,

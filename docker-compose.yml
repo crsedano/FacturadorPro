@@ -1,0 +1,97 @@
+version: '3'
+
+services:
+    nginx1:
+        image: rash07/nginx
+        working_dir: /var/www/html
+        environment:
+            VIRTUAL_HOST: ${APP_URL_BASE}, *.${APP_URL_BASE}
+        volumes:
+            - ./:/var/www/html
+            - /root/proxy/fpms/pro51:/etc/nginx/sites-available
+        depends_on:
+            - fpm1
+        restart: always
+
+    fpm1:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        working_dir: /var/www/html
+        environment:
+            - DB_HOST=mariadb1
+            - DB_PORT=3306
+            - REDIS_HOST=redis1
+        volumes:
+            - ./ssh:/root/.ssh
+            - ./ssh:/var/www/.ssh
+            - ./:/var/www/html
+        depends_on:
+            - mariadb1
+            - redis1
+        restart: always
+
+    mariadb1:
+        image: mariadb:10.11
+        environment:
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        volumes:
+            - mysqldata1:/var/lib/mysql
+        ports:
+            - "${MYSQL_PORT_HOST:-3307}:3306"
+        restart: always
+
+    redis1:
+        image: redis:7-alpine
+        volumes:
+            - redisdata1:/data
+        restart: always
+
+    scheduling1:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        working_dir: /var/www/html
+        command: bash -c "while true; do php artisan schedule:run --no-interaction; sleep 60; done"
+        environment:
+            - DB_HOST=mariadb1
+            - DB_PORT=3306
+            - REDIS_HOST=redis1
+        volumes:
+            - ./:/var/www/html
+        depends_on:
+            - mariadb1
+            - redis1
+        restart: always
+
+    supervisor1:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        working_dir: /var/www/html
+        command: supervisord -n -c /etc/supervisor/conf.d/supervisor.conf
+        environment:
+            - DB_HOST=mariadb1
+            - DB_PORT=3306
+            - REDIS_HOST=redis1
+        volumes:
+            - ./:/var/www/html
+            - ./supervisor.conf:/etc/supervisor/conf.d/supervisor.conf
+        depends_on:
+            - mariadb1
+            - redis1
+        restart: always
+
+networks:
+    default:
+        external:
+            name: proxynet
+
+volumes:
+    redisdata1:
+        driver: "local"
+    mysqldata1:
+        driver: "local"

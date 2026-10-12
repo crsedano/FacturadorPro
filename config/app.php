@@ -161,6 +161,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\TenancyServiceProvider::class,
         App\Providers\CacheServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,

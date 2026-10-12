@@ -1,9 +1,11 @@
 <?php
 
-$hostname = app(Hyn\Tenancy\Contracts\CurrentHostname::class);
+try { $host = app('request')->getHost(); $hostname = $host ? \App\Models\System\Domain::where('domain', $host)->first() : null; } catch (\Throwable $_e) { $hostname = null; }
 
 if ($hostname) {
-    Route::domain($hostname->fqdn)->group(function () {
+    Route::domain($hostname->domain)
+        ->middleware([\Stancl\Tenancy\Middleware\InitializeTenancyByDomain::class])
+        ->group(function () {
         Auth::routes([
             'register' => false,
             'verify'   => false

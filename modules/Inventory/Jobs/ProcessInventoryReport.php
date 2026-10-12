@@ -7,11 +7,10 @@
     use Illuminate\Queue\InteractsWithQueue;
     use Illuminate\Contracts\Queue\ShouldQueue;
     use Illuminate\Foundation\Bus\Dispatchable;
-    use Hyn\Tenancy\Models\Website;
+    use App\Models\System\Tenant;
     use Illuminate\Support\Facades\Log;
     use Exception;
     use App\Models\Tenant\DownloadTray;
-    use Hyn\Tenancy\Environment;
     use App\CoreFacturalo\Helpers\Storage\StorageDocument;
     use App\Models\Tenant\Company;
     use App\Models\Tenant\Establishment;
@@ -31,7 +30,7 @@
         use SerializesModels;
         use StorageDocument;
 
-        public $website_id;
+        public $tenant_id;
         public $tray_id;
         public $warehouse_id;
         public $filter;
@@ -43,9 +42,9 @@
          *
          * @return void
          */
-        public function __construct(int $website_id, int $tray_id, int $warehouse_id, string $filter, array $params)
+        public function __construct(string $tenant_id, int $tray_id, int $warehouse_id, string $filter, array $params)
         {
-            $this->website_id = $website_id;
+            $this->tenant_id = $tenant_id;
             $this->tray_id = $tray_id;
             $this->warehouse_id = $warehouse_id;
             $this->filter = $filter;
@@ -59,23 +58,20 @@
          */
         public function handle()
         {
-            Log::debug("ProcessInventoryReport Start WebsiteId => " . $this->website_id);
+            Log::debug("ProcessInventoryReport Start TenantId => " . $this->tenant_id);
 
-            $website = Website::find($this->website_id);
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($website);
+            tenancy()->initialize(Tenant::find($this->tenant_id));
 
             $tray = DownloadTray::find($this->tray_id);
             $path = null;
 
-            $website_id = $this->website_id;
             $tray_id = $this->tray_id;
             $warehouse_id = $this->warehouse_id;
             $filter = $this->filter;
             if (empty($tray)) {
 
                 \Log::debug("No hay datos
-                    $ website_id        =>" . var_export($website_id, true) . "
+                    $ tenant_id         =>" . var_export($this->tenant_id, true) . "
                     $ tray_id       =>" . var_export($tray_id, true) . "
                     $ warehouse_id      =>" . var_export($warehouse_id, true) . "
                     $ filter        =>" . var_export($filter, true) . "
@@ -195,6 +191,7 @@
                 }
             }
 
+            tenancy()->end();
             Log::debug("ProcessInventoryReport Finish transaction");
         }
 
