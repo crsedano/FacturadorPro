@@ -52,7 +52,7 @@ class ChangelogGen extends Command
         $path = base_path();
 
         foreach ($keys as $key) {
-            $gitlog = new Process('git log '.$option_from.'..'.$option_to.' --no-merges --date=short --pretty=format:"%ad : %s" | grep -e '.$key);
+            $gitlog = Process::fromShellCommandline('git log '.escapeshellarg($option_from).'..'.escapeshellarg($option_to).' --no-merges --date=short --pretty=format:"%ad : %s" | grep -e '.escapeshellarg($key));
             $gitlog->run();
             if (!$gitlog->isSuccessful()) {
                 $this->error('no hay datos para '.$key);

@@ -20,11 +20,11 @@ class BackupController extends Controller
 
     public function index() {
 
-        $avail = new Process('df -m -h --output=avail /');
+        $avail = Process::fromShellCommandline('df -m -h --output=avail /');
         $avail->run();
         $disc_used = $avail->getOutput();
 
-        $df = new Process('du -sh '.storage_path().' | cut -f1');
+        $df = Process::fromShellCommandline('du -sh '.escapeshellarg(storage_path()).' | cut -f1');
         $df->run();
         $storage_size = $df->getOutput();
 
