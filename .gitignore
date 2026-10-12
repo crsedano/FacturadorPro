@@ -39,3 +39,8 @@ composer.lock
 app/CoreFacturalo/Templates/pdf/personalizada*
 public/templates/pdf/personalizada*
 supervisor.conf
+/public/js/*.js
+/public/js/*.map
+/public/css/*.css
+/public/css/*.map
+/public/mix-manifest.json
