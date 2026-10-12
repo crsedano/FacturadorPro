@@ -3,7 +3,7 @@
 namespace Tests\Unit\Rules;
 
 use App\Rules\SubdomainNotLatin;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class SubdomainNotLatinTest extends TestCase
 {
@@ -35,11 +35,12 @@ class SubdomainNotLatinTest extends TestCase
         $this->assertFalse($this->rule->passes('subdomain', 'cliente_test'));
     }
 
-    public function test_clean_string_strips_accented_chars()
+    public function test_clean_string_converts_accented_to_latin1_bytes()
     {
         $result = $this->rule->cleanString('áéíóú');
         $this->assertIsString($result);
-        $this->assertEmpty($result);
+        // UTF-8 multibyte (10 bytes) → ISO-8859-1 singlebyte (5 bytes)
+        $this->assertSame(5, strlen($result));
     }
 
     public function test_clean_string_preserves_plain_ascii()

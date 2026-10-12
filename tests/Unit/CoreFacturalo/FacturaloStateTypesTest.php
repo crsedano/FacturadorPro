@@ -3,7 +3,7 @@
 namespace Tests\Unit\CoreFacturalo;
 
 use App\CoreFacturalo\Facturalo;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Guards SUNAT state type constants — if these change the CDR processing breaks.

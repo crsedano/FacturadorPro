@@ -3,7 +3,7 @@
 namespace Tests\Unit\CoreFacturalo;
 
 use App\CoreFacturalo\Services\Models\Person;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Guards Person DTO properties used by Reniec/DNI services.
