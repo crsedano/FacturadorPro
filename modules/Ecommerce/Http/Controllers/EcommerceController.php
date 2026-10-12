@@ -187,7 +187,7 @@ class EcommerceController extends Controller
             $user->email = $request->email;
             $user->establishment_id = 1;
             $user->type = 'client';
-            $user->api_token = str_random(50);
+            $user->api_token = Str::random(50);
             $user->password = bcrypt($request->pswd);
             $user->save();
             $user->modules()->sync([10]);

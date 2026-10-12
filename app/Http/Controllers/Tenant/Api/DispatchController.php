@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tenant\Api;
 use App\CoreFacturalo\Facturalo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class DispatchController extends Controller
@@ -48,7 +49,7 @@ class DispatchController extends Controller
                 'pdf' => $document->download_external_pdf,
                 'cdr' => $document->download_external_cdr,
             ],
-            'response' => array_except($response, 'sent')
+            'response' => Arr::except($response, 'sent')
         ];
     }
 }

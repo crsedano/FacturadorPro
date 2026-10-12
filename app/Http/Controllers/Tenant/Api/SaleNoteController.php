@@ -13,6 +13,7 @@ use Mpdf\Mpdf;
 use Carbon\Carbon;
 use Mpdf\HTMLParserMode;
 use App\Models\Tenant\Item;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Tenant\Series;
@@ -686,7 +687,7 @@ class SaleNoteController extends Controller
                 'pdf' => $document->download_external_pdf,
                 'cdr' => ($response['sent']) ? $document->download_external_cdr : '',
             ],
-            'response' => ($response['sent']) ? array_except($response, 'sent') : [],
+            'response' => ($response['sent']) ? Arr::except($response, 'sent') : [],
         ];
     }
 

@@ -6,6 +6,7 @@ use App\CoreFacturalo\Helpers\Storage\StorageDocument;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class PurchaseSettlementController extends Controller
@@ -54,7 +55,7 @@ class PurchaseSettlementController extends Controller
                 'pdf' => $document->download_external_pdf,
                 'cdr' => ($response['sent'])?$document->download_external_cdr:'',
             ],
-            'response' => ($response['sent'])?array_except($response, 'sent'):[]
+            'response' => ($response['sent'])?Arr::except($response, 'sent'):[]
         ];
     }
  

@@ -21,6 +21,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Str;
     use Modules\Document\Helpers\DocumentHelper;
     use Modules\MobileApp\Models\System\AppModule;
 
@@ -599,7 +600,7 @@
                 $tenancy = app(Environment::class);
                 $tenancy->tenant($website);
 
-                $token = str_random(50);
+                $token = Str::random(50);
 
                 $client = new Client();
                 $client->hostname_id = $hostname->id;

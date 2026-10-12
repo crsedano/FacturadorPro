@@ -16,6 +16,7 @@ use App\Models\Tenant\Zone;
 use App\Models\Tenant\Catalogs\IdentityDocumentType;
 use Modules\Finance\Helpers\UploadFileHelper;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 
 class UserController extends Controller
@@ -131,7 +132,7 @@ class UserController extends Controller
             // $user->zone_id = $request->input('zone_id');
 
             if (!$id) {
-                $user->api_token = str_random(50);
+                $user->api_token = Str::random(50);
                 $user->password = bcrypt($request->input('password'));
             } elseif ($request->has('password')) {
                 if (config('tenant.password_change')) {

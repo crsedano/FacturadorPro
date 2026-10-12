@@ -10,6 +10,7 @@ use App\Models\Tenant\StateType;
 use Exception;
 use Facades\App\Http\Controllers\Tenant\DocumentController as DocumentControllerSend;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class DocumentController extends Controller
@@ -59,7 +60,7 @@ class DocumentController extends Controller
                 'pdf' => $document->download_external_pdf,
                 'cdr' => ($response['sent']) ? $document->download_external_cdr : '',
             ],
-            'response' => ($response['sent']) ? array_except($response, 'sent') : [],
+            'response' => ($response['sent']) ? Arr::except($response, 'sent') : [],
         ];
     }
 
@@ -91,7 +92,7 @@ class DocumentController extends Controller
                 'links' => [
                     'cdr' => $document->download_external_cdr,
                 ],
-                'response' => array_except($response, 'sent'),
+                'response' => Arr::except($response, 'sent'),
             ];
         }
     }
