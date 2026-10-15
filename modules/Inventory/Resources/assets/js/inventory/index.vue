@@ -18,7 +18,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource" ref="datatable">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>
                             <el-dropdown>
                                 <span class="el-dropdown-link">
@@ -37,8 +38,10 @@
                         <th>Almacén</th>
                         <th class="text-right">Stock</th>
                         <th class="text-right">Acciones</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }" :key="index">
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr :key="index">
                         <td>
                             <el-switch v-model="row.selected" @click="onChangeSelectedStatus(row)"></el-switch>
                         </td>
@@ -53,6 +56,7 @@
                                     @click.prevent="clickRemove(row.id)">Remover</button>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

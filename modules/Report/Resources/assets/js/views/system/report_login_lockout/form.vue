@@ -1,5 +1,5 @@
 <template>
-    <el-dialog width="85%" :title="titleDialog" :visible="showDialog" @close="close" @open="create" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
+    <el-dialog width="85%" :title="titleDialog" :model-value="showDialog" @close="close" @open="create" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
         <div class="form-body">
             <div class="row">
                 <div class="col-md-12">
@@ -70,7 +70,7 @@
                                     <table class="table">
 
                                         <thead>
-                                            <tr slot="heading" style="width: 100%;">
+                                            <tr style="width: 100%;">
                                                 <th>#</th>
                                                 <th class="text-center">Fecha y Hora</th>
                                                 <th>Correo</th>

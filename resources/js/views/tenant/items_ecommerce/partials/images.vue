@@ -1,5 +1,5 @@
 <template> 
-    <el-dialog :title="titleDialog" :visible="showDialog" width="30%"  :close-on-click-modal="false" @close="close"   append-to-body top="7vh">
+    <el-dialog :title="titleDialog" :model-value="showDialog" width="30%"  :close-on-click-modal="false" @close="close"   append-to-body top="7vh">
         <div class="row">
              <div class="col-md-6">
                  <img :src="recordImages.image_url" alt="" >

@@ -38,10 +38,10 @@ class ContingencyController extends Controller
     {
         $series = Series::select('number')->where('contingency', true)->get();
         
-        $records = Document::where($request->column, 'like', "%{$request->value}%")
-                            ->whereIn('series',$series)
-                            ->whereTypeUser()
-                            ->latest();
+        $records = Document::whereIn('series',$series)->whereTypeUser()->latest();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new DocumentCollection($records->paginate(config('tenant.items_per_page')));
     } 

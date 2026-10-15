@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" :visible="showDialog" @close="close" @open="getData" width="80%">
+    <el-dialog :title="title" :model-value="showDialog" @close="close" @open="getData" width="80%">
         <div class="form-body">
             <div class="row">
                 <div class="col-md-12" v-if="records.length > 0">
@@ -254,8 +254,8 @@
 <script>
 
     import {deletable} from '../../../../mixins/deletable'
-    import DialogLinkPayment from './dialog_link_payment'
-    import DocumentOptions from '../../../../../../modules/Finance/Resources/assets/js/views/unpaid/partials/options'
+    import DialogLinkPayment from './dialog_link_payment.vue'
+    import DocumentOptions from '../../../../../../modules/Finance/Resources/assets/js/views/unpaid/partials/options.vue'
     export default {
         props: ['showDialog', 'documentId', 'external','configuration'],
         mixins: [deletable],

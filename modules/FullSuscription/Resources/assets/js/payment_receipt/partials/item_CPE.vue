@@ -1,7 +1,7 @@
 <template>
     <el-dialog :close-on-click-modal="false"
                :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                top="7vh"
                @close="close"
                @open="create">
@@ -491,7 +491,7 @@ import WarehousesDetail from './select_warehouses.vue'
 import SelectLotsForm from './lots.vue'
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import CKEditor from '@ckeditor/ckeditor5-vue'
+import { Ckeditor } from '@ckeditor/ckeditor5-vue'
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 
 export default {
@@ -512,7 +512,7 @@ export default {
         WarehousesDetail,
         LotsGroup,
         SelectLotsForm,
-        ckeditor: CKEditor.component
+        ckeditor: Ckeditor
     },
     data() {
         return {

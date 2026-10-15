@@ -4,7 +4,7 @@
                    :close-on-press-escape="false"
                    :show-close="false"
                    :title="titleDialog"
-                   :visible="show"
+                   :model-value="show"
                    width="50%"
                    @open="create">
             <div class="row">
@@ -268,7 +268,6 @@
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </td>
-                            <br/>
                         </tr>
                         </tbody>
                     </table>

@@ -1,7 +1,7 @@
 <template>
-    <div id="styleSwitcher" class="style-switcher">
+    <div id="styleSwitcher" class="style-switcher" :class="{ 'switcher-open': isOpen }">
 
-        <a id="styleSwitcherOpen" class="style-switcher-open" href="#">
+        <a id="styleSwitcherOpen" class="style-switcher-open" href="#" @click.prevent="isOpen = !isOpen">
             <i class="fas fa-paint-brush"></i>
         </a>
 
@@ -92,7 +92,7 @@
                             </el-option>
                         </el-select>
                         <small class="form-control-feedback" v-if="errors.compact_sidebar" v-text="errors.compact_sidebar[0]"></small>
-                        <el-button type="button" @click="dialogSkins()" color="primary">Subir tema</el-button>
+                        <el-button @click="dialogSkins()" color="primary">Subir tema</el-button>
                     </div>
                 </div>
 
@@ -111,6 +111,7 @@
         },
         data() {
             return {
+                isOpen: false,
                 loading_submit: false,
                 resource: 'configurations',
                 errors: {},
@@ -197,6 +198,12 @@
     }
 </script>
 <style scoped lang=scss>
+#styleSwitcher {
+    transition: right 0.3s ease;
+}
+#styleSwitcher.switcher-open {
+    right: 0 !important;
+}
 .el-custom-control{
     display: flex;
     align-content: center;

@@ -135,7 +135,7 @@
         </div>
         <ModalRoomRates
             :room="room"
-            v-model:visible="openModalRoomRates"
+            v-modelv-model="openModalRoomRates"
             @onAddRoomRate="onAddRoomRate"
             @onDeleteRate="onDeleteRate"
         ></ModalRoomRates>
@@ -143,7 +143,7 @@
 </template>
 
 <script>
-import ModalRoomRates from "./RoomRates";
+import ModalRoomRates from "./RoomRates.vue";
 
 export default {
     components: {

@@ -76,13 +76,13 @@
             </div>
             -->
             <div class="card-body ">
-                <data-table :resource="resource">
-
-                        <el-dropdown :hide-on-click="false" slot="showhide">
-                            <el-button type="primary">
-                                Mostrar/Ocultar columnas<i class="el-icon-arrow-down el-icon--right"></i>
-                            </el-button>
-                            <el-dropdown-menu slot="dropdown">
+                <div class="data-table-visible-columns mb-2">
+                    <el-dropdown :hide-on-click="false">
+                        <el-button type="primary">
+                            Mostrar/Ocultar columnas<i class="el-icon-arrow-down el-icon--right"></i>
+                        </el-button>
+                        <template #dropdown>
+                            <el-dropdown-menu>
                                 <el-dropdown-item v-for="(column, index) in columns"
                                                   :key="index">
                                     <el-checkbox
@@ -90,9 +90,12 @@
                                         v-model="column.visible">{{ column.title }}</el-checkbox>
                                 </el-dropdown-item>
                             </el-dropdown-menu>
-                        </el-dropdown>
-
-                    <tr slot="heading">
+                        </template>
+                    </el-dropdown>
+                </div>
+                <data-table :resource="resource">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th v-if="columns.soap_type.visible">SOAP</th>
                         <th class="text-center" style="min-width: 95px;">Emisión</th>
@@ -140,7 +143,9 @@
                         <th class="text-right" v-if="typeUser != 'integrator'">
                         </th>
                     </tr>
-                    <tr slot-scope="{ index, row }"
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr
                         :class="{'text-danger': (row.state_type_id === '11'),
                             'text-warning': (row.state_type_id === '13'),
                             'border-light': (row.state_type_id === '01'),
@@ -166,22 +171,19 @@
                                    v-text="row.affected_document"></small>
                         </td>
                         <td v-if="columns.notes.visible">
-                            <template v-for="(row,index) in row.notes">
-                                <label class="d-block"
-                                       :key="index">{{ row.note_type_description }}:
+                            <template v-for="(row,index) in row.notes" :key="index">
+                                <label class="d-block">{{ row.note_type_description }}:
                                                     {{ row.description }}</label>
                             </template>
                         </td>
                         <td v-if="columns.dispatch.visible">
                             <template v-for="(row,index) in row.dispatches">
-                                <label class="d-block"
-                                       :key="index">{{ row.description }}</label>
+                                <label class="d-block">{{ row.description }}</label>
                             </template>
                         </td>
                         <td v-if="columns.sales_note.visible">
                             <template v-for="(row,index) in row.sales_note">
-                                <label class="d-block"
-                                       :key="index">{{ row.number_full }} ({{ row.state_type_description }})</label>
+                                <label class="d-block">{{ row.number_full }} ({{ row.state_type_description }})</label>
                             </template>
                         </td>
                         <td v-if="columns.order_note.visible">
@@ -196,8 +198,7 @@
                                         effect="dark"
                                         placement="bottom">
                                 <div slot="content">
-                                    <span v-for="(item, i) in row.email_send_it_array"
-                                          :key="i">
+                                    <span v-for="(item, i) in row.email_send_it_array">
                                         {{ (item.email_send_it === false)?'No enviado':'Enviado' }} - {{ item.email }}  - {{ item.send_date }} <br>
                                     </span>
                                 </div>
@@ -253,14 +254,13 @@
                         <td class="text-center" v-if="columns.currency_type_id.visible">{{ row.currency_type_id }}</td>
                         <td class="text-center"
                             v-if="columns.guides.visible">
-                        <span v-for="(item, i) in row.guides"
-                              :key="i">
+                        <span v-for="(item, i) in row.guides">
                             {{ item.number }} <br>
                         </span>
                         </td>
 
                         <td class="text-center" v-if="columns.plate_numbers.visible">
-                            <span v-for="(item, i) in row.plate_numbers" :key="i">
+                            <span v-for="(item, i) in row.plate_numbers">
                                 {{ item.description }} <br>
                             </span>
                         </td>
@@ -469,6 +469,7 @@
                             </button> -->
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 
@@ -508,8 +509,8 @@
 import DocumentsVoided from './partials/voided.vue'
 import DocumentOptions from './partials/options.vue'
 import DocumentPayments from './partials/payments.vue'
-import DocumentImportSecond from './partials/import_second'
-import DocumentImportExcel from './partials/ImportExcel'
+import DocumentImportSecond from './partials/import_second.vue'
+import DocumentImportExcel from './partials/ImportExcel.vue'
 import DataTable from '../../../components/DataTableDocuments.vue'
 import ItemsImport from './import.vue'
 import {deletable} from '../../../mixins/deletable'
@@ -517,7 +518,7 @@ import DocumentConstancyDetraction from './partials/constancy_detraction.vue'
 import ReportPayment from './partials/report_payment.vue'
 import ReportPaymentComplete from './partials/report_payment_complete.vue'
 import DocumentValidate from './partials/validate.vue';
-import MassiveValidateCpe from '../../../../../modules/ApiPeruDev/Resources/assets/js/components/MassiveValidateCPE';
+import MassiveValidateCpe from '../../../../../modules/ApiPeruDev/Resources/assets/js/components/MassiveValidateCPE.vue';
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 
 

@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th>#</th>
                             <th >Fecha de detracción</th>
                             <th>Comprobante</th>
@@ -15,8 +16,10 @@
                             <th class="text-center">Total detracción</th>
                             <th class="text-center">Descarga</th>
  
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td>  
                             <td>{{row.date_of_issue}}</td>
                             <td>{{ row.number }}<br/>
@@ -35,6 +38,7 @@
                             </td> 
                             
                         </tr>
+                        </template>
                         
                     </data-table>
                      

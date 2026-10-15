@@ -42,9 +42,10 @@ class SummaryController extends Controller
         // $records = Summary::where([ ['summary_status_type_id','1'], [ $request->column, 'like', "%{$request->value}%" ]])
         //     ->latest();
 
-        $records = Summary::whereIn('summary_status_type_id', ['1', '2'])
-                            ->where($request->column, 'like', "%{$request->value}%")
-                            ->latest();
+        $records = Summary::whereIn('summary_status_type_id', ['1', '2'])->latest();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
          
         return new SummaryCollection($records->paginate(config('tenant.items_per_page')));
     }

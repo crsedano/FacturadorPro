@@ -13,7 +13,8 @@
         <div class="card mb-0">
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th>Cliente</th>
@@ -23,8 +24,10 @@
                         <th class="text-center">N° Comprobante</th>
                         <th class="text-center">Descargas</th>
                         <th class="text-center">Acciones</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }" :class="{'text-danger': (row.state_type_id === '11')}">
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr :class="{'text-danger': (row.state_type_id === '11')}">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td>{{ row.customer_name }} <br /> <small>{{ row.customer_number }}</small></td>
@@ -35,8 +38,8 @@
                         <td class="text-center">{{ row.date_of_shipping }}</td>
 
                         <td class="text-center">
-                            <template v-for="(row,index) in row.documents">
-                                <label class="d-block" :key="index">{{ row.description }}</label>
+                            <template v-for="(row,index) in row.documents" :key="index">
+                                <label class="d-block">{{ row.description }}</label>
                             </template>
                         </td>
 
@@ -52,6 +55,7 @@
                             <button v-if="showSentSunat(row)" type="button" class="btn waves-effect waves-light btn-xs btn-info" @click.prevent="sendSunat(row.id)">Enviar a Sunat</button>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
         </div>
@@ -74,8 +78,8 @@
 import DataTable from '../../../components/DataTableDispatch.vue'
 // import DataTable from '../../../components/DataTable.vue'
 import DispatchOptions from './partials/options.vue'
-import FormGenerateDocument from "./generate-document";
-import ModalGenerateCPE from './ModalGenerateCPE';
+import FormGenerateDocument from "./generate-document.vue";
+import ModalGenerateCPE from './ModalGenerateCPE.vue';
 
 export default {
         components: {DataTable, DispatchOptions, FormGenerateDocument, ModalGenerateCPE},

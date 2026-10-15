@@ -38,6 +38,7 @@
                                         :remote-method="searchRemoteCustomers"
                                         :loading="loading_search"
                                         @change="changeCustomer"
+                                        @visible-change="(v) => { if(v) allCustomers() }"
                                         @keyup.enter.native="keyupCustomer">
 
                                         <el-option v-for="option in customers" :key="option.id" :value="option.id" :label="option.description"></el-option>
@@ -180,7 +181,6 @@
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </td>
-                                            <br>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -684,7 +684,16 @@
                 this.changeCurrencyType();
             },
             allCustomers() {
-                this.customers = this.all_customers
+                this.loading_search = true
+                this.$http.get(`/${this.resource}/search/customers?input=`)
+                    .then(response => {
+                        this.customers = response.data.customers
+                        this.loading_search = false
+                    })
+                    .catch(() => {
+                        this.customers = this.all_customers
+                        this.loading_search = false
+                    })
             },
             addRow(row) {
                 if (this.recordItem) {

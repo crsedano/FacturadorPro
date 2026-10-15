@@ -20,7 +20,8 @@
     <div class="card mb-0">
       <div class="card-body">
         <data-table :resource="resource">
-          <tr slot="heading">
+          <template #heading>
+          <tr>
             <th>#</th>
             <th class="text-center">F. Emisión</th>
             <th class="text-center">F. Vencimiento</th>
@@ -41,8 +42,9 @@
             <th class="text-center">Descarga</th>
             <th class="text-right">Acciones</th>
           </tr>
-          <tr></tr>
-          <tr slot-scope="{ index, row }">
+          </template>
+          <template #default="{ index, row }">
+          <tr>
             <td>{{ index }}</td>
             <td class="text-center">{{ row.date_of_issue }}</td>
             <td class="text-center">{{ row.date_of_due }}</td>
@@ -113,6 +115,7 @@
                       @click.prevent="clickOptions(row.id)">Opciones</button>  
             </td>
           </tr>
+          </template>
         </data-table>
       </div>
 

@@ -87,9 +87,11 @@
     
     @yield('content-mercadopago')
     
-    <script src="{{ asset('js/manifest.js') }}"></script>
-    <script src="{{ asset('js/vendor.js') }}"></script>
-        <!-- Theme Base, Components and Settings -->
+    <!-- Theme jQuery plugins -->
+    <script src="{{ asset('js/vendor/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('js/vendor/waves.js') }}"></script>
+    <script src="{{ asset('js/vendor/custom.js') }}"></script>
     {{--<script src="{{asset('porto-light/js/theme.js')}}"></script>--}}
 </body>
 </html>

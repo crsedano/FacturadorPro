@@ -1,9 +1,7 @@
 {
-    "/js/app.js": "/js/app.js?id=75b79948e4b202eb01c4443748e64341",
-    "/js/manifest.js": "/js/manifest.js?id=0ddfdb32bfee246ad176e285e2718a17",
-    "/css/app.css": "/css/app.css?id=a333a6fa104a4f199da31cb1dd1365af",
-    "/fonts/vendor/element-ui/packages/theme-chalk/src/element-icons.woff?313f7dacf2076822059d2dca26dedfc6": "/fonts/vendor/element-ui/packages/theme-chalk/src/element-icons.woff?313f7dacf2076822059d2dca26dedfc6?id=0247c77d2c5a659d863e30457c5a68d4",
-    "/fonts/vendor/element-ui/packages/theme-chalk/src/element-icons.ttf?4520188144a17fb24a6af28a70dae0ce": "/fonts/vendor/element-ui/packages/theme-chalk/src/element-icons.ttf?4520188144a17fb24a6af28a70dae0ce?id=cb8a55720e2088a069d64899157b0dba",
+    "/js/app.js": "/js/app.js?id=7d2b1e21e556c36fb5c3f5bcc0521c01",
+    "/js/manifest.js": "/js/manifest.js?id=2244586eb44cc5b339421607c4a24cdc",
+    "/css/app.css": "/css/app.css?id=935ad266454ba7ca734ff01873721918",
     "/fonts/linea-arrows-10.eot?1f7ebd90e530967f35f84718dee689f7": "/fonts/linea-arrows-10.eot?1f7ebd90e530967f35f84718dee689f7?id=f428da22cdde495d14f1e2b285553267",
     "/fonts/linea-arrows-10.woff?d40a46514c1c34733877c4c314291e2c": "/fonts/linea-arrows-10.woff?d40a46514c1c34733877c4c314291e2c?id=a99289bb9cc3507862803faf59c829b3",
     "/fonts/linea-arrows-10.ttf?940c4cf42269ef882a4111a389be10a8": "/fonts/linea-arrows-10.ttf?940c4cf42269ef882a4111a389be10a8?id=2018c9c4a3b1b5dabd1e509f15ae90fd",
@@ -62,5 +60,5 @@
     "/fonts/fa-solid-900.ttf?ae4f8eb8f342139f17886da96e795b36": "/fonts/fa-solid-900.ttf?ae4f8eb8f342139f17886da96e795b36?id=065b73d7df149785c19936c098106967",
     "/fonts/fa-solid-900.svg?3b21a1827d720d7304a5c531621c9193": "/fonts/fa-solid-900.svg?3b21a1827d720d7304a5c531621c9193?id=5bee5910d39a7a2699da064b2b3b1163",
     "/css/auth.css": "/css/auth.css?id=c33605f630b6c8f97edc63687525de84",
-    "/js/vendor.js": "/js/vendor.js?id=dd1b7f21606678971ce4b4e12f0120bf"
+    "/js/vendor.js": "/js/vendor.js?id=2cce1c1c4a92362958ca7532a75391e5"
 }

@@ -8,7 +8,8 @@
                     <data-table
                         :applyCustomer="true"
                         :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th>#</th>
                             <!-- <th class="text-center">Código vendedor</th> -->
                             <th>Vendedor</th>
@@ -16,7 +17,9 @@
                             <th class="text-center">Ventas acumuladas</th>
                             <th class="text-center">Total comisiones</th>
                         </tr>
-                        <tr slot-scope="{ index, row }">
+                        </template>
+                        <template #default="{ index, row }">
+                        <tr>
                             <td>{{ index }}</td>
                             <!-- <td>{{row.user_name}}</td> -->
                             <td>{{row.user_name}}</td>
@@ -24,6 +27,7 @@
                             <td class="text-center">{{row.acum_sales}}</td>
                             <td class="text-center">{{row.total_commision}}</td>
                         </tr>
+                        </template>
 
                     </data-table>
 

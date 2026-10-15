@@ -12,7 +12,7 @@
             <RowTop :company="company" :utilities="utilities"></RowTop>
             <div class="row">
                 <div class="col-12">
-                    <section class="card card-dashboard">
+                    <section class="card card-dashboard card-filter-bar">
                         <div class="card-body pt-2 pb-0">
                             <div class="row border-bottom mb-2 no-gutters">
                                 <small class="col-12 text-muted text-center">Filtrar datos históricos</small>
@@ -457,8 +457,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <template v-for="(row, index) in items_by_sales">
-                                                    <tr :key="index">
+                                                <template v-for="(row, index) in items_by_sales" :key="index" >
+                                                    <tr>
                                                         <td>{{ index + 1 }}</td>
                                                         <td>{{ row.internal_id }}</td>
                                                         <td>{{ row.description }}</td>
@@ -513,7 +513,7 @@
                                             </thead>
                                             <tbody>
                                                 <template v-for="(row, index) in top_customers">
-                                                    <tr :key="index">
+                                                    <tr>
                                                         <td>{{ index + 1 }}</td>
                                                         <td>{{ row.name }}<br /><small v-text="row.number"></small></td>
                                                         <td class="text-right">{{ row.transaction_quantity }}</td>
@@ -561,7 +561,7 @@
 import DashboardStock from "./partials/dashboard_stock.vue";
 import queryString from "query-string";
 import LoaderGraph from "../components/loaders/l-graph.vue";
-import RowTop from "./RowTop";
+import RowTop from "./RowTop.vue";
 import DashboardInventory from "./partials/dashboard_inventory.vue";
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 

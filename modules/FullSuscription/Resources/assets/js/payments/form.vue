@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         :title="titleDialog"
-        :visible="showDialog"
+        :model-value="showDialog"
         @close="close"
         @open="create">
         <form
@@ -182,6 +182,7 @@
                         <div class="table-responsive">
                             <table class="table table-responsive-xl ">
                                 <thead class="">
+                                <tr>
                                 <th>#</th>
                                 <th class="text-center">Fecha Emisión</th>
                                 <!--                                <th>Cliente</th>-->
@@ -201,6 +202,7 @@
                                 <th class="text-center">Estado pago</th>
                                 <!--                                <th class="text-center">Pagos</th>-->
                                 <th class="text-center">Descarga</th>
+                                </tr>
                                 </thead>
 
                                 <tbody>
@@ -235,8 +237,8 @@
 
                                     <!--Comprobantes -->
                                     <td>
-                                        <template v-for="(document,i) in row.documents">
-                                            <label :key="i"
+                                        <template v-for="(document,i) in row.documents" :key="i">
+                                            <label
                                                    class="d-block"
                                                    v-text="document.number_full">
                                             </label>
@@ -285,7 +287,7 @@
                     <div class="form-body">
                         <table class="table table-responsive-xl ">
                             <thead class="">
-
+                            <tr>
                             <th>#</th>
                             <!-- date_of_issue -->
                             <th class="text-center"
@@ -299,15 +301,13 @@
                             <th class="text-right">Total</th>
                             <th class="text-center">Saldo</th>
                             <th class="text-center"></th>
+                            </tr>
                             </thead>
 
                             <tbody>
                             <tr
 
-                                v-for="(row, index) in form.invoices"
-                                :key="index"
-
-                                :class="{'text-danger': (row.state_type_id === '11'),
+                                v-for="(row, index) in form.invoices" :class="{'text-danger': (row.state_type_id === '11'),
                             'text-warning': (row.state_type_id === '13'),
                             'border-light': (row.state_type_id === '01'),
                             'border-left border-info': (row.state_type_id === '03'),
@@ -315,9 +315,7 @@
                             'border-left border-secondary': (row.state_type_id === '07'),
                             'border-left border-dark': (row.state_type_id === '09'),
                             'border-left border-danger': (row.state_type_id === '11'),
-                            'border-left border-warning': (row.state_type_id === '13')}"
-
-                            >
+                            'border-left border-warning': (row.state_type_id === '13')}">
                                 <td>{{ index }}</td>
                                 <!-- date_of_issue -->
                                 <td class="text-center">{{ row.date_of_issue }}</td>

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" :visible="showDialog" @close="clickClose">
+    <el-dialog :title="title" :model-value="showDialog" @close="clickClose">
         <div class="">
             <div class="row mt-2">
                 <div class="col-lg-4 col-md-4 pb-4">

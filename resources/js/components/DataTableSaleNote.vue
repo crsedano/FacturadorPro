@@ -51,6 +51,22 @@
                     <div class="col-lg-2 col-md-2 form-group">
                         <el-input v-model="search.purchase_order" placeholder="Orden de compra" clearable></el-input>
                     </div>
+                    <div class="col-lg-2 col-md-2 form-group">
+                        <el-date-picker v-model="search.date_from" type="date"
+                            style="width:100%"
+                            placeholder="Desde"
+                            value-format="YYYY-MM-DD"
+                            clearable>
+                        </el-date-picker>
+                    </div>
+                    <div class="col-lg-2 col-md-2 form-group">
+                        <el-date-picker v-model="search.date_to" type="date"
+                            style="width:100%"
+                            placeholder="Hasta"
+                            value-format="YYYY-MM-DD"
+                            clearable>
+                        </el-date-picker>
+                    </div>
                     <div class="col-lg-1 col-md-2 form-group">
                         <el-button class="w-100" type="primary" @click="getRequestData">
                             <i class="fa fa-search"></i>
@@ -124,7 +140,9 @@
                     column: null,
                     value: null,
                     series: null,
-                    total_canceled: null
+                    total_canceled: null,
+                    date_from: null,
+                    date_to: null,
                 },
                 totals: {
                     total_pen: 0,

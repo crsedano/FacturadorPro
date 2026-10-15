@@ -2,7 +2,7 @@
     <el-dialog
         :close-on-click-modal="false"
         :title="title"
-        :visible="visible"
+        :model-value="visible"
         @close="onClose"
         @open="onOpened"
     >
@@ -18,7 +18,7 @@
 
 <script>
 import {mapState} from "vuex";
-import TableObservation from "./TableObservation";
+import TableObservation from "./TableObservation.vue";
 
 export default {
     components: {

@@ -25,6 +25,7 @@
         public function toArray($request): Collection
         {
             $col =$this->collection->transform(function (BankLoan $row, $key) {
+$row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
 
                 $data = $row->toArray();
 

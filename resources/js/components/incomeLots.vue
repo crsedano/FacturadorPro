@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="titleDialog" width="50%"  :visible="showDialog"  @open="create" @opened="opened"  :close-on-click-modal="false" :close-on-press-escape="false" append-to-body :show-close="false">
+    <el-dialog :title="titleDialog" width="50%"  :model-value="showDialog"  @open="create" @opened="opened"  :close-on-click-modal="false" :close-on-press-escape="false" append-to-body :show-close="false">
 
         <div class="form-body">
             <div class="row" v-loading="loading">
@@ -9,20 +9,20 @@
                 </div>
                 <div class="col-md-12 mt-2" >
 
-                    <data-tables :data='lots'  v-model:current-page="currentPage" :table-props="tableProps" :pagination-props="{ pageSizes: [20] }" style="width: 100%" >
+                    <el-table :data='lots' style="width: 100%">
                     
                         <el-table-column
                             width="80"
                             prop="index"
                             label="#">
-                            <template slot-scope="scope"> 
+                            <template #default="scope"> 
                                 {{ scope.row.index + 1 }}
                             </template>
                         </el-table-column>
 
                         <el-table-column prop="series"  label="Series">
                             
-                            <template slot-scope="scope">  
+                            <template #default="scope">  
                                 <el-input @blur="duplicateSerie(scope.row.series, scope.row.index)" v-model="scope.row.series"
                                     :ref="`ref_series_${scope.row.index}`"
                                     @keyup.enter.native="keyupEnterSeries(scope.row.series, scope.row.index)" ></el-input>
@@ -32,7 +32,7 @@
 
                         <el-table-column prop="state" label="Estado"   >
                             
-                            <template slot-scope="scope">  
+                            <template #default="scope">  
                                 <el-select  v-model="scope.row.state">
                                     <el-option
                                         v-for="(option, index) in states"
@@ -46,7 +46,7 @@
                         </el-table-column>
 
                         <el-table-column prop="date" label="Fecha" >
-                            <template slot-scope="scope">  
+                            <template #default="scope">  
                                 <el-date-picker v-model="scope.row.date" type="date" value-format="yyyy-MM-dd" :clearable="false"></el-date-picker>
                             </template>
                         </el-table-column>
@@ -55,7 +55,7 @@
                             style="width: 10%"
                             width="80"
                             label="Acciones">
-                            <template slot-scope="scope"> 
+                            <template #default="scope"> 
                                 <el-button
                                     size="mini"
                                     type="danger"
@@ -65,7 +65,7 @@
                             </template>
                         </el-table-column>
 
-                    </data-tables>
+                    </el-table>
     
 
                 </div>
@@ -85,12 +85,10 @@
 </template>
 
 <script>
-    import { DataTables } from 'vue-data-tables'
     import SeriesImport from "@views/purchases/partials/import_series.vue";
 
     export default {
         components: {
-            DataTables,
             SeriesImport
         },
         props: ['showDialog', 'lots', 'stock','recordId'],

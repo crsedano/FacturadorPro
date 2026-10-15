@@ -24,7 +24,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th class="text-center" v-if="columns.delivery_date.visible">T. Entrega</th>
@@ -51,8 +52,10 @@
                         <th class="text-right">Total</th>
                         <th class="text-center">PDF</th>
                         <th class="text-right">Acciones</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }" :class="{ anulate_color : row.state_type_id == '11' }">
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr :class="{ anulate_color : row.state_type_id == '11' }">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td class="text-center" v-if="columns.delivery_date.visible">{{ row.delivery_date }}</td>
@@ -72,14 +75,14 @@
                         <td>{{ row.identifier }}
                         </td>
                         <td>
-                            <template v-for="(document,i) in row.documents">
-                                <label :key="i" v-text="document.number_full" class="d-block"></label>
+                            <template v-for="(document,i) in row.documents" :key="i">
+                                <label v-text="document.number_full" class="d-block"></label>
                             </template>
                         </td>
                         <td>
                             <template v-for="(sale_note,i) in row.sale_notes">
-                                <!-- <label :key="i" v-text="sale_note.identifier" class="d-block"></label> -->
-                                <label :key="i" v-text="sale_note.number_full" class="d-block"></label>
+                                <!-- <label v-text="sale_note.identifier" class="d-block"></label> -->
+                                <label v-text="sale_note.number_full" class="d-block"></label>
                             </template>
                         </td>
                     <td v-if="columns.order_note.visible">
@@ -99,6 +102,7 @@
 
                                 <div class="col-md-12 mt-4">
                                     <table>
+                                        <tbody>
                                         <tr>
                                             <td><strong>O. Venta: </strong></td>
                                             <td><strong>{{row.sale_opportunity_number_full}}</strong></td>
@@ -111,6 +115,7 @@
                                             <td><strong>F. Emisión:</strong></td>
                                             <td><strong>{{row.date_of_issue}}</strong></td>
                                         </tr>
+                                        </tbody>
                                     </table>
                                     <div class="table-responsive mt-4">
                                         <table class="table">
@@ -123,7 +128,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="(row, index) in row.sale_opportunity.items" :key="index">
+                                                <tr v-for="(row, index) in row.sale_opportunity.items">
                                                     <td>{{index+1}}</td>
                                                     <td>{{row.item.description}}</td>
                                                     <td>{{row.quantity}}</td>
@@ -204,6 +209,7 @@
                         </td>
 
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

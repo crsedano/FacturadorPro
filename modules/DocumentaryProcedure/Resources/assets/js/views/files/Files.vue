@@ -232,33 +232,33 @@
             </div>
         </div>
         <ModalAddEdit
-            v-model:visible="openModalAddEdit"
+            v-modelv-model="openModalAddEdit"
             @onAddItem="onAddItem"
             @onUpdateItem="onUpdateItem"
             @onUploadComplete="onUploadComplete"
         ></ModalAddEdit>
         <ModalDerive
             :file="file"
-            v-model:visible="showModalDerive"
+            v-modelv-model="showModalDerive"
             @onAddOffice="onAddOffice"
         ></ModalDerive>
         <ModalStage
-            v-model:visible="showModalStage"
+            v-modelv-model="showModalStage"
             @onBackStep="onBackStep"
             @onNextStep="onNextStep"
             @updateFiles="updateFiles"
         ></ModalStage>
         <StageModalObservationStage
-            v-model:visible="showStageModalObservationStage"
+            v-modelv-model="showStageModalObservationStage"
         ></StageModalObservationStage>
     </div>
 </template>
 
 <script>
-import ModalAddEdit from "./ModalAddEdit";
-import ModalDerive from "./ModalDerive";
-import StageModalObservationStage from "./ModalHistoricalObservation";
-import ModalStage from "./ModalStage";
+import ModalAddEdit from "./ModalAddEdit.vue";
+import ModalDerive from "./ModalDerive.vue";
+import StageModalObservationStage from "./ModalHistoricalObservation.vue";
+import ModalStage from "./ModalStage.vue";
 import moment from "moment";
 import queryString from 'query-string'
 

@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       :title="titleDialog"
-      :visible="showDialog"
+      :model-value="showDialog"
       @open="create"
       width="30%"
       :close-on-click-modal="false"

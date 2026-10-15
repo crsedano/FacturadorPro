@@ -8,9 +8,9 @@
                         <p class="">
                             Versión:{{version}}
                         </p>
-                        <el-button type="button" class="btn btn-sm btn-primary pb-1" @click.prevent="start()" :loading="loading_submit" :disabled="exec_migration">Iniciar proceso</el-button>
+                        <el-button class="btn btn-sm btn-primary pb-1" @click.prevent="start()" :loading="loading_submit" :disabled="exec_migration">Iniciar proceso</el-button>
 
-                        <el-button type="button" class="btn btn-sm btn-warning" @click.prevent="execMigrations()" :disabled="!exec_migration" :loading="loading_submit_migrations">Ejecutar migraciones</el-button>
+                        <el-button class="btn btn-sm btn-warning" @click.prevent="execMigrations()" :disabled="!exec_migration" :loading="loading_submit_migrations">Ejecutar migraciones</el-button>
                         <div class="text-right">
                             <el-checkbox v-model="exec_migration">Ejecutar migraciones</el-checkbox><br>
                         </div>

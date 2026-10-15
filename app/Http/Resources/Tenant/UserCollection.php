@@ -21,6 +21,7 @@ class UserCollection extends ResourceCollection
     public function toArray($request = null)
     {
         return  $this->collection->transform(function($row, $key) {
+            $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
             /** @var \App\Models\Tenant\User  $row */
             $type = '';
             switch ($row->type) {

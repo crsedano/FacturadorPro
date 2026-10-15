@@ -24,7 +24,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th class="text-center" v-if="columns.delivery_date.visible">Fecha Entrega</th>
@@ -43,8 +44,10 @@
                         <th class="text-right">Total</th>
                         <!-- <th class="text-center">PDF</th> -->
                         <th class="text-right">Acciones</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }" :class="{ anulate_color : row.state_type_id == '11' }">
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr :class="{ anulate_color : row.state_type_id == '11' }">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td class="text-center" v-if="columns.delivery_date.visible">{{ row.delivery_date }}</td>
@@ -88,6 +91,7 @@
                         </td>
 
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

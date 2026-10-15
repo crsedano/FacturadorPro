@@ -16,6 +16,7 @@ class OrderCollection extends ResourceCollection
     {
 
         return $this->collection->transform(function($row, $key) {
+            $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
             return [
                 'id' => $row->id,
                 'external_id' => $row->external_id,

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog :title="titleDialog" :visible="showDialog" @open="create" width="30%"
+        <el-dialog :title="titleDialog" :model-value="showDialog" @open="create" width="30%"
                 >
             <div class="row">
                 <div class="col text-center font-weight-bold">

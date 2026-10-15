@@ -60,17 +60,15 @@
                 </div>
             </div>
             <div class="row">
-                <template v-for="(pay,index) in form.payments">
-                    <div :key="pay.id"
+                <template v-for="(pay,index) in form.payments" :key="pay.id">
+                    <div
                             class="col-lg-1">
                         <label>{{ index + 1 }}.-</label>
                     </div>
-                    <div :key="pay.id"
-                            class="col-lg-6">
+                    <div class="col-lg-6">
                         <label>{{ getDescriptionPaymentMethodType(pay.payment_method_type_id) }}</label>
                     </div>
-                    <div :key="pay.id"
-                            class="col-lg-5">
+                    <div class="col-lg-5">
                         <label><strong>{{ currencyTypeActive.symbol }}
                                         {{ pay.payment }}</strong> </label>
                     </div>

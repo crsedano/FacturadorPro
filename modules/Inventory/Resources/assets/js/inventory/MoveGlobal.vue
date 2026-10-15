@@ -2,7 +2,7 @@
   <el-dialog
     title="Trasladar multiples productos entre almacenes"
     width="80%"
-    :visible="show"
+    :model-value="show"
     @open="create"
     :close-on-click-modal="false"
     :close-on-press-escape="false"

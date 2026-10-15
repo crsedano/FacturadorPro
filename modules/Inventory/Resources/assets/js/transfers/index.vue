@@ -25,7 +25,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Fecha</th>
                         <th>Almacen Inicial</th>
@@ -36,8 +37,9 @@
                         <th>Cantidad Total Productos</th>
                         <th class="text-right">Acciones</th>
                     </tr>
-                    <tr></tr>
-                    <tr slot-scope="{ index, row }">
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr>
                         <td>{{ index }}</td>
                         <td>{{ row.created_at }}</td>
 
@@ -60,7 +62,7 @@
                                     <el-table-column fixed="right"
                                                      label="Series"
                                                      width="120">
-                                        <template slot-scope="scope">
+                                        <template #default="scope">
                                             <el-popover placement="right"
                                                         trigger="click"
                                                         width="150">
@@ -98,6 +100,7 @@
                                                 @click.prevent="clickDelete(row.id)">Eliminar</button>
                         </td>-->
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

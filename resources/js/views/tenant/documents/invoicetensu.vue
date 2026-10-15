@@ -20,7 +20,7 @@
                             </address>
                         </div>
                         <div class="col-sm-4">
-                            <el-checkbox v-model="is_contingency" @change="changeEstablishment">¿Es comproasdasdbante de contigencia?</el-checkbox>
+                            <el-checkbox :model-value="is_contingency" @change="changeEstablishment">¿Es comproasdasdbante de contigencia?</el-checkbox>
                         </div>
                     </div>
                 </header>

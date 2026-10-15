@@ -27,7 +27,10 @@ class ZoneController extends Controller
 
     public function records(Request $request)
     {
-        $records = Zone::where($request->column, 'like', "%{$request->value}%");
+        $records = Zone::query();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new ZoneCollection($records->paginate(config('tenant.items_per_page')));
     }

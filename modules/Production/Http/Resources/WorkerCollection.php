@@ -15,6 +15,7 @@ class WorkerCollection extends ResourceCollection
     public function toArray($request)
     {
         return $this->collection->transform(function($row) {
+            $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
             return $row->getRowResource();
         });
     }

@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :visible="showDialog" class="dialog-import" title="Excel DIGEMID" @close="close">
+    <el-dialog :model-value="showDialog" class="dialog-import" title="Excel DIGEMID" @close="close">
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
                 <div class="row">

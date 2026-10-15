@@ -1,6 +1,5 @@
 <template>
-    <el-dialog   :visible="showDialog"  @open="create" @opened="opened" width="60%" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
-        <key-event="keyup" :key-code="13" @success="someMethod" />
+    <el-dialog   :model-value="showDialog"  @open="create" @opened="opened" width="60%" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
         <span slot="title">
             <div class="widget-summary widget-summary-xs pl-3 p-2">
                 <div class="widget-summary-col widget-summary-col-icon">
@@ -26,20 +25,20 @@
             <div class="row">
                 <div class="col-md-12 m-bottom">
                     <el-tabs v-model="activeName">
-                        <el-tab-pane label="Imprimir Ticket" name="first" v-if="config !== null  && config.show_ticket_80">
-                            <embed v-if="config !== null  && config.show_ticket_80" id="nemo" :src="form.print_ticket" type="application/pdf" width="100%" height="450px"/>
+                        <el-tab-pane label="Imprimir Ticket" name="first" v-if="config !== null && config.show_ticket_80" lazy>
+                            <iframe v-if="form.print_ticket" :key="form.print_ticket" :src="form.print_ticket" width="100%" height="320px" style="border:none;display:block"/>
                         </el-tab-pane>
-                        <el-tab-pane label="Imprimir Ticket 58" name="second" v-if="config.show_ticket_58">
-                            <embed v-if="config.show_ticket_58" :src="form.print_ticket_58" type="application/pdf" width="100%" height="450px"/>
+                        <el-tab-pane label="Imprimir Ticket 58" name="second" v-if="config.show_ticket_58" lazy>
+                            <iframe v-if="form.print_ticket_58" :key="form.print_ticket_58" :src="form.print_ticket_58" width="100%" height="320px" style="border:none;display:block"/>
                         </el-tab-pane>
-                        <el-tab-pane label="Imprimir Ticket 50" name="third" v-if="config.show_ticket_50 && this.resource=='documents'">
-                            <embed v-if="config.show_ticket_50" :src="form.print_ticket_50" type="application/pdf" width="100%" height="450px"/>
+                        <el-tab-pane label="Imprimir Ticket 50" name="third" v-if="config.show_ticket_50 && resource=='documents'" lazy>
+                            <iframe v-if="form.print_ticket_50" :key="form.print_ticket_50" :src="form.print_ticket_50" width="100%" height="320px" style="border:none;display:block"/>
                         </el-tab-pane>
-                        <el-tab-pane label="Imprimir A4" name="quarter">
-                            <embed :src="form.print_a4" type="application/pdf" width="100%" height="450px"/>
+                        <el-tab-pane label="Imprimir A4" name="quarter" lazy>
+                            <iframe v-if="form.print_a4" :key="form.print_a4" :src="form.print_a4" width="100%" height="320px" style="border:none;display:block"/>
                         </el-tab-pane>
-                        <el-tab-pane label="Imprimir A5" name="fifth">
-                            <embed :src="form.print_a5" type="application/pdf" width="100%" height="450px"/>
+                        <el-tab-pane label="Imprimir A5" name="fifth" lazy>
+                            <iframe v-if="form.print_a5" :key="form.print_a5" :src="form.print_a5" width="100%" height="320px" style="border:none;display:block"/>
                         </el-tab-pane>
                     </el-tabs>
                 </div>
@@ -93,31 +92,41 @@
                         </div>
                     </div>
                 </div>
-                <div class="row col-md-12">
-                    <div class="col-md-6">
-                        <el-input v-model="form.customer_email" ref="ref_customer_email" @keyup.native="keyupCustomerEmail">
-                            <el-button slot="append" icon="el-icon-message"   @click="clickSendEmail" :loading="loading">Enviar</el-button>
-                        </el-input>
-                        <!-- <small class="form-control-feedback" v-if="errors.customer_email" v-text="errors.customer_email[0]"></small> -->
-
-                    </div>
-
-                    <div class="col-md-6">
-                        <el-input v-model="form.customer_telephone">
-                            <template slot="prepend">+51</template>
-                                <el-button slot="append" @click="clickSendWhatsapp" >Enviar
-                                    <el-tooltip class="item" effect="dark"  content="Es necesario tener aperturado Whatsapp web" placement="top-start">
-                                        <i class="fab fa-whatsapp" ></i>
-                                    </el-tooltip>
+                <div class="opt-channel-row">
+                    <div class="opt-channel-card opt-channel-card--email">
+                        <div class="opt-channel-header">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </div>
+                        <el-input v-model="form.customer_email" ref="ref_customer_email"
+                                  placeholder="cliente@correo.com"
+                                  @keyup.native="keyupCustomerEmail">
+                            <template #append>
+                                <el-button @click="clickSendEmail" :loading="loading">
+                                    <i class="fas fa-paper-plane"></i> Enviar
                                 </el-button>
+                            </template>
                         </el-input>
                     </div>
 
-                    <div class="col-md-6 mt-4">
+                    <div class="opt-channel-card opt-channel-card--whatsapp">
+                        <div class="opt-channel-header">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                            <el-tooltip effect="dark" content="Requiere WhatsApp Web abierto" placement="top">
+                                <i class="fas fa-info-circle" style="font-size:10px;opacity:.6"></i>
+                            </el-tooltip>
+                        </div>
+                        <el-input v-model="form.customer_telephone" placeholder="987654321">
+                            <template #prepend>+51</template>
+                            <template #append>
+                                <el-button @click="clickSendWhatsapp">
+                                    <i class="fab fa-whatsapp"></i> Enviar
+                                </el-button>
+                            </template>
+                        </el-input>
                     </div>
-                    <div class="col-md-6 mt-4">
-                        <el-button  type="primary"  class="float-right" @click="clickNewSale">Nueva venta</el-button>
-                    </div>
+                </div>
+                <div class="text-right mt-3">
+                    <el-button type="primary" @click="clickNewSale">Nueva venta</el-button>
                 </div>
 
             </div>
@@ -153,6 +162,11 @@
             */
         },
         mounted(){
+            this._keyupHandler = (e) => { if (e.code === 'Enter') this.someMethod(e) }
+            document.addEventListener('keyup', this._keyupHandler)
+        },
+        beforeUnmount() {
+            document.removeEventListener('keyup', this._keyupHandler)
         },
         computed: {
             ...mapState([
@@ -320,16 +334,7 @@
             //             this.$message.error(error.response.data.message)
             //         })
             // },
-            // clickFinalize() {
-            //     location.href = (this.isContingency) ? `/contingencies` : `/${this.resource}`
-            // },
-            // clickNewDocument() {
-            //     this.clickClose()
-            // },
-            // clickClose() {
-            //     this.$emit('update:showDialog', false)
-            //     this.initForm()
-            // },
         }
     }
 </script>
+

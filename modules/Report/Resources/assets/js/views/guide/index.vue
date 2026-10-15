@@ -6,7 +6,8 @@
         <div class="card mb-0">
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th>Cliente</th>
@@ -17,8 +18,10 @@
                         <th class="text-center">Orden de pedido</th>
                         <th class="text-center">Producto</th>
                         <th class="text-center">Cantidad</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.dispatches.date_of_issue }}</td>
                         <td>{{ row.dispatches.customer_name }} <br/> <small>{{ row.dispatches.customer_number }}</small>
@@ -44,6 +47,7 @@
                             {{ row.quantity }}
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
         </div>

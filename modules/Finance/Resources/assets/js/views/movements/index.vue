@@ -12,7 +12,8 @@
                     :filter="filter"
                     :ismovements="ismovements"
                     :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th class="">#</th>
                         <th :class="(filter.column === 'date_of_payment')?'text-info':''"
                             @click="ChangeOrder('date_of_payment')">
@@ -64,7 +65,9 @@
                             Saldo
                         </th>
                     </tr>
-                    <tr slot-scope="{ index, row }">
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr>
                         <!-- # -->
                         <td>{{ row.index }}</td>
                         <!-- Fecha -->
@@ -82,8 +85,8 @@
                         </td>
                         <!-- Detalle -->
                         <td>
-                            <template v-for="(item, index) in row.items">
-                                <label :key="index">- {{ item.description }}<br/></label>
+                            <template v-for="(item, index) in row.items" :key="index">
+                                <label>- {{ item.description }}<br/></label>
                             </template>
                         </td>
                         <!-- Moneda -->
@@ -115,6 +118,7 @@
                             >{{ row.balance }}
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
         </div>

@@ -144,7 +144,7 @@
             :process="process"
             :requirements="requirements"
             :stages="stages"
-            v-model:visible="openModalAddEdit"
+            v-modelv-model="openModalAddEdit"
             @onAddItem="onAddItem"
             @onUpdateItem="onUpdateItem"
         ></ModalAddEdit>
@@ -152,7 +152,7 @@
 </template>
 
 <script>
-import ModalAddEdit from "./ModalAddEdit";
+import ModalAddEdit from "./ModalAddEdit.vue";
 
 export default {
     props: {

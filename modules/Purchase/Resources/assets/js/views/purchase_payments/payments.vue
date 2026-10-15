@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" :visible="showDialog" @close="close" @open="getData" width="65%">
+    <el-dialog :title="title" :model-value="showDialog" @close="close" @open="getData" width="65%">
         <div class="form-body">
             <div class="row">
                 <div class="col-md-12" v-if="records.length > 0">

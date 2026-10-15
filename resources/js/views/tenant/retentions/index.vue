@@ -12,7 +12,8 @@
         <div class="card mb-0">
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th>Proveedor</th>
@@ -21,8 +22,10 @@
                         <th class="text-right">T.Retención</th>
                         <th class="text-right">Total</th>
                         <th class="text-center">Descargas</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td>{{ row.supplier_name }}<br/><small v-text="row.supplier_number"></small></td>
@@ -47,6 +50,7 @@
                                     @click.prevent="clickDownload(row.download_external_cdr)">CDR</button> -->
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
             

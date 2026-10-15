@@ -42,7 +42,10 @@ class FixedAssetItemController extends Controller
 
     public function getRecords($request){
 
-        $records = FixedAssetItem::whereTypeUser()->where($request->column, 'like', "%{$request->value}%");
+        $records = FixedAssetItem::whereTypeUser();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return $records->orderBy('description');
 

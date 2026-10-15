@@ -20,7 +20,8 @@
         <div class="card-body">
             <data-table :resource="resource">
 
-                <tr slot="heading" width="100%">
+                <template #heading>
+                <tr width="100%">
                     <th>#</th>
                     <th>Identificador</th>
                     <th>Pago asociado</th>
@@ -29,9 +30,10 @@
                     <th>Total</th>
                     <th class="text-right"></th>
                 </tr>
+                </template>
 
-                <tr></tr>
-                <tr slot-scope="{ index, row }">
+                <template #default="{ index, row }">
+                <tr>
                     <td>{{ index }}</td>
                     <td>{{ row.uuid }}</td>
                     <td>{{ row.payment_number_full }}</td>
@@ -77,6 +79,7 @@
                         </div>
                     </td>
                 </tr>
+                </template>
             </data-table>
         </div>
 

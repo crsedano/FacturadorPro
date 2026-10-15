@@ -2,7 +2,7 @@
     <el-dialog
         v-if="OfficeNotNull"
         :title="title"
-        :visible="visible"
+        :model-value="visible"
         @close="onClose"
         @open="onCreate"
     >

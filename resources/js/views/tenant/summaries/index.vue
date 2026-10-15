@@ -16,7 +16,8 @@
 
              <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th class="text-center">Fecha Referencia</th>
@@ -26,8 +27,10 @@
                         <th>Ticket</th>
                         <th class="text-center">Descargas</th>
                         <th class="text-right">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }" >
                         <td>{{ index  }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td class="text-center">{{ row.date_of_reference }}</td>
@@ -71,6 +74,7 @@
                         
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
             

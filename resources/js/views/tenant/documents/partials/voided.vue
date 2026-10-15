@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="titleDialog" :visible="showDialog" @close="close" @open="create">
+    <el-dialog :title="titleDialog" :model-value="showDialog" @close="close" @open="create">
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
                 <div class="row">
@@ -20,8 +20,8 @@
                     <!--
                     <span v-if="hasSaleNote">
                         <label> Tiene asociado la(s) siguiente(s) nota de venta(s): </label>
-                        <template v-for="(row,index) in form.sales_note">
-                            <label class="d-block" :key="index">{{ row.number_full }} Fecha: {{row.date_of_issue}}</label><br>
+                        <template v-for="(row,index) in form.sales_note" :key="index">
+                            <label class="d-block">{{ row.number_full }} Fecha: {{row.date_of_issue}}</label><br>
                         </template>
                     </span>
                     -->

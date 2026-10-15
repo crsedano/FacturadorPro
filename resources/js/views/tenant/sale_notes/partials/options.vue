@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog :title="titleDialog" :visible="showDialog" @open="create"
+        <el-dialog :title="titleDialog" :model-value="showDialog" @open="create"
                 :close-on-click-modal="false"
                 :close-on-press-escape="false"
                 width="800px"
@@ -9,17 +9,17 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 container-tabs">
                     <el-tabs v-model="activeName">
-                        <el-tab-pane label="Imprimir A4" name="first">
-                            <iframe :src="form.print_a4" type="application/pdf" width="100%" height="400px"/>
+                        <el-tab-pane label="Imprimir A4" name="first" lazy>
+                            <iframe v-if="form.print_a4" :key="form.print_a4" :src="form.print_a4" width="100%" height="400px" style="border:none;display:block"/>
                         </el-tab-pane>
-                        <el-tab-pane label="Imprimir Ticket" name="fourth" v-if="ShowTicket80">
-                            <iframe :src="form.print_ticket" type="application/pdf" width="100%" height="400px"/>
+                        <el-tab-pane label="Imprimir Ticket" name="fourth" v-if="ShowTicket80" lazy>
+                            <iframe v-if="form.print_ticket" :key="form.print_ticket" :src="form.print_ticket" width="100%" height="400px" style="border:none;display:block"/>
                         </el-tab-pane>
-                        <el-tab-pane label="Imprimir Ticket 58MM" name="third" v-if="ShowTicket58">
-                            <iframe :src="form.print_ticket_58" type="application/pdf" width="100%" height="400px"/>
+                        <el-tab-pane label="Imprimir Ticket 58MM" name="third" v-if="ShowTicket58" lazy>
+                            <iframe v-if="form.print_ticket_58" :key="form.print_ticket_58" :src="form.print_ticket_58" width="100%" height="400px" style="border:none;display:block"/>
                         </el-tab-pane>
-                        <el-tab-pane label="Imprimir A5" name="second">
-                            <iframe :src="form.print_a5" type="application/pdf" width="100%" height="400px"/>
+                        <el-tab-pane label="Imprimir A5" name="second" lazy>
+                            <iframe v-if="form.print_a5" :key="form.print_a5" :src="form.print_a5" width="100%" height="400px" style="border:none;display:block"/>
                         </el-tab-pane>
                     </el-tabs>
 
@@ -48,53 +48,57 @@
                     </a>
                 </div>
             </div>
-            <span slot="footer" class="dialog-footer row">
-                <div class="col-md-12">
-                    <el-input v-model="form.customer_email">
-                        <el-button slot="append" icon="el-icon-message"   @click="clickSendEmail" :loading="loading">Enviar</el-button>
-                    </el-input>
-                </div>
-                <div class="col-md-12 mt-3">
-                    <el-input v-model="form.customer_telephone">
-                        <template slot="prepend">+51</template>
-                        <el-button slot="append"
-                                   @click="clickSendWhatsapp">Enviar
-                            <el-tooltip class="item"
-                                        content="Se recomienta tener abierta la sesión de Whatsapp web"
-                                        effect="dark"
-                                        placement="top-start">
-                                <i class="fab fa-whatsapp"></i>
-                            </el-tooltip>
-                        </el-button>
-                    </el-input>
-                    <small v-if="errors.customer_telephone"
-                           class="form-control-feedback"
-                           v-text="errors.customer_telephone[0]"></small>
-                </div>
-            <div class="col-md-6 mt-3">&nbsp;</div>
-                <div class="col-md-6 mt-3">
-                <template v-if="showClose">
-                    <el-button @click="clickClose">Cerrar</el-button>
-                </template>
-                <template v-else>
-                    <el-button @click="clickFinalize">Ir al listado</el-button>
-                     <el-popover
-                        :open-delay="1000"
-                         placement="top-start"
-                         width="145"
-                         trigger="hover"
-                         content="Presiona ALT + N">
-                            <el-button slot="reference"
-                                       type="primary"
-                                       ref="new_note"
-                                       @click="clickNewSaleNote"
-                            >
-                                Nueva nota de venta
+            <div class="opt-channel-row">
+                <div class="opt-channel-card opt-channel-card--email">
+                    <div class="opt-channel-header">
+                        <i class="fas fa-envelope"></i> Correo electrónico
+                    </div>
+                    <el-input v-model="form.customer_email" placeholder="cliente@correo.com">
+                        <template #append>
+                            <el-button :loading="loading" @click="clickSendEmail">
+                                <i class="fas fa-paper-plane"></i> Enviar
                             </el-button>
-                        </el-popover>
-                </template>
+                        </template>
+                    </el-input>
                 </div>
-            </span>
+
+                <div class="opt-channel-card opt-channel-card--whatsapp">
+                    <div class="opt-channel-header">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                        <el-tooltip effect="dark" content="Requiere WhatsApp Web abierto" placement="top">
+                            <i class="fas fa-info-circle" style="font-size:10px;opacity:.6"></i>
+                        </el-tooltip>
+                    </div>
+                    <el-input v-model="form.customer_telephone" placeholder="987654321">
+                        <template #prepend>+51</template>
+                        <template #append>
+                            <el-button @click="clickSendWhatsapp">
+                                <i class="fab fa-whatsapp"></i> Enviar
+                            </el-button>
+                        </template>
+                    </el-input>
+                    <small v-if="errors.customer_telephone" class="form-control-feedback" v-text="errors.customer_telephone[0]"></small>
+                </div>
+            </div>
+
+            <template #footer>
+                <div class="text-right">
+                    <template v-if="showClose">
+                        <el-button @click="clickClose">Cerrar</el-button>
+                    </template>
+                    <template v-else>
+                        <el-button @click="clickFinalize">Ir al listado</el-button>
+                        <el-popover :open-delay="1000" placement="top-start" width="145"
+                                    trigger="hover" content="Presiona ALT + N">
+                            <template #reference>
+                                <el-button type="primary" ref="new_note" @click="clickNewSaleNote">
+                                    Nueva nota de venta
+                                </el-button>
+                            </template>
+                        </el-popover>
+                    </template>
+                </div>
+            </template>
         </el-dialog>
 
     </div>

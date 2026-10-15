@@ -4,7 +4,7 @@
         :close-on-press-escape="false"
         :show-close="false"
         :title="titleDialog"
-        :visible="showMigrate"
+        :model-value="showMigrate"
         append-to-body
         width="40%"
         @open="onOpened"

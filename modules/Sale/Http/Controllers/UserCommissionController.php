@@ -46,8 +46,11 @@ class UserCommissionController extends Controller
 
         }else{
 
-            $records = UserCommission::where($request->column, 'like', "%{$request->value}%");
-        
+            $records = UserCommission::query();
+            if($request->column) {
+                $records->where($request->column, 'like', "%{$request->value}%");
+            }
+
         }
         
         return $records->whereTypeUser()->latest();

@@ -1,6 +1,6 @@
 <template>
     <el-dialog :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                append-to-body
                top="7vh"
                @close="close">

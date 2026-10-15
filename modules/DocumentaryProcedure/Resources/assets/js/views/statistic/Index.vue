@@ -146,6 +146,7 @@
                                         <th>{{ item.month }}</th>
                                     </tr>
                                     </thead>
+                                    <tbody>
                                     <tr>
 
                                         <td>Total: {{ item.total }}</td>
@@ -161,6 +162,7 @@
                                         <td>Porcentaje tramitado: {{ $filters.toDecimals((item.complete * 100) / item.total) }}
                                         </td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </td>
                         </tr>

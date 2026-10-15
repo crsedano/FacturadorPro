@@ -1,5 +1,5 @@
 <template>
-    <el-dialog width="35%" :title="title" :visible="showDialog" @close="close" @open="create" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
+    <el-dialog width="35%" :title="title" :model-value="showDialog" @close="close" @open="create" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
         <div class="form-body">
             <div class="row">
 

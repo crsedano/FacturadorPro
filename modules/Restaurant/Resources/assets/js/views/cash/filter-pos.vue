@@ -22,7 +22,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource" :reference="'pos'">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Vendedor</th>
                         <th class="text-center">Apertura</th>
@@ -33,8 +34,10 @@
                         <!-- <th>Egreso</th> -->
                         <th>Estado</th>
                         <th class="text-center">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.user }}</td>
                         <td class="text-center">{{ row.opening }}</td>
@@ -82,6 +85,7 @@
 
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

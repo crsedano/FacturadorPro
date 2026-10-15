@@ -192,11 +192,11 @@ class ItemController extends Controller
 
         if(Configuration::getRecordIndividualColumn('list_items_by_warehouse'))
         {
-            $records = Item::whereWarehouse()->whereNotIsSet();
+            $records = Item::without(['item_lots'])->whereWarehouse()->whereNotIsSet();
         }
         else
         {
-            $records = Item::whereTypeUser()->whereNotIsSet();
+            $records = Item::without(['item_lots'])->whereTypeUser()->whereNotIsSet();
         }
 
         return $records;

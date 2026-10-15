@@ -122,9 +122,10 @@
 
             } else {
 
-                $records = OrderNote::where($request->column, 'like', "%{$request->value}%")
-                    ->whereTypeUser()
-                    ->latest();
+                $records = OrderNote::whereTypeUser()->latest();
+                if($request->column) {
+                    $records->where($request->column, 'like', "%{$request->value}%");
+                }
 
             }
 

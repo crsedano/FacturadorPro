@@ -128,7 +128,7 @@
                             label="Adquiriente"
                             prop="person_name"
                             sortable>
-                            <template slot-scope="scope">
+                            <template #default="scope">
                                 <span>{{ scope.row.person_name }}
                                     <br/>
                                     <small>{{ scope.row.person_number }}</small>
@@ -140,7 +140,7 @@
                             label="Documento/Transacción"
                             prop="document_type_description"
                             sortable>
-                            <template slot-scope="scope">
+                            <template #default="scope">
                                 <span>
                                     {{ scope.row.number_full }}<br/>
                             <small v-text="scope.row.document_type_description"></small>
@@ -152,7 +152,7 @@
 
                         >
                             <!-- sortable -->
-                            <template slot="header" slot-scope="scope">
+                            <template #header="scope">
                                 Detalle
                                 <el-tooltip
                                     class="item"
@@ -163,7 +163,7 @@
                                     <i class="fa fa-info-circle"></i>
                                 </el-tooltip>
                             </template>
-                            <template slot-scope="scope">
+                            <template #default="scope">
                                 <div v-for="(item, index) in scope.row.items">
                                     <label :key="index">- {{ item.description }}<br/></label>
                                 </div>

@@ -12,9 +12,9 @@
         
                 <div class="pricing-table row no-gutters mt-3 mb-3">
 					
-                    <template v-for="(row, index) in records">
+                    <template v-for="(row, index) in records" :key="index">
 
-                        <div  class="col-lg-3 col-sm-6 text-center" style="padding:10px;" :key="index">
+                        <div  class="col-lg-3 col-sm-6 text-center" style="padding:10px;">
 							<div class="plan most-popular">
 								<div class="plan-ribbon-wrapper "></div>
 								<h3>{{row.name}}<span>S/ {{row.pricing}}</span></h3> 
@@ -27,7 +27,7 @@
                                     <li v-else><strong>{{row.limit_documents}}</strong> comprobantes</li>
                                 
                                     <!-- <template v-for="(plan_document, i) in getDescriptions(row.plan_documents)">
-                                        <li :key="i" v-if="plan_document">{{plan_document.description}}</li>
+                                        <li v-if="plan_document">{{plan_document.description}}</li>
                                     </template>                                    -->
 								</ul>                                
                                 <div v-if="!row.locked">

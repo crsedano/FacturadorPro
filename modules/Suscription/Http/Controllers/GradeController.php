@@ -23,7 +23,10 @@ class GradeController extends Controller
 
     public function records(Request $request)
     {
-        $records = SuscriptionGrade::where($request->column, 'like', "%{$request->value}%")->latest('id');
+        $records = SuscriptionGrade::latest('id');
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new GradeCollection($records->paginate(config('tenant.items_per_page')));
     }

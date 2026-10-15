@@ -13,10 +13,10 @@ File: js
     var mod = {
       exports: {}
     };
-    factory(global.jquery);
+    factory(global.jQuery || global.jquery);
     global.AdminMenu = mod.exports;
   }
-})(this, function (_jquery) {
+})(typeof window !== 'undefined' ? window : this, function (_jquery) {
   'use strict';
 
   var _jquery2 = _interopRequireDefault(_jquery);

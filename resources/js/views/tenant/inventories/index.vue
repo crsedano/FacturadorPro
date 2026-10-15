@@ -16,14 +16,17 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Producto</th>
                         <th>Almacén</th>
                         <th class="text-right">Stock</th>
                         <th class="text-right">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.item_description }}</td>
                         <td>{{ row.warehouse_description }}</td>
@@ -35,6 +38,7 @@
                                     @click.prevent="clickRemove(row.id)">Remover</button>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

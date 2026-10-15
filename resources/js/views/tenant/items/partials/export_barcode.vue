@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :visible="showDialog"
+    <el-dialog :model-value="showDialog"
                class="dialog-import"
                title="Codigo de barras"
                @close="close">

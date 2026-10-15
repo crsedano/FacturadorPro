@@ -65,7 +65,7 @@
             </div>
         </div>
         <el-dialog
-            v-model:visible="modalImage"
+            v-modelv-model="modalImage"
             width="100">
             <span>
                 <div class="block">

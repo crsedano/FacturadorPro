@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource" :applyCustomer="true">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th>#</th>
                             <th class="text-center">Fecha Emisión</th>
                             <th class="">Usuario/Vendedor</th>
@@ -25,8 +26,10 @@
                             <th class="text-right">T.Gravado</th>
                             <th class="text-right">T.Igv</th>
                             <th class="text-right">Total</th>
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td>  
                             <td>{{row.date_of_issue}}</td>
                             <td>{{row.user_name}}</td>
@@ -34,13 +37,13 @@
                             <td>{{row.state_type_description}}</td>
                             <td>{{row.identifier}}</td>
                             <td>
-                                <template v-for="(doc,i) in row.documents">                                
-                                    <label class="d-block"  :key="i">{{doc.number_full}}</label>
+                                <template v-for="(doc,i) in row.documents" :key="i" >                                
+                                    <label class="d-block">{{doc.number_full}}</label>
                                 </template>
                             </td>
                             <td>
                                 <template v-for="(s_note,i) in row.sale_notes">                                
-                                    <label class="d-block"  :key="i">{{s_note.identifier}}</label>
+                                    <label class="d-block">{{s_note.identifier}}</label>
                                 </template>
                             </td>
                             <td>{{row.sale_opportunity_number_full}}</td>
@@ -54,6 +57,7 @@
                             <td>{{ row.total}}</td>
                             
                         </tr>
+                        </template>
                         
                     </data-table>
                      

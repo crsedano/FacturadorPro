@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog :title="titleDialog" :visible="show" @open="create" width="50%"
+        <el-dialog :title="titleDialog" :model-value="show" @open="create" width="50%"
                 :close-on-click-modal="false"
                 :close-on-press-escape="false"
                 :show-close="false">
@@ -219,7 +219,6 @@
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
-                                <br />
                             </tr>
                         </tbody>
                     </table>

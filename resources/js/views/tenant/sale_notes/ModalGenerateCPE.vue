@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       title="Generar comprobante desde múltiples notas"
-      :visible="show"
+      :model-value="show"
       @open="onOpened"
       :close-on-click-modal="false"
       :close-on-press-escape="false"

@@ -13,18 +13,32 @@ export default defineConfig({
             ],
             refresh: true,
         }),
-        vue(),
+        vue({
+            template: {
+                transformAssetUrls: {
+                    includeAbsolute: false,
+                },
+            },
+        }),
     ],
     css: {
         preprocessorOptions: {
             scss: {
-                // Allow bare node_modules imports without ~ prefix
                 loadPaths: ['node_modules'],
+                quietDeps: true,
+                silenceDeprecations: [
+                    'import',
+                    'global-builtin',
+                    'color-functions',
+                    'if-function',
+                    'abs-percent',
+                ],
             }
         }
     },
     resolve: {
         alias: {
+            'vue': 'vue/dist/vue.esm-bundler.js',
             '@components': path.resolve(__dirname, 'resources/js/components'),
             '@views':      path.resolve(__dirname, 'resources/js/views/tenant'),
             '@helpers':    path.resolve(__dirname, 'resources/js/helpers'),

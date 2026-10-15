@@ -394,38 +394,38 @@
             </div>
         </div>
         <ModalAddReason
-            v-model:visible="openModalReason"
+            v-modelv-model="openModalReason"
             :id="temp_id"
             @addArchive="onArchive"
         ></ModalAddReason>
         <!--
 
         <ModalAddEdit
-            v-model:visible="openModalAddEdit"
+            v-modelv-model="openModalAddEdit"
             @onAddItem="onAddItem"
             @onUpdateItem="onUpdateItem"
             @onUploadComplete="onUploadComplete"
         ></ModalAddEdit>
         <ModalDerive
             :file="file"
-            v-model:visible="showModalDerive"
+            v-modelv-model="showModalDerive"
             @onAddOffice="onAddOffice"
         ></ModalDerive>
         <ModalStage
-            v-model:visible="showModalStage"
+            v-modelv-model="showModalStage"
             @onBackStep="onBackStep"
             @onNextStep="onNextStep"
             @updateFiles="updateFiles"
         ></ModalStage>
         <StageModalObservationStage
-            v-model:visible="showStageModalObservationStage"
+            v-modelv-model="showStageModalObservationStage"
         ></StageModalObservationStage>
         -->
     </div>
 </template>
 
 <script>
-import ModalAddReason from "./ModalAddReason";
+import ModalAddReason from "./ModalAddReason.vue";
 
 /*
 import ModalAddEdit from "./ModalAddEdit";

@@ -90,7 +90,7 @@
             </div>
         </div>
         <ModalAddEdit
-            v-model:visible="openModalAddEdit"
+            v-modelv-model="openModalAddEdit"
             @onAddItem="onFilter"
             @onUpdateItem="onUpdateItem"
         ></ModalAddEdit>
@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import ModalAddEdit from "./ModalAddEdit";
+import ModalAddEdit from "./ModalAddEdit.vue";
 import {mapActions, mapState} from "vuex";
 
 export default {

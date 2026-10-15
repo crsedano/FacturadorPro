@@ -19,6 +19,7 @@ class ItemCollection extends ResourceCollection
         $configuration =  Configuration::first();
 
         return $this->collection->transform(function($row, $key) use($configuration){
+            $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
             /** @var \App\Models\Tenant\Item  $row */
 
             return $row->getCollectionData($configuration);

@@ -36,7 +36,7 @@
             </div>
         </div>
         <el-dialog
-           v-model:visible="modalImage"
+           v-modelv-model="modalImage"
            width="60">
             <span>
                 <img :src="path.origin+'/templates/pdf/'+template+'/image_guide.png'" class="image" style="width: 100%">

@@ -1,6 +1,6 @@
 <template>
     <el-dialog :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                class="dialog-import"
                @close="close"
                @open="create">

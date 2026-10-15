@@ -49,10 +49,12 @@ class PersonController extends Controller
     public function records($type, Request $request)
     {
 
-        $records = Person::where($request->column, 'like', "%{$request->value}%")
-                            ->where('type', $type)
+        $records = Person::where('type', $type)
                             ->whereFilterCustomerBySeller($type)
                             ->orderBy('name');
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new PersonCollection($records->paginate(config('tenant.items_per_page')));
     }

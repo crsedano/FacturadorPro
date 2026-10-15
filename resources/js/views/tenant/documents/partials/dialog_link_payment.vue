@@ -1,6 +1,6 @@
 <template>
     <div class="pt-2">
-        <el-dialog :title="titleDialog" :visible="showDialog" class="" @close="close" @open="create" >
+        <el-dialog :title="titleDialog" :model-value="showDialog" class="" @close="close" @open="create" >
 
             <el-tabs v-model="activeTab" @tab-click="handleClick" v-loading="loading">
                 <el-tab-pane label="Yape" name="01">

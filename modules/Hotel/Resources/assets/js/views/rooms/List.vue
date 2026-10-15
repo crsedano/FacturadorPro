@@ -178,7 +178,7 @@
       </div>
     </div>
     <ModalAddEdit
-      v-model:visible="openModalAddEdit"
+      v-modelv-model="openModalAddEdit"
       @onAddItem="onAddItem"
       @onUpdateItem="onUpdateItem"
       :room="room"
@@ -187,14 +187,14 @@
     ></ModalAddEdit>
     <ModalRoomRates
       :room="room"
-      v-model:visible="openModalRoomRates"
+      v-modelv-model="openModalRoomRates"
     ></ModalRoomRates>
   </div>
 </template>
 
 <script>
-import ModalAddEdit from "./AddEdit";
-import ModalRoomRates from "./RoomRates";
+import ModalAddEdit from "./AddEdit.vue";
+import ModalRoomRates from "./RoomRates.vue";
 
 export default {
   props: {

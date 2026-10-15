@@ -1,6 +1,6 @@
 <template>
 <div>
-    <el-dialog :title="titleDialog" :visible="showDialog" @open="create" width="30%" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
+    <el-dialog :title="titleDialog" :model-value="showDialog" @open="create" width="30%" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
         <div class="row" v-show="!showGenerate">
             <div class="col text-center font-weight-bold">
                 <p>Imprimir A4</p>
@@ -154,7 +154,6 @@
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </td>
-                            <br />
                         </tr>
                     </tbody>
                 </table>

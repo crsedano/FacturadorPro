@@ -76,7 +76,7 @@ class SystemActivityLog extends ModelTenant
                     'system_activity_log_type'
                 ]);
 
-        if($request->value)
+        if($request->value && $request->column)
         {
             $query->where($request->column, 'like', "%{$request->value}%");
         }

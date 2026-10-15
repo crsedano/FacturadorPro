@@ -162,7 +162,7 @@ class ViewServiceProvider extends ServiceProvider
         );
 
         view()->composer(
-            'tenant.layouts.app',
+            ['tenant.layouts.app', 'tenant.layouts.app_pos'],
             'App\Http\ViewComposers\Tenant\ConfigurationVisualViewComposer'
         );
 

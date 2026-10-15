@@ -1,7 +1,7 @@
 <template>
     <el-dialog :close-on-click-modal="false"
                :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                top="7vh"
                @close="close"
                @open="create">
@@ -376,11 +376,11 @@ import {calculateRowItem} from '../../../../../../../../resources/js/helpers/fun
 import LotsForm from './lots.vue'
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import { Ckeditor } from '@ckeditor/ckeditor5-vue';
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../../../../../resources/js/helpers/modal_item";
 import WarehousesDetail
-    from "../../../../../../../Sale/Resources/assets/js/views/sale_opportunities/partials/warehouses";
+    from "../../../../../../../Sale/Resources/assets/js/views/sale_opportunities/partials/warehouses.vue";
 
 export default {
     props: [
@@ -389,7 +389,7 @@ export default {
         'exchangeRateSale',
         'percentageIgv'
     ],
-    components: {itemForm, LotsForm, ckeditor: CKEditor.component},
+    components: {itemForm, LotsForm, ckeditor: Ckeditor},
 
     data() {
         return {

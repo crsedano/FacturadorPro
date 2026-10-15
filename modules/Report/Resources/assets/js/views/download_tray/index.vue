@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th class="">Formato</th>
                             <th class="">Fecha generación</th>
@@ -16,7 +17,9 @@
                             <th>Tipo</th>
                             <th class="text-center">Descarga</th>
                         </tr>
-                        <tr slot-scope="{ index, row }">
+                        </template>
+                        <template #default="{ index, row }">
+                        <tr>
                             <td>{{ index }}</td> 
                             <td>{{row.format}}</td>
                             <td>{{row.date_init}}</td>
@@ -31,6 +34,7 @@
                                 </el-button>
                             </td>
                         </tr>
+                        </template>
                         
                     </data-table>
                      

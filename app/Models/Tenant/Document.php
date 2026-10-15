@@ -915,18 +915,14 @@ class Document extends ModelTenant
      *
      * @return SaleNote[]|\Illuminate\Database\Eloquent\Builder[]|EloquentCollection|Builder[]|Collection|mixed
      */
-    public function getNvCollection()
+    public function getNvCollection(Configuration $configuration = null)
     {
+        static $cachedConfig = null;
+        if ($configuration === null) {
+            $cachedConfig = $cachedConfig ?? Configuration::first();
+            $configuration = $cachedConfig;
+        }
 
-        // return SaleNote::where('document_id', $this->id)
-        //     ->orWhere('id', $this->sale_note_id)
-        //     ->get()
-        //     ->transform(function ($sale_note) {
-        //         /** @var SaleNote $sale_note */
-        //         return $sale_note->getCollectionData();
-        //     });
-         $configuration = Configuration::first();
- 
         return SaleNote::where('document_id', $this->id)
             ->orWhere('id', $this->sale_note_id)
             // Relaciones que getCollectionData() siempre lee. Se cargan en bloque en lugar de 1 consulta por NV.

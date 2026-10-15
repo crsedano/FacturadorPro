@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th  class="text-left">F. Emisión</th>
                             <th  class="text-left">F. Entrega</th>
@@ -15,8 +16,10 @@
                             <th  class="text-left" v-if="columns.user.visible">Vendedor</th>
                             <th  class="text-center">Monto</th>
                             <th  class="text-center">Estado</th>
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td> 
                             <td  class="text-left">{{row.date_of_issue}}</td>
                             <td  class="text-left">{{row.delivery_date}}</td>
@@ -26,6 +29,7 @@
                             <td  class="text-center">{{row.total}}</td>
                             <td  class="text-center">{{row.state_description}}</td>
                         </tr>
+                        </template>
                         
                     </data-table>
                      

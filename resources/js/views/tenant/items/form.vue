@@ -1,7 +1,7 @@
 <template>
     <el-dialog :close-on-click-modal="false"
                :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                append-to-body
                class="pt-0"
                top="7vh"
@@ -653,7 +653,7 @@
                                             </td>
                                         </template>
                                         <template v-else>
-                                            <td class="text-center">  <el-input v-model="row.barcode"></el-input>
+                                            <td class="text-center">  <el-input v-model="row.barcode"></el-input></td>
                                             <td>
                                                 <div class="form-group">
                                                     <el-select v-model="row.unit_type_id"
@@ -1183,7 +1183,7 @@
 
 <script>
 import LotsForm from './partials/lots.vue'
-import ExtraInfo from './partials/extra_info'
+import ExtraInfo from './partials/extra_info.vue'
 import {mapActions, mapState} from "vuex";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../helpers/modal_item";
 

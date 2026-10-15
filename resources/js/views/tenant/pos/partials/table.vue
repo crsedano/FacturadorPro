@@ -1,9 +1,5 @@
 <template>
     <div>
-        <key-event="keyup" :key-code="40" @success="handle40" />
-        <key-event="keyup" :key-code="38" @success="handle38" />
-        <key-event="keyup" :key-code="13" @success="handle13" />
-        <key-event="keyup" :key-code="113" @success="openTableListPrices113" />
 
         <el-table
             ref="singleTable"
@@ -23,26 +19,26 @@
             <el-table-column property="internal_id" label="Código" width="120">
             </el-table-column>
             <el-table-column property="brand" label="Marca" width="120">
-                <!-- <template slot-scope="{ row }">
+                <!-- <template #default="{ row }">
                     {{ row }}
                 </template> -->
             </el-table-column>
             <!-- <el-table-column property="currency_type_id" label="Moneda" width="80">
                 </el-table-column> -->
             <el-table-column label="Precio" width="100">
-                <template slot-scope="{ row }">
+                <template #default="{ row }">
                     {{ row.currency_type_symbol }} {{ row.sale_unit_price }}
                 </template>
             </el-table-column>
 
             <el-table-column label="Pack" width="120">
-                <template slot-scope="{ row }">
+                <template #default="{ row }">
                     <br />
                     <small> {{ row.sets.join("-") }} </small>
                 </template>
             </el-table-column>
             <el-table-column label="Stock">
-                <template slot-scope="{ row }">
+                <template #default="{ row }">
                     <!-- <button type="button" class="btn btn-xs btn-primary-pos" @click="clickWarehouseDetail(row)">
                             <i class="fa fa-search"></i>
                         </button> -->
@@ -74,7 +70,7 @@
             </el-table-column>
 
             <el-table-column label="Lista precios" width="120">
-                <template slot-scope="{ row }"> 
+                <template #default="{ row }"> 
                     <template v-if="row.unit_type.length > 0">
                         <el-popover
                             placement="top"
@@ -90,8 +86,7 @@
                                     width="90"
                                     label="Precio"
                                 >
-                                    <template
-                                        slot-scope="{
+                                    <template #default="{
                                             row
                                         }"
                                     >
@@ -127,8 +122,7 @@
                                     width="80"
                                     label=""
                                 >
-                                    <template
-                                        slot-scope="{
+                                    <template #default="{
                                             row
                                         }"
                                     >
@@ -165,7 +159,7 @@
 
 
             <el-table-column label="Historial ventas">
-                <template slot-scope="{ row }">
+                <template #default="{ row }">
                     <button
                         type="button"
                         class="btn btn-xs btn-primary-pos"
@@ -177,7 +171,7 @@
             </el-table-column>
 
             <!-- <el-table-column label="Historial compras">
-                    <template slot-scope="{row}">
+                    <template #default="{row}">
                         <button type="button" class="btn btn-xs btn-primary-pos" @click="clickHistoryPurchases(row.item_id)"><i class="fas fa-cart-plus"></i></button>
                     </template>
                 </el-table-column> -->
@@ -226,6 +220,22 @@ export default {
 
         this.events()
 
+    },
+    mounted() {
+        this._keyupHandler40 = (e) => { if (e.code === 'ArrowDown') this.handle40(e) }
+        this._keyupHandler38 = (e) => { if (e.code === 'ArrowUp') this.handle38(e) }
+        this._keyupHandler13 = (e) => { if (e.code === 'Enter') this.handle13(e) }
+        this._keyupHandler113 = (e) => { if (e.code === 'F2') this.openTableListPrices113(e) }
+        document.addEventListener('keyup', this._keyupHandler40)
+        document.addEventListener('keyup', this._keyupHandler38)
+        document.addEventListener('keyup', this._keyupHandler13)
+        document.addEventListener('keyup', this._keyupHandler113)
+    },
+    beforeUnmount() {
+        document.removeEventListener('keyup', this._keyupHandler40)
+        document.removeEventListener('keyup', this._keyupHandler38)
+        document.removeEventListener('keyup', this._keyupHandler13)
+        document.removeEventListener('keyup', this._keyupHandler113)
     },
     methods: {
         events(){

@@ -25,7 +25,8 @@
                         :defaultType = "defaultType"
                         :applyConversionToPen="applyConversionToPen"
                         :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th class="">F. Emisión</th>
                             <th class="">Tipo Documento</th>
@@ -52,8 +53,10 @@
                                 <th class="">Total compra</th>
                                 <th class="">Ganancia</th>
                             </template>
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td>
                             <td>{{row.date_of_issue}}</td>
                             <td>{{row.document_type_description}}</td>
@@ -96,6 +99,7 @@
                                 <td>{{row.utility_item}}</td>
                             </template>
                         </tr>
+                        </template>
 
                     </data-table>
                 </div>

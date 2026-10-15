@@ -17,7 +17,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">F.Emisión</th>
                         <th class="text-center">F.E.Comprobante</th>
@@ -26,8 +27,10 @@
                         <th>Estado</th>
                         <th class="text-center">Descargas</th>
                         <th class="text-right">Acciones</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }" :class="{'text-danger': (row.state_type_id === '05'), 'text-warning': (row.state_type_id === '03')}">
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr :class="{'text-danger': (row.state_type_id === '05'), 'text-warning': (row.state_type_id === '03')}">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td class="text-center">{{ row.date_of_reference }}</td>
@@ -57,6 +60,7 @@
                                     v-if="row.btn_ticket">Eliminar</button>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
         </div>

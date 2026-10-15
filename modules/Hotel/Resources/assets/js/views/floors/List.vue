@@ -57,7 +57,7 @@
       </div>
     </div>
     <ModalAddEdit
-      v-model:visible="openModalAddEdit"
+      v-modelv-model="openModalAddEdit"
       @onAddItem="onAddItem"
       @onUpdateItem="onUpdateItem"
       :floor="floor"
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import ModalAddEdit from "./AddEdit";
+import ModalAddEdit from "./AddEdit.vue";
 
 export default {
   props: {

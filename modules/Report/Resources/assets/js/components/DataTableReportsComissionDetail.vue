@@ -242,15 +242,11 @@
                               :row="row"></slot>
                         </tbody>
                         <tfoot>
-                            <template>
-                                <tr>
-                                    <td class="text-right" colspan="10">TOTAL:</td>
-                                    <td class="text-center">{{ totals.acum_unit_gain}}</td>
-                                     <td class="text-center">{{ totals.acum_overall_profit}}</td>
-                                </tr>
-
-                            </template>
-                            
+                            <tr>
+                                <td class="text-right" colspan="10">TOTAL:</td>
+                                <td class="text-center">{{ totals.acum_unit_gain}}</td>
+                                 <td class="text-center">{{ totals.acum_overall_profit}}</td>
+                            </tr>
                         </tfoot>
                     </table>
                     <div>

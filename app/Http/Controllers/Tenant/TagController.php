@@ -33,7 +33,10 @@ class TagController extends Controller
 
     public function records(Request $request)
     {
-        $records = Tag::where($request->column, 'like', "%{$request->value}%")->orderBy('description');
+        $records = Tag::orderBy('description');
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
         
         return new TagCollection($records->paginate(config('tenant.items_per_page')));
     }

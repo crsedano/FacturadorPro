@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="Obtener tipo de cambio" :visible="showDialog" @close="close">
+    <el-dialog title="Obtener tipo de cambio" :model-value="showDialog" @close="close">
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
                 <div class="row">

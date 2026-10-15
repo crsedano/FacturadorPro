@@ -2,7 +2,7 @@
     <el-dialog
         :title="titleDialog"
         width="40%"
-        :visible="showMigrate"
+        :model-value="showMigrate"
         @open="onOpened"
         :close-on-click-modal="false"
         :close-on-press-escape="false"

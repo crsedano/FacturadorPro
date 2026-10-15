@@ -57,8 +57,7 @@
                                                 <button  type="button" class="btn waves-effect waves-light btn-xs btn-danger" @click.prevent="clickCancel(index)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
-                                            </td> 
-                                            <br>
+                                            </td>
                                         </tr>
                                     </tbody> 
                                 </table> 

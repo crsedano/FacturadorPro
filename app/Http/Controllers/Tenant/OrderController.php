@@ -85,7 +85,10 @@ class OrderController extends Controller
 
     public function records(Request $request)
     {
-        $records = Order::where($request->column, 'like', "%{$request->value}%")->latest();
+        $records = Order::latest();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new OrderCollection($records->paginate(config('tenant.items_per_page')));
     }

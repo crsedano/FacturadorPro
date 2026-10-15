@@ -6,7 +6,8 @@
         <div class="card mb-0">
             <div class="card-body">
                 <data-table :resource="resource" @changeCurrency="changeCurrency" >
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th class="">#</th>
                         <th class=""><strong>Nombre de la cuenta / Total pagos</strong></th>
                         <th class="text-center"><strong>CPE</strong></th>
@@ -21,8 +22,10 @@
                         <th class="text-center"><strong>Pago Prestamos Bancarios</strong></th>
                         <th v-show="seller_can_view_balance"
                             class="text-center"><strong>Saldo</strong></th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.description }}</td>
                         <td class="text-center">{{cuurencySymbol}} {{ row.document_payment }}</td>
@@ -39,6 +42,7 @@
                             class="text-center">{{cuurencySymbol}} {{ row.balance }}
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
         </div>

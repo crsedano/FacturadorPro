@@ -58,11 +58,13 @@ class IncentiveController extends Controller
                 break;
 
             default:
-                        
+
                 $records = Item::whereTypeUser()
                                 ->whereNotIsSet()
-                                ->where($request->column, 'like', "%{$request->value}%")
                                 ->orderBy('description');
+                if($request->column) {
+                    $records->where($request->column, 'like', "%{$request->value}%");
+                }
                 break;
         }
 

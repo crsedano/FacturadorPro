@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="titleDialog" :visible="showDialog"   @close="close" @open="create"   append-to-body top="7vh">
+    <el-dialog :title="titleDialog" :model-value="showDialog"   @close="close" @open="create"   append-to-body top="7vh">
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
                 <div class="row">
@@ -36,15 +36,15 @@
                                  
                                 <div class="table-responsive" v-loading="sales_loading">
                                     <table class="table">
-                                        <thead> 
-                                            <tr slot="heading">
+                                        <thead>
+                                            <tr>
                                                 <th>#</th>
                                                     <th class="text-center">Fecha</th>
                                                     <th class="text-center">Documento</th>
                                                     <th class="text-left">Cliente</th>
-                                                    <th class="text-center">Cantidad</th>   
-                                                    <th class="text-center">Precio</th>   
-                                                    <th class="text-center">Total</th>   
+                                                    <th class="text-center">Cantidad</th>
+                                                    <th class="text-center">Precio</th>
+                                                    <th class="text-center">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -79,15 +79,15 @@
                                 
                                 <div class="table-responsive" v-loading="purchases_loading">
                                     <table class="table">
-                                        <thead> 
-                                            <tr slot="heading">
+                                        <thead>
+                                            <tr>
                                                 <th>#</th>
                                                     <th class="text-center">Fecha</th>
                                                     <th class="text-center">Documento</th>
                                                     <th class="text-left">Proveedor</th>
-                                                    <th class="text-center">Cantidad</th>   
-                                                    <th class="text-center">Precio</th>   
-                                                    <th class="text-center">Total</th>   
+                                                    <th class="text-center">Cantidad</th>
+                                                    <th class="text-center">Precio</th>
+                                                    <th class="text-center">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>

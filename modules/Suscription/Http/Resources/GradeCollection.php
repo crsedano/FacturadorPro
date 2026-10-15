@@ -18,6 +18,7 @@ class GradeCollection extends ResourceCollection
     public function toArray($request)
     {
         return $this->collection->transform(function ($row, $key) {
+            $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
             return $row->getRowResource();
         });
 

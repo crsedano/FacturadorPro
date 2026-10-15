@@ -33,7 +33,8 @@
         <div class="card mb-0">
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th>Banco</th>
@@ -43,8 +44,10 @@
                         <th class="text-center">Moneda</th>
                         <th class="text-right">Total</th>
                         <th class="text-center">Dist. Prestamo Bancario</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }"
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr
                         :class="setClassToTable(row)">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
@@ -99,6 +102,7 @@
                         </td>
 
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

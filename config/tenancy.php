@@ -29,6 +29,7 @@ return [
      */
     'bootstrappers' => [
         DatabaseTenancyBootstrapper::class,
+        \App\Tenancy\TenantStorageBootstrapper::class,
     ],
 
     'database' => [

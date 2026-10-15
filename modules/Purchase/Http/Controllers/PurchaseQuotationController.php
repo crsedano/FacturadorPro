@@ -58,9 +58,10 @@ class PurchaseQuotationController extends Controller
 
     public function records(Request $request)
     {
-        $records = PurchaseQuotation::where($request->column, 'like', "%{$request->value}%")
-                            ->whereTypeUser()
-                            ->latest();
+        $records = PurchaseQuotation::whereTypeUser()->latest();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new PurchaseQuotationCollection($records->paginate(config('tenant.items_per_page')));
     }

@@ -21,6 +21,7 @@
         public function toArray($request)
         {
             return $this->collection->transform(function ($row, $key) {
+$row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
 
                 /** @var UserRelSuscriptionPlan $row */
                 return $row->getCollectionData();

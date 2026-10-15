@@ -14,7 +14,20 @@ class DocumentCollection extends ResourceCollection
      * @return mixed
      */
     public function toArray($request) {
-        return $this->collection->transform(function(\App\Models\Tenant\Document $row, $key) {
+        $ids = $this->collection->map(function ($row) {
+            $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
+            return $row->id;
+        })->filter()->values();
+
+        $emailLogsByDocId = EmailSendLog::Document()
+            ->whereIn('relation_id', $ids)
+            ->get()
+            ->groupBy('relation_id');
+
+        $configuration = \App\Models\Tenant\Configuration::first();
+
+        return $this->collection->transform(function($row, $key) use ($emailLogsByDocId, $configuration) {
+            $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
             $has_xml = true;
             $has_pdf = true;
             $has_cdr = false;
@@ -106,13 +119,13 @@ class DocumentCollection extends ResourceCollection
             if($row->regularize_shipping) {
                 $message_regularize_shipping = "Por regularizar: {$row->response_regularize_shipping->code} - {$row->response_regularize_shipping->description}";
             }
-            $nvs = $row->getNvCollection();
+            $nvs = $row->getNvCollection($configuration);
 
-            $order_note = $row->getOrderNoteCollection();
+            $order_note = $row->order_note ? $row->order_note->getCollectionData() : [];
             // Regresa si se hn enviado correos
             $email_send_it = false;
             $email_send_it_array = [];
-            $send_it = EmailSendLog::Document()->FindRelationId($row->id)->get();
+            $send_it = $emailLogsByDocId->get($row->id, collect());
             if(count($send_it)> 0){
                 /** @var EmailSendLog $log*/
                 foreach($send_it as $log){

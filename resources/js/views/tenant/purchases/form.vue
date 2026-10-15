@@ -334,7 +334,6 @@
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </td>
-                                            <br>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -644,7 +643,7 @@ import PersonForm from '../persons/form.vue'
 import PurchaseOptions from './partials/options.vue'
 import {exchangeRate, functions, fnPaymentsFee} from '../../../mixins/functions'
 import {calculateRowItem} from '../../../helpers/functions'
-import SeriesForm from './partials/series'
+import SeriesForm from './partials/series.vue'
 import {mapActions, mapState} from "vuex";
 
 export default {

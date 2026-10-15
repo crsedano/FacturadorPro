@@ -10,7 +10,7 @@
         <div class="card-body">
             <!-- <el-dialog
                 :title="title"
-                :visible="visible"
+                :model-value="visible"
                 @close="onClose"
                 @open="onCreate"
             >
@@ -363,7 +363,7 @@
 
             <add-process-modal
                 :guides="editGuide"
-                v-model:visible="showDialogNewProcess"
+                v-modelv-model="showDialogNewProcess"
                 @addrow="addStep"
                 @closeElement="clearStep"
                 :editable="!form.is_completed"
@@ -380,7 +380,7 @@
             ></person-form>
             <modal-file-upload
                 :stageId="stageId"
-                v-model:visible="showFileUpload"
+                v-modelv-model="showFileUpload"
                 @updateStage="updateData"
                 @closeElement="updateData"
             ></modal-file-upload>

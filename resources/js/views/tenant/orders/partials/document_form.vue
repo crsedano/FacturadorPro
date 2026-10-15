@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         :title="title"
-        :visible="showDialog"
+        v-model="showDialog"
         @open="create"
         @close="close"
         top="7vh"

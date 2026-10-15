@@ -15,13 +15,16 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Descripción</th>
                         <th>Establecimiento</th>
                         <th class="text-right">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.description }}</td>
                         <td>{{ row.establishment_description }}</td>
@@ -29,6 +32,7 @@
                             <button type="button" class="btn waves-effect waves-light btn-xs btn-info" @click.prevent="clickCreate(row.id)">Editar</button>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

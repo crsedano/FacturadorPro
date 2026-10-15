@@ -32,7 +32,8 @@
 
         <div class="card-body p-0" v-show="!loader">
             <inventory-data-table :resource="resource">
-                <tr slot="heading">
+                <template #heading>
+                <tr>
                     <th>#</th>
                     <th >Producto</th>
                     <th class="text-center">Stock</th>
@@ -41,7 +42,9 @@
                     <th>F. Vencim</th>
                     <th>Almacén</th>
                 </tr>
-                <tr slot-scope="{ index, row }">
+                </template>
+                <template #default="{ index, row }">
+                <tr>
                     <td>{{ index }}</td>
                     <td  >{{ row.product }}</td>
                     <td class="text-center">{{ row.stock }}</td>
@@ -51,6 +54,7 @@
                     <td>{{ row.warehouse }} </td>
 
                 </tr>
+                </template>
             </inventory-data-table>
         </div>
     </section>

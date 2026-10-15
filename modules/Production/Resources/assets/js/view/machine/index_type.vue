@@ -20,14 +20,17 @@
         <div class="card mb-0">
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Nombre</th>
                         <th>Descripcion</th>
                         <th>Activo</th>
                         <th></th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.name }}</td>
                         <td>{{ row.description }}</td>
@@ -43,6 +46,7 @@
                         </td>
 
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

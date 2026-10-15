@@ -17,7 +17,8 @@
 </style>
 
 <script>
-    import Chart from 'chart.js';
+    import { Chart, registerables } from 'chart.js';
+    Chart.register(...registerables);
 
     export default {
         props: ['type', 'allData'],

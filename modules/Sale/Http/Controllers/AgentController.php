@@ -32,7 +32,10 @@ class AgentController extends Controller
 
     public function records(Request $request)
     {
-        $records = Agent::where($request->column, 'like', "%{$request->value}%");
+        $records = Agent::query();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new AgentCollection($records->paginate(config('tenant.items_per_page')));
     }

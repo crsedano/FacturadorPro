@@ -46,7 +46,7 @@ trait ElectronicDocumentTrait
                         "{$table}.updated_at as updated_at "
                     ));
 
-        if($request->value)
+        if($request->value && $request->column)
         {
             $query->where($request->column, 'like', "%{$request->value}%");
         }
@@ -54,7 +54,7 @@ trait ElectronicDocumentTrait
         return $query;
     }
 
-        
+
     /**
      * 
      * Filtro para obtener el registro de actividades de resumenes y anulaciones

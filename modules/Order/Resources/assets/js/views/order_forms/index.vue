@@ -12,7 +12,8 @@
         <div class="card mb-0">
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th>Cliente</th>
@@ -21,8 +22,10 @@
                         <th class="text-center">Fecha Envío</th>
                         <th class="text-center">Descargas</th>
                         <th class="text-center">Acciones</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }" :class="{'text-danger': (row.state_type_id === '11')}">
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr :class="{'text-danger': (row.state_type_id === '11')}">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td>{{ row.customer_name }} <br /> <small>{{ row.customer_number }}</small></td>
@@ -38,6 +41,7 @@
                             <button type="button" class="btn waves-effect waves-light btn-xs btn-info" @click.prevent="clickOptions(row.id)">Opciones</button>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

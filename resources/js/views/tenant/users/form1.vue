@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         :title="titleDialog"
-        :visible="showDialog"
+        :model-value="showDialog"
         @close="close"
         @open="create"
     >
@@ -497,7 +497,6 @@
                                                         <i class="fa fa-trash"></i>
                                                     </button>
                                                 </td>
-                                                <br>
                                             </tr>
                                         </tbody>
                                     </table>

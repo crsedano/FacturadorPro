@@ -142,7 +142,8 @@
             <div class="card-body">
                 <data-table :productType="type"
                             :resource="resource">
-                    <tr slot="heading"
+                    <template #heading>
+                    <tr
                         width="100%">
                         <th>#</th>
                         <th>ID</th>
@@ -177,10 +178,10 @@
                         </th>
                         <th class="text-right"></th>
                     </tr>
+                    </template>
 
-                    <tr></tr>
+                    <template #default="{ index, row }">
                     <tr
-                        slot-scope="{ index, row }"
                         :class="{ disable_color: !row.active }"
                     >
                         <td>{{ index }}</td>
@@ -373,6 +374,7 @@
                             </div>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

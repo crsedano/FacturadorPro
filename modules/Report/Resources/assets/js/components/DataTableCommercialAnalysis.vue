@@ -60,9 +60,8 @@
 
             </div>
                 <div class="row mt-1 mb-4">
-                    
-                </div> 
-            </div>
+
+                </div>
 
             <div class="col-md-12">
                 <div class="table-responsive">

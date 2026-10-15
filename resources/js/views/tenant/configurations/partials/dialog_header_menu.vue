@@ -52,7 +52,7 @@
                class="fas fa-fw fa-pen"></i>
             <span class="fix-m"><i class="fas fa-ellipsis-h"></i></span>
         </a>
-        <el-dialog :visible="showDialog"
+        <el-dialog v-model="showDialog"
                    title="Accesos Directos"
                    top="20vh"
                    width="40%"

@@ -176,9 +176,10 @@
         public function plansRecords(Request $request)
         {
             $type = 'customers';
-            $records = SuscriptionPlan::where($request->column, 'like', "%{$request->value}%")
-                // ->where('type', $type)
-                ->orderBy('name');
+            $records = SuscriptionPlan::orderBy('name');
+            if($request->column) {
+                $records->where($request->column, 'like', "%{$request->value}%");
+            }
 
             return new SuscriptionPlansCollection($records->paginate(config('tenant.items_per_page')));
         }

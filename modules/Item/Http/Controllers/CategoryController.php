@@ -28,8 +28,10 @@ class CategoryController extends Controller
 
     public function records(Request $request)
     {
-        $records = Category::where($request->column, 'like', "%{$request->value}%")
-                            ->latest();
+        $records = Category::latest();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new CategoryCollection($records->paginate(config('tenant.items_per_page')));
     }

@@ -1,10 +1,10 @@
 <template>
-  <el-dialog title="Accesos Directos" v-model:visible="showDialog" @close="close" top="20vh" width="40%">
+  <el-dialog title="Accesos Directos" v-model="localVisible" @close="close" top="20vh" width="40%">
     <el-table :data="skins">
       <el-table-column prop="name" label="Nombre" width="150"></el-table-column>
       <el-table-column prop="filename" label="Archivo" width="150"></el-table-column>
       <el-table-column prop="" label="Acciones" width="100">
-        <template slot-scope="scope">
+        <template #default="scope">
           <a class="btn btn-info btn-sm" :href="'/storage/skins/'+scope.row.filename" target="BLANK">
             <i class="fas fa-download"></i>
           </a>
@@ -37,6 +37,12 @@
 <script>
   export default {
     props:['showDialog', 'skins'],
+    computed: {
+        localVisible: {
+            get() { return this.showDialog },
+            set(val) { this.$emit('update:showDialog', val) }
+        }
+    },
     data() {
       return {
         form: { },

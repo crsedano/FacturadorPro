@@ -1,7 +1,7 @@
 <template>
     <el-dialog :append-to-body="true"
                :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                @close="close"
                @open="create">
         <form autocomplete="off"

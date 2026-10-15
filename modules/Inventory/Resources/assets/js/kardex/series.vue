@@ -1,6 +1,7 @@
 <template>
     <data-table :resource="resource">
-        <tr slot="heading">
+        <template #heading>
+        <tr>
             <th width="5%">#</th>
             <th>Codigo</th>
             <th class="text-center">Serie</th>
@@ -10,8 +11,10 @@
             <th>Fecha</th>
             <th class="text-center">Estado</th>
         </tr>
+        </template>
 
-        <tr slot-scope="{ index, row }">
+        <template #default="{ index, row }">
+        <tr>
             <td>{{ index + 1 }}</td>
             <td>{{ row.code_item }}</td>
             <td class="text-center">{{ row.series }}</td>
@@ -23,6 +26,7 @@
 
             <td class="text-center">{{ row.status }}</td>
         </tr>
+        </template>
     </data-table>
 </template>
 

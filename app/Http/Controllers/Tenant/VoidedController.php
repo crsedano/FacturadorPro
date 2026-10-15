@@ -42,14 +42,18 @@ class VoidedController extends Controller
     {
         $voided = DB::connection('tenant')
                     ->table('voided')
-                    ->where($request->column, 'like', "%{$request->value}%")
                     ->select(DB::raw("id, external_id, date_of_reference, date_of_issue, ticket, identifier, state_type_id, 'voided' AS 'type'"));
+        if($request->column) {
+            $voided->where($request->column, 'like', "%{$request->value}%");
+        }
 
         $summaries = DB::connection('tenant')
                         ->table('summaries')
                         ->select(DB::raw("id, external_id, date_of_reference, date_of_issue, ticket, identifier, state_type_id, 'summaries' AS 'type'"))
-                        ->where($request->column, 'like', "%{$request->value}%")
                         ->where('summary_status_type_id', '3');
+        if($request->column) {
+            $summaries->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new VoidedCollection($voided->union($summaries)->orderBy('date_of_issue', 'DESC')->paginate(config('tenant.items_per_page')));
     }

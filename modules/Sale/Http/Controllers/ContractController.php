@@ -118,7 +118,10 @@ class ContractController extends Controller
 
         }else{
 
-            $records = Contract::where($request->column, 'like', "%{$request->value}%");
+            $records = Contract::query();
+            if($request->column) {
+                $records->where($request->column, 'like', "%{$request->value}%");
+            }
 
         }
 

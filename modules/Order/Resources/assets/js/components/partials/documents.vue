@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="titleDialog" width="70%"  :visible="showDialog"  @open="create"  :close-on-click-modal="false" :close-on-press-escape="false" append-to-body :show-close="false">
+    <el-dialog :title="titleDialog" width="70%"  :model-value="showDialog"  @open="create"  :close-on-click-modal="false" :close-on-press-escape="false" append-to-body :show-close="false">
 
         <div class="form-body">
             <div class="row" >
@@ -34,7 +34,7 @@
                                     </td>
                                     <td class="text-center">{{ row.date_of_issue }}</td>
                                     <td>{{ row.customer_name }}<br/><small v-text="row.customer_number"></small></td>
-                                    <td>{{ row.identifier }}
+                                    <td>{{ row.identifier }}</td>
                                     <td class="text-right">{{ row.total }}</td>
                                     <td>
                                         <el-select v-model="row.document_type_id" @change="changeDocumentType(row, index)">

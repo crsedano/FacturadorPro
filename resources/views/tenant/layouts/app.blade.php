@@ -88,6 +88,17 @@
     <script src="{{ asset('porto-light/vendor/modernizr/modernizr.js') }}"></script>
 
     <style>
+        :root {
+            --theme-color: {{ [
+                'blue'   => '#1976d2',
+                'green'  => '#06d79c',
+                'red'    => '#f62d51',
+                'purple' => '#7460ee',
+                'megna'  => '#56c0d8',
+                'dark'   => '#398bf7',
+                'white'  => '#398bf7',
+            ][$visual->sidebar_theme ?? ''] ?? '#398bf7' }};
+        }
         .descarga {
             color:black;
             padding:5px;
@@ -145,7 +156,7 @@
     <script src="{{ asset('porto-light/vendor/jquery-cookie/jquery-cookie.js')}}"></script>
     {{-- <script src="{{ asset('porto-light/master/style-switcher/style.switcher.js')}}"></script> --}}
     <script src="{{ asset('porto-light/vendor/popper/umd/popper.min.js')}}"></script>
-    <!-- <script src="{{ asset('porto-light/vendor/bootstrap/js/bootstrap.js')}}"></script> -->
+    <script src="{{ asset('porto-light/vendor/bootstrap/js/bootstrap.js')}}"></script>
     {{-- <script src="{{ asset('porto-light/vendor/common/common.js')}}"></script> --}}
     <script src="{{ asset('porto-light/vendor/nanoscroller/nanoscroller.js')}}"></script>
     <script src="{{ asset('porto-light/vendor/magnific-popup/jquery.magnific-popup.js')}}"></script>
@@ -182,8 +193,12 @@
 
     @stack('scripts')
 
-    <script src="{{ asset('js/manifest.js') }}"></script>
-    <script src="{{ asset('js/vendor.js') }}"></script>
+    <!-- Theme jQuery plugins (needed by theme.js / custom.js below) -->
+    <script src="{{ asset('js/vendor/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('js/vendor/waves.js') }}"></script>
+    <script src="{{ asset('js/vendor/custom.js') }}"></script>
+
     <!-- Theme Base, Components and Settings -->
     <script src="{{asset('porto-light/js/theme.js')}}"></script>
 

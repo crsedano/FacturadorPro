@@ -10,15 +10,18 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th>#</th>
                             <th>Vendedor</th>
                             <th class="text-center">Tipo comisión</th>
                             <th class="text-center">Monto comisión</th>
                             <th class="text-center">Total utilidad</th>
                             <th class="text-center">Total comisiones</th>
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td>  
                             <td>{{row.user_name}}</td>
                             <td class="text-center">{{row.type}}</td>
@@ -26,6 +29,7 @@
                             <td class="text-center">{{row.total_utility}}</td> 
                             <td class="text-center">{{row.commission}}</td> 
                         </tr>
+                        </template>
                         
                     </data-table>
                      

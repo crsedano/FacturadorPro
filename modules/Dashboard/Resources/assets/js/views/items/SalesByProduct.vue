@@ -126,8 +126,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <template v-for="(row, index) in items_by_sales">
-                                            <tr :key="index">
+                                        <template v-for="(row, index) in items_by_sales" :key="index">
+                                            <tr>
                                                 <td>{{ Number(index)+1 }}</td>
                                                 <td>{{ row.internal_id }}</td>
                                                 <td>{{ row.description }}</td>

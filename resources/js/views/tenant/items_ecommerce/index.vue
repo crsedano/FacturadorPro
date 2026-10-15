@@ -31,7 +31,8 @@
       </div>
       <div class="card-body">
         <data-table :resource="resource">
-          <tr slot="heading" width="100%">
+          <template #heading>
+          <tr width="100%">
             <th>#</th>
             <th>Cód. Interno</th>
             <th>Unidad</th>
@@ -45,8 +46,9 @@
             <th class="text-center">Visible en Tienda</th>
             <th class="text-right">Acciones</th>
           </tr>
-          <tr></tr>
-          <tr slot-scope="{ index, row }">
+          </template>
+          <template #default="{ index, row }">
+          <tr>
             <td>{{ index }}</td>
             <td>{{ row.internal_id }}</td>
             <td>{{ row.unit_type_id }}</td>
@@ -87,6 +89,7 @@
               </template>
             </td>
           </tr>
+          </template>
         </data-table>
       </div>
 
@@ -99,7 +102,7 @@
       <!-- <images-record v-model:showDialog="showImageDetail" :recordImages="recordImages"></images-record> -->
 
       <el-dialog
-        v-model:visible="showImageDetail"
+        v-modelv-model="showImageDetail"
         title="Imagenes de Producto"
         width="50%"
         append-to-body

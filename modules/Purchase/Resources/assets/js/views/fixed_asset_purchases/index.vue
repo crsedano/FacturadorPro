@@ -24,7 +24,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">F. Emisión</th>
                         <th class="text-center" v-if="columns.date_of_due.visible" >F. Vencimiento</th>
@@ -41,8 +42,10 @@
                         <!-- <th v-if="columns.total_perception.visible" >Percepcion</th> -->
                         <th class="text-right">Total</th>
                         <th class="text-right">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td v-if="columns.date_of_due.visible" class="text-center">{{ row.date_of_due }}</td>
@@ -86,6 +89,7 @@
                         </td>
 
                     </tr>
+                    </template>
                 </data-table>
             </div>
  

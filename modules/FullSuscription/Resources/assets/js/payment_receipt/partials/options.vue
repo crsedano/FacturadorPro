@@ -4,7 +4,7 @@
                    :close-on-press-escape="false"
                    :show-close="false"
                    :title="titleDialog"
-                   :visible="showDialog"
+                   :model-value="showDialog"
                    width="800px"
                    @open="create">
 

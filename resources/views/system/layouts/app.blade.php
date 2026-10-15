@@ -131,9 +131,13 @@
 
     @stack('scripts')
 
-    <script src="{{ asset('js/manifest.js') }}"></script>
-    <script src="{{ asset('js/vendor.js') }}"></script>
-        <!-- Theme Base, Components and Settings -->
+    <!-- Theme jQuery plugins -->
+    <script src="{{ asset('js/vendor/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('js/vendor/waves.js') }}"></script>
+    <script src="{{ asset('js/vendor/custom.js') }}"></script>
+
+    <!-- Theme Base, Components and Settings -->
     <script src="{{asset('porto-light/js/theme.js')}}"></script>
     <!-- <script src="//code.tidio.co/1vliqewz9v7tfosw5wxiktpkgblrws5w.js"></script> -->
 </body>

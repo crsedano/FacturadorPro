@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-dialog
-            :visible="showDialog"
+            :model-value="showDialog"
             :close-on-click-modal="false"
             :close-on-press-escape="false"
             :show-close="false"

@@ -365,10 +365,11 @@
         public function excel(Request $request)
         {
 
-            $records = Expense::where($request->column, 'like', "%{$request->value}%")
-                ->whereTypeUser()
-                ->latest()
-                ->get();
+            $records = Expense::whereTypeUser()->latest();
+            if($request->column) {
+                $records->where($request->column, 'like', "%{$request->value}%");
+            }
+            $records = $records->get();
             // dd($records);
 
             $establishment = auth()->user()->establishment;

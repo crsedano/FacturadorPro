@@ -110,10 +110,7 @@
                 <video class="iphone-x" v-if="form.show_premium" autoplay="" loop="" muted="" playsinline="" width="350" style="height:620px">
                     <source src="https://facturaloperu.com/video/FacturaloPeru-APPPremium.mp4" type="video/mp4">
                 </video>
-                <iframe v-else :src="source_iframe" frameborder="0" height="750" ref="appIframe" style="z-index: 999;min-width: 350px;" class="iphone-x">
-                    <i>Speaker</i>
-                    <b>Camera</b>
-                </iframe>
+                <iframe v-else :src="source_iframe" frameborder="0" height="750" ref="appIframe" style="z-index: 999;min-width: 350px;" class="iphone-x"></iframe>
             </div>
 
         </div>

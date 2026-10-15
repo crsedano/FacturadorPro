@@ -1,11 +1,6 @@
 <template>
     <div class="card mb-0 pt-2 pt-md-0"
     >
-        <key-event="keyup"
-
-            @success="checkKey"
-        />
-        <key-event="keyup" :multiple-keys="multiple" @success="checkKeyWithAlt"/>
 
 
         <div class="tab-content" v-if="company && establishment">
@@ -50,6 +45,7 @@
                                                @change="changeCustomer"
                                                @focus="focus_on_client = true"
                                                @blur="focus_on_client = false"
+                                               @visible-change="(v) => { if(v) allCustomers() }"
                                                :loading="loading_search"
                                                @keyup.enter.native="keyupCustomer">
 
@@ -286,7 +282,6 @@
                                                 </button>
                                             </td>
                                         </template>
-                                        <br>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -372,20 +367,12 @@
                             </div>
                             <div class="col-lg-12 col-md-6 d-flex align-items-end">
                                 <div class="form-group">
-                                    <el-popover
-                                        placement="top-start"
-                                        :open-delay="1000"
-
-                                        width="145"
-                                        trigger="hover"
-                                        content="Presiona F2">
-                                        <el-button slot="reference"
-                                                   type="button" class="btn waves-effect waves-light btn-primary"
-                                                   @click.prevent="clickAddItem"
-                                        >
-                                            + Agregar Producto
-                                        </el-button>
-                                    </el-popover>
+                                    <el-button
+                                           class="btn waves-effect waves-light btn-primary"
+                                           @click.prevent="clickAddItem"
+                                    >
+                                        + Agregar Producto
+                                    </el-button>
                                 </div>
                             </div>
 
@@ -419,6 +406,7 @@
                                     <div class="col-lg-2 float-right">
                                         <div class="form-group">
                                             <table>
+                                                <tbody>
                                                 <tr>
                                                     <td>
                                                         {{ currency_type.symbol }}
@@ -433,6 +421,7 @@
                                                         </el-input-number>
                                                     </td>
                                                 </tr>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -450,21 +439,15 @@
                     <div class="form-actions text-right mt-4">
                         <el-button @click.prevent="close()">Cancelar</el-button>
 
-                        <el-popover
-                            placement="top-start"
-                            width="145"
-                            trigger="hover"
-                            content="Presiona ALT + G">
-                            <el-button slot="reference"
-                                       class="submit"
-                                       type="primary"
-                                       native-type="submit"
-                                       :loading="loading_submit"
-                                       v-if="form.items.length > 0"
-                            >
-                                Generar
-                            </el-button>
-                        </el-popover>
+                        <el-button
+                               class="submit"
+                               type="primary"
+                               native-type="submit"
+                               :loading="loading_submit"
+                               v-if="form.items.length > 0"
+                        >
+                            Generar
+                        </el-button>
                     </div>
                 </form>
             </div>
@@ -635,6 +618,16 @@
         });
         this.isUpdate()
         this.changeCurrencyType()
+    },
+    mounted() {
+        this._keyupHandler = (e) => this.checkKey(e)
+        this._keyupHandlerAlt = (e) => this.checkKeyWithAlt(e)
+        document.addEventListener('keyup', this._keyupHandler)
+        document.addEventListener('keyup', this._keyupHandlerAlt)
+    },
+    beforeUnmount() {
+        document.removeEventListener('keyup', this._keyupHandler)
+        document.removeEventListener('keyup', this._keyupHandlerAlt)
     },
     methods: {
         disabledSeries()
@@ -939,7 +932,16 @@
             })
         },
         allCustomers() {
-            this.customers = this.all_customers
+            this.loading_search = true
+            this.$http.get(`/${this.resource}/search/customers?input=`)
+                .then(response => {
+                    this.customers = response.data.customers
+                    this.loading_search = false
+                })
+                .catch(() => {
+                    this.customers = this.all_customers
+                    this.loading_search = false
+                })
         },
         addRow(row) {
             // this.form.items.push(row)
@@ -1292,7 +1294,7 @@
             }
         },
         checkKeyWithAlt(e) {
-            let code = e.event.code;
+            let code = e.code;
             if (
                 this.showDialogOptions === true &&
                 code === 'KeyN'
@@ -1310,7 +1312,7 @@
             }
         },
         checkKey(e) {
-            let code = e.event.code;
+            let code = e.code;
             if (code === 'F2') {
                 //abrir el modal de agergar producto
                 if (!this.showDialogAddItem) this.showDialogAddItem = true

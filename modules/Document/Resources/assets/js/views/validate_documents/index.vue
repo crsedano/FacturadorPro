@@ -13,7 +13,8 @@
         <div class="card mb-0" v-loading="loading_submit" :element-loading-text="loading_text" > 
             <div class="card-body ">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Entorno</th>
                         <th>Comprobante</th>
@@ -22,8 +23,10 @@
                         <th  class="text-center">Código</th>
                         <th >Estado sistema</th>
                         <th >Estado Sunat</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.soap_type_description }}</td>
                         <td>{{ row.number }}<br/>
@@ -64,6 +67,7 @@
                         </td> -->
                         <!-- <td >{{ row.state_type_sunat_description }}</td> -->
                     </tr>
+                    </template>
                 </data-table>
             </div>
             <document-results v-model:showDialog="showDialogResults"

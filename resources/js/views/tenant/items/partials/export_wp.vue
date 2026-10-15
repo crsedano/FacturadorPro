@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="Exportar Productos" :visible="showDialog" @close="close" class="dialog-import">
+    <el-dialog title="Exportar Productos" :model-value="showDialog" @close="close" class="dialog-import">
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
                 <div class="row">

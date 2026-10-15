@@ -123,7 +123,6 @@ export default {
         this.$eventHub.$on("reloadData", () => {
             this.getRecords();
         });
-        this.$root.$refs.DataTable = this;
     },
     async mounted() {
         let column_resource = _.split(this.resource, "/");

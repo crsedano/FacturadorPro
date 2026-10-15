@@ -2,13 +2,10 @@
     <el-dialog :append-to-body="true"
                :close-on-click-modal="false"
                :title="titleDialog"
-               :visible="showDialog"
+               v-model="dialogVisible"
                top="7vh"
                @close="close"
                @open="create">
-        <key-event="keyup"
-            @success="checkKey"
-        />
 
         <form autocomplete="off"
               @submit.prevent="clickAddItem">
@@ -29,43 +26,32 @@
 
                             <template v-if="!search_item_by_barcode"
                                       id="select-append">
-                                <el-input id="custom-input">
+                                <div class="d-flex">
                                     <el-select
                                         id="select-width"
                                         ref="selectSearchNormal"
-                                        slot="prepend"
                                         v-model="form.item_id"
                                         :disabled="recordItem != null"
                                         :loading="loading_search"
                                         :remote-method="searchRemoteItems"
+                                        class="flex-grow-1"
                                         filterable
                                         placeholder="Buscar"
                                         popper-class="el-select-items"
                                         remote
-                                        :tabindex="'1'"
                                         @change="changeItem"
                                         @focus="focusSelectItem"
                                         @visible-change="focusTotalItem">
 
-                                        <el-tooltip
+                                        <el-option
                                             v-for="option in items"
                                             :key="option.id"
-                                            placement="left">
-                                            <div
-                                                slot="content"
-                                                v-html="ItemSlotTooltipView(option)"
-                                            ></div>
-                                            <el-option
-                                                :label="ItemOptionDescriptionView(option)"
-                                                :value="option.id"
-                                            ></el-option>
-
-                                        </el-tooltip>
+                                            :label="ItemOptionDescriptionView(option)"
+                                            :value="option.id"
+                                        ></el-option>
                                     </el-select>
                                     <el-tooltip
-                                        slot="append"
                                         :disabled="recordItem != null"
-                                        class="item"
                                         content="Ver Stock del Producto"
                                         effect="dark"
                                         placement="bottom">
@@ -76,9 +62,7 @@
                                         </el-button>
                                     </el-tooltip>
                                     <el-tooltip
-                                        slot="append"
                                         :disabled="recordItem != null"
-                                        class="item"
                                         content="Historial de ventas"
                                         effect="dark"
                                         placement="bottom">
@@ -88,25 +72,24 @@
                                             <i class="fa fa-list"></i>
                                         </el-button>
                                     </el-tooltip>
-                                </el-input>
+                                </div>
                             </template>
                             <template v-else>
-                                <el-input id="custom-input">
+                                <div class="d-flex">
                                     <el-select
                                         id="select-width"
                                         ref="selectBarcode"
-                                        slot="prepend"
                                         v-model="form.item_id"
                                         :disabled="recordItem != null"
                                         :loading="loading_search"
                                         :remote-method="searchRemoteItems"
+                                        class="flex-grow-1"
                                         filterable
                                         placeholder="Buscar"
                                         popper-class="el-select-items"
                                         remote
                                         value-key="id"
-                                        @change="changeItem"
-                                    >
+                                        @change="changeItem">
                                         <el-option
                                             v-for="option in items"
                                             :key="option.id"
@@ -114,9 +97,7 @@
                                             :value="option.id"></el-option>
                                     </el-select>
                                     <el-tooltip
-                                        slot="append"
                                         :disabled="recordItem != null"
-                                        class="item"
                                         content="Ver Stock del Producto"
                                         effect="dark"
                                         placement="bottom">
@@ -126,7 +107,7 @@
                                             <i class="fa fa-search"></i>
                                         </el-button>
                                     </el-tooltip>
-                                </el-input>
+                                </div>
                             </template>
 
                             <template v-if="!is_client">
@@ -185,16 +166,20 @@
                                 :disabled="form.item.calculate_quantity"
                                 @blur="validateQuantity"
                                 @input.native="changeValidateQuantity">
-                                <el-button slot="prepend"
-                                           :disabled="form.quantity < 0.01 || form.item.calculate_quantity"
-                                           icon="el-icon-minus"
-                                           style="padding-right: 5px ;padding-left: 12px"
-                                           @click="clickDecrease"></el-button>
-                                <el-button slot="append"
-                                           :disabled="form.item.calculate_quantity"
-                                           icon="el-icon-plus"
-                                           style="padding-right: 5px ;padding-left: 12px"
-                                           @click="clickIncrease"></el-button>
+                                <template #prepend>
+                                    <el-button
+                                               :disabled="form.quantity < 0.01 || form.item.calculate_quantity"
+                                               icon="el-icon-minus"
+                                               style="padding-right: 5px ;padding-left: 12px"
+                                               @click="clickDecrease"></el-button>
+                                </template>
+                                <template #append>
+                                    <el-button
+                                               :disabled="form.item.calculate_quantity"
+                                               icon="el-icon-plus"
+                                               style="padding-right: 5px ;padding-left: 12px"
+                                               @click="clickIncrease"></el-button>
+                                </template>
                             </el-input>
                             <small v-if="errors.quantity"
                                    class="form-control-feedback"
@@ -224,8 +209,8 @@
                                             :readonly="!edit_unit_price"
                                             @input="calculateQuantity">
 
-                                        <template v-if="form.item.currency_type_symbol">
-                                            <el-select slot="prepend" v-model="form.item.currency_type_id" class="el-select-currency">
+                                        <template v-if="form.item.currency_type_symbol" #prepend>
+                                            <el-select v-model="form.item.currency_type_id" class="el-select-currency">
 
                                                 <el-option v-for="option in currencyTypes"
                                                             :key="option.id"
@@ -243,8 +228,7 @@
                                         :tabindex="'3'"
                                         :readonly="!edit_unit_price"
                                         @input="calculateQuantity">
-                                    <template v-if="form.item.currency_type_symbol"
-                                            slot="prepend">
+                                    <template v-if="form.item.currency_type_symbol" #prepend>
                                         {{ form.item.currency_type_symbol }}
                                     </template>
                                 </el-input>
@@ -294,8 +278,7 @@
                                       v-model="total_item"
                                       :min="0.01"
                                       @input="calculateQuantity">
-                                <template v-if="form.item.currency_type_symbol"
-                                          slot="prepend">
+                                <template v-if="form.item.currency_type_symbol" #prepend>
                                     {{ form.item.currency_type_symbol }}
                                 </template>
                             </el-input>
@@ -532,10 +515,11 @@
                         width="145"
                         trigger="hover"
                         content="Presiona ESC">
-                        <el-button slot="reference"
-                                   @click.prevent="close()">
-                            Cerrar
-                        </el-button>
+                        <template #reference>
+                            <el-button @click.prevent="close()">
+                                Cerrar
+                            </el-button>
+                        </template>
                     </el-popover>
                 </div>
                 <div class="col-6">
@@ -619,7 +603,7 @@ import WarehousesDetail from './select_warehouses.vue'
 import SelectLotsForm from './lots.vue'
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import CKEditor from '@ckeditor/ckeditor5-vue'
+import { Ckeditor } from '@ckeditor/ckeditor5-vue'
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../helpers/modal_item";
 import HistorySalesForm from "../../../../../../modules/Pos/Resources/assets/js/views/history/sales.vue";
@@ -647,10 +631,11 @@ export default {
         LotsGroup,
         SelectLotsForm,
         HistorySalesForm,
-        ckeditor: CKEditor.component
+        ckeditor: Ckeditor
     },
     data() {
         return {
+            dialogVisible: false,
             showDiscounts: true,
             extra_temp: undefined,
             can_add_new_product: false,
@@ -710,6 +695,8 @@ export default {
         }
     },
     mounted() {
+        this._keyupHandler = (e) => this.checkKey(e)
+        document.addEventListener('keyup', this._keyupHandler)
         this.getTables()
         this.$eventHub.$on('reloadDataItems', (item_id) => {
             this.reloadDataItems(item_id)
@@ -719,6 +706,14 @@ export default {
             this.form.warehouse_id = warehouse_id
         })
         this.canCreateProduct();
+    },
+    beforeUnmount() {
+        document.removeEventListener('keyup', this._keyupHandler)
+    },
+    watch: {
+        showDialog(val) {
+            this.dialogVisible = val
+        }
     },
     computed: {
         ...mapState([
@@ -1067,7 +1062,9 @@ export default {
             this.titleDialog = (this.recordItem) ? ' Editar Producto o Servicio' : ' Agregar Producto o Servicio';
             this.titleAction = (this.recordItem) ? ' Editar' : ' Agregar';
             let operation_type = await _.find(this.operation_types, {id: this.operationTypeId})
-            this.affectation_igv_types = await _.filter(this.all_affectation_igv_types, {exportation: operation_type.exportation})
+            if (operation_type) {
+                this.affectation_igv_types = await _.filter(this.all_affectation_igv_types, {exportation: operation_type.exportation})
+            }
 //
 
             if (this.recordItem) {
@@ -1234,6 +1231,7 @@ export default {
 
         },
         close() {
+            this.dialogVisible = false
             this.initForm()
             this.$emit('update:showDialog', false)
         },
@@ -1666,7 +1664,7 @@ export default {
             }
         },
         checkKey(e){
-            let code = e.event.code;
+            let code = e.code;
             if(code === 'Escape'){
                 this.close()
             }

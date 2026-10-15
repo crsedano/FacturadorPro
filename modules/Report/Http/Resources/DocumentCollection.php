@@ -11,7 +11,7 @@ class DocumentCollection extends ResourceCollection
     public function toArray($request) {
 
 
-        return $this->collection->transform(function(\App\Models\Tenant\Document $row, $key){
+        return $this->collection->transform(function($row, $key){
 
 
             $affected_document = null;

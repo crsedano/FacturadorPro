@@ -26,7 +26,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">F. Emisión</th>
                         <th class="text-center" v-if="columns.date_of_due.visible" >F. Vencimiento</th>
@@ -51,8 +52,10 @@
                         <th class="text-right">Total</th>
                         <!-- <th class="text-center">Descargas</th> -->
                         <th class="text-right">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td v-if="columns.date_of_due.visible" class="text-center">{{ row.date_of_due }}</td>
@@ -79,7 +82,7 @@
                         </td>
                         <!-- <td>{{ row.payment_method_type_description }}</td> -->
                         <!-- <td>
-                            <template v-for="(it,ind) in row.payments">
+                            <template v-for="(it,ind) in row.payments" :key="i">
                                 {{it.payment_method_type_description}} - {{it.payment}}
                             </template>
                         </td> -->
@@ -97,8 +100,7 @@
                         <td class="text-center">{{ row.currency_type_id }}</td>
                     <td class="text-center"
                         v-if="columns.guides.visible">
-                        <span v-for="(item, i) in row.guides"
-                              :key="i">
+                        <span v-for="(item, i) in row.guides">
                             {{ item.number }} <br>
                         </span>
                     </td>
@@ -151,6 +153,7 @@
                                     @click.prevent="clickOptions(row.id)">Opciones</button>
                         </td> -->
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

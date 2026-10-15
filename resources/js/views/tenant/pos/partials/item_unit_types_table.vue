@@ -1,8 +1,5 @@
 <template>
-    <el-dialog   :title="titleDialog" :visible="showDialog" :close-on-click-modal="true" @close="close" @open="create" append-to-body top="7vh" width="30%">
-        <key-event="keyup" :key-code="119" @success="handleUp119" />
-        <key-event="keyup" :key-code="120" @success="handleDown120" />
-        <key-event="keyup" :key-code="115" @success="handleSetPrice115" />
+    <el-dialog   :title="titleDialog" :model-value="showDialog" :close-on-click-modal="true" @close="close" @open="create" append-to-body top="7vh" width="30%">
 
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
@@ -28,7 +25,7 @@
                             style="width: 100%"
                         >  
                             <el-table-column label="Precio">
-                                <template slot-scope="{ row }">
+                                <template #default="{ row }">
                                     {{getDescription(row)}}
                                 </template>
                             </el-table-column>
@@ -57,7 +54,20 @@
             }
         },
         async created() {
-             
+
+        },
+        mounted() {
+            this._keyupHandlerUp119 = (e) => { if (e.code === 'F8') this.handleUp119(e) }
+            this._keyupHandlerDown120 = (e) => { if (e.code === 'F9') this.handleDown120(e) }
+            this._keyupHandlerPrice115 = (e) => { if (e.code === 'F4') this.handleSetPrice115(e) }
+            document.addEventListener('keyup', this._keyupHandlerUp119)
+            document.addEventListener('keyup', this._keyupHandlerDown120)
+            document.addEventListener('keyup', this._keyupHandlerPrice115)
+        },
+        beforeUnmount() {
+            document.removeEventListener('keyup', this._keyupHandlerUp119)
+            document.removeEventListener('keyup', this._keyupHandlerDown120)
+            document.removeEventListener('keyup', this._keyupHandlerPrice115)
         },
         methods: {   
             handleSetPrice115(){

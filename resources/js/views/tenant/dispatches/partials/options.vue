@@ -3,7 +3,7 @@
                :close-on-press-escape="false"
                :show-close="false"
                :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                append-to-body
                width="30%"
                @open="create">

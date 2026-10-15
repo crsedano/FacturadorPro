@@ -2,7 +2,7 @@
     <el-dialog :close-on-click-modal="false"
                :close-on-press-escape="false"
                :title="title"
-               :visible="showDialog"
+               :model-value="showDialog"
                width="65%"
                @close="close"
                @open="getData">

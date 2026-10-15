@@ -65,9 +65,10 @@ class PurchaseSettlementController extends Controller
 
     public function records(Request $request)
     {
-        $records = PurchaseSettlement::where($request->column, 'like', "%{$request->value}%")
-                            ->where('user_id', auth()->id())
-                            ->latest();
+        $records = PurchaseSettlement::where('user_id', auth()->id())->latest();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new PurchaseSettlementCollection($records->paginate(config('tenant.items_per_page')));
     }

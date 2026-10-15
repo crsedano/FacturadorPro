@@ -33,8 +33,10 @@ class PersonTypeController extends Controller
     public function records(Request $request)
     {
 
-        $records = PersonType::where($request->column, 'like', "%{$request->value}%")
-                            ->latest();
+        $records = PersonType::latest();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new PersonTypeCollection($records->paginate(config('tenant.items_per_page')));
     }

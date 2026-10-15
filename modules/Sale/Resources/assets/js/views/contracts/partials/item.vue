@@ -1,7 +1,7 @@
 <template>
     <el-dialog :close-on-click-modal="false"
                :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                top="7vh"
                @close="close"
                @open="create">
@@ -395,7 +395,7 @@ import {calculateRowItem} from '@helpers/functions'
 import WarehousesDetail from './warehouses.vue'
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import { Ckeditor } from '@ckeditor/ckeditor5-vue';
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../../../../../resources/js/helpers/modal_item";
 
@@ -406,7 +406,7 @@ export default {
         'exchangeRateSale',
         'percentageIgv'
     ],
-    components: {itemForm, WarehousesDetail, ckeditor: CKEditor.component},
+    components: {itemForm, WarehousesDetail, ckeditor: Ckeditor},
 
     data() {
         return {

@@ -174,9 +174,9 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <el-button slot="reference" type="success"><i class="fa fa-eye"></i> Documento
-                                        relacionado
-                                    </el-button>
+                                    <template #reference>
+                                        <el-button type="success"><i class="fa fa-eye"></i> Documento relacionado</el-button>
+                                    </template>
                                 </el-popover>
                             </div>
                         </div>

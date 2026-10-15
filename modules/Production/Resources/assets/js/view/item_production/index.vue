@@ -54,7 +54,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading" width="100%">
+                    <template #heading>
+                    <tr width="100%">
                         <th>#</th>
                         <th>Cód. Interno</th>
                         <th>Unidad</th>
@@ -67,8 +68,10 @@
                         <th class="text-right">P.Unitario (Venta)</th>
                         <th class="text-center">Tiene Igv</th>
                         <th class="text-right">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.internal_id }}</td>
                         <td>{{ row.unit_type_id }}</td>
@@ -95,6 +98,7 @@
                             </template>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

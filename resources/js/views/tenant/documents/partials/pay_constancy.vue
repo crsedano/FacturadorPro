@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" class="text-left" :visible="showDialog" @close="close"   @open="create">
+    <el-dialog :title="title" class="text-left" :model-value="showDialog" @close="close"   @open="create">
         <!-- <p class="text-center">* Se recomienda resoluciones 700x300.</p> -->
         <div class="text-center">
             <el-upload class="uploader" ref="upload" slot="append" :auto-upload="false" :headers="headers"  action="/documents/pay-constancy/upload" :show-file-list="false" :before-upload="beforeUpload" :on-success="successUpload" :on-change="preview">

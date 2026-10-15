@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-    @if($vc_compact_sidebar->compact_sidebar)
-        <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="fixed sidebar-light no-mobile-device custom-scroll sidebar-left-collapsed">
-    @else
-        <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="fixed sidebar-light no-mobile-device custom-scroll">
-    @endif
+    @php
+        $visual->sidebar_theme = property_exists($visual, 'sidebar_theme') ? $visual->sidebar_theme : '';
+    @endphp
+    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+        class="fixed no-mobile-device custom-scroll
+            sidebar-{{$visual->sidebar_theme ?? ''}}
+            {{ ($visual->sidebar_theme == 'white' || $visual->sidebar_theme == 'gray' || $visual->sidebar_theme == 'green' || $visual->sidebar_theme == 'warning' || $visual->sidebar_theme == 'ligth-blue') ? 'sidebar-light' : '' }}
+            {{$vc_compact_sidebar->compact_sidebar == true ? 'sidebar-left-collapsed' : ''}}
+            {{$visual->bg == 'dark' ? 'dark' : ''}}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,8 +68,17 @@
     <script src="{{ asset('porto-light/vendor/modernizr/modernizr.js') }}"></script>
 
     <style>
-
-
+        :root {
+            --theme-color: {{ [
+                'blue'   => '#1976d2',
+                'green'  => '#06d79c',
+                'red'    => '#f62d51',
+                'purple' => '#7460ee',
+                'megna'  => '#56c0d8',
+                'dark'   => '#398bf7',
+                'white'  => '#398bf7',
+            ][$visual->sidebar_theme ?? ''] ?? '#398bf7' }};
+        }
     </style>
 
 </head>
@@ -127,9 +140,13 @@
 
     @stack('scripts')
 
-    <script src="{{ asset('js/manifest.js') }}"></script>
-    <script src="{{ asset('js/vendor.js') }}"></script>
-        <!-- Theme Base, Components and Settings -->
+    <!-- Theme jQuery plugins -->
+    <script src="{{ asset('js/vendor/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('js/vendor/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('js/vendor/waves.js') }}"></script>
+    <script src="{{ asset('js/vendor/custom.js') }}"></script>
+
+    <!-- Theme Base, Components and Settings -->
     <script src="{{asset('porto-light/js/theme.js')}}"></script>
 
     <!-- Theme Custom -->

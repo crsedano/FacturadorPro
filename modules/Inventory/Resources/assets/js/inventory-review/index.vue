@@ -133,12 +133,9 @@
                     <div class="col-md-12">
 
                         <template v-if="records.length > 0">
-                            <data-tables 
+                            <el-table
                                 :data="records"
-                                v-model:current-page="currentPage" 
-                                :table-props="tableProps"
-                                :pagination-props="{ pageSizes: [20] }"
-                                style="width: 100%" 
+                                style="width: 100%"
                             >
                             
                                 <el-table-column
@@ -159,7 +156,7 @@
                                 
                                 <el-table-column prop="input_stock"  label="Stock escaneado">
                                     
-                                    <template slot-scope="scope">  
+                                    <template #default="scope">  
                                         <el-input-number v-model="scope.row.input_stock" :min="0" :step="1"></el-input-number>
                                     </template>
 
@@ -167,14 +164,14 @@
 
                                 <el-table-column prop="difference"  label="Diferencia Stock">
                                     
-                                    <template slot-scope="scope">  
+                                    <template #default="scope">  
                                         <template v-if="scope.row.difference != null">
                                             <span :class="scope.row.difference < 0 ? 'text-danger' : ''"><b>{{ scope.row.difference }}</b></span>
                                         </template>
                                     </template>
 
                                 </el-table-column>
-                            </data-tables>
+                            </el-table>
                         </template>
                          
                     </div>
@@ -188,12 +185,8 @@
 <script>
 
     import queryString from 'query-string'
-    import { DataTables } from 'vue-data-tables'
-
     export default {
-        components: {
-            DataTables,
-        },
+        components: {},
         props: ['typeUser'],
         data() {
             return {

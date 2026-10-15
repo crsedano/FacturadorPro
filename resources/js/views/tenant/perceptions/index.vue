@@ -12,7 +12,8 @@
         <div class="card mb-0">
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th>Receptor</th>
@@ -21,8 +22,10 @@
                         <th class="text-right">Régimen de percepción</th>
                         <th class="text-right">Total</th>
                         <th class="text-center">Descargas</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }" :class="{'text-danger': (row.state_type_id === '11')}">
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr :class="{'text-danger': (row.state_type_id === '11')}">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td>{{ row.customer_name }} <br/> <small>{{ row.customer_number }}</small></td>
@@ -39,6 +42,7 @@
                                     @click.prevent="clickDownload(row.download_external_cdr)">CDR</button>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
         </div>

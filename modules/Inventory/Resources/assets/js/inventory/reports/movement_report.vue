@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="titleDialog" :visible="showDialog" :close-on-click-modal="false" @close="close" @open="create" width="80%">
+    <el-dialog :title="titleDialog" :model-value="showDialog" :close-on-click-modal="false" @close="close" @open="create" width="80%">
         <form autocomplete="off" @submit.prevent="submit" v-loading="loading">
             <div class="form-body">
                 <div class="row">

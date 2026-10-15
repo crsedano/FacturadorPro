@@ -129,14 +129,62 @@
     width: 100%;
 }
 
+// ── Global input / select height via padding (Element Plus 2) ────────
+// EP2 legacy input
+body .el-input__wrapper,
+body .el-date-editor.el-input__wrapper {
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    font-size: 14px !important;
+    box-sizing: border-box !important;
+}
+body .el-input__inner {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    height: auto !important;
+}
+// EP2 new select (.el-select__wrapper)
+body .el-select__wrapper {
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    font-size: 14px !important;
+    min-height: unset !important;
+    box-sizing: border-box !important;
+}
+body .el-select__selected-item,
+body .el-select__placeholder {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+}
+body .el-textarea__wrapper {
+    padding: 9px 12px !important;
+}
+body .el-textarea__inner {
+    font-size: 14px !important;
+    min-height: 40px !important;
+    height: auto !important;
+}
+.control-label, label.control-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 4px;
+    display: block;
+}
+
 .card.card-dashboard {
-    box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
-    border-radius: 5px;
+    box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.08);
+    border-radius: 12px;
     border: none;
 
     .card-body {
         font-size: 1rem;
         font-weight: 600;
+        padding: 1.25rem;
     }
 
     .card-title {
@@ -146,19 +194,61 @@
     }
     &.card-reports {
         height: 100%;
-        .card-title {
-            min-height: 36px;
-        }
+        .card-title { min-height: 36px; }
     }
+    &.card-filter-bar {
+        .card-body { padding: .85rem 1.25rem; }
+    }
+
+    // section title labels
+    .widget-summary label,
+    .summary label,
+    > .card-body > label {
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        color: #94a3b8 !important;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    // totals table — override table-sm (4px) with real padding
     .table {
-        td,
+        td, th {
+            font-size: 13px !important;
+            padding: 10px 14px !important;
+            vertical-align: middle;
+            border-color: rgba(0,0,0,.05);
+        }
         th {
-            font-size: 12px;
-            font-weight: 400;
+            font-weight: 700;
+            color: #64748b;
+            font-size: 11px !important;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            background: rgba(0,0,0,.02);
         }
-        th{
+        // colored row accents
+        tr.text-info td {
+            color: #0ea5e9 !important;
             font-weight: 600;
+            border-left: 3px solid #0ea5e9;
         }
+        tr.text-danger td {
+            color: #f43f5e !important;
+            font-weight: 600;
+            border-left: 3px solid #f43f5e;
+        }
+        tr.text-bold td {
+            font-weight: 800 !important;
+            font-size: 15px !important;
+            color: #1e293b;
+            border-left: 3px solid var(--theme-color, #398bf7);
+        }
+        tr:last-child td { border-bottom: none; }
+        // right-align amounts column
+        td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
     }
 }
 .card-report-links {
@@ -182,8 +272,346 @@
 }
 html.dark {
     .card.card-dashboard {
-        color: #5bc0de;
+        background: #283046;
+        border: 1px solid rgba(255,255,255,.06);
+        box-shadow: 0 4px 24px 0 rgba(0,0,0,.3);
+        color: #b4b7bd;
+
+        .widget-summary label, .summary label, > .card-body > label {
+            color: #475569 !important;
+        }
+        .table {
+            td, th { border-color: rgba(255,255,255,.05) !important; }
+            th { background: rgba(255,255,255,.03); color: #475569; }
+            tr.text-info   td { color: #38bdf8 !important; border-left-color: #38bdf8; }
+            tr.text-danger td { color: #fb7185 !important; border-left-color: #fb7185; }
+            tr.text-bold   td { color: #e2e8f0 !important; }
+        }
     }
+
+    // ── El-Dialog / Modal ─────────────────────────────────────
+    .el-dialog {
+        background: #1e293b;
+        border: 1px solid rgba(255,255,255,.1);
+        box-shadow: 0 20px 60px rgba(0,0,0,.6);
+
+        .el-dialog__header {
+            background: #162032;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+
+            .el-dialog__title { color: #e2e8f0; }
+            .el-dialog__headerbtn {
+                .el-dialog__close { color: #64748b; }
+                &:hover {
+                    background: rgba(239,68,68,.2);
+                    .el-dialog__close { color: #f87171; }
+                }
+            }
+        }
+
+        .el-dialog__body {
+            color: #cbd5e1;
+            background: #1e293b;
+
+            label, .control-label { color: #94a3b8; }
+            h4, h5, h6 { color: #e2e8f0; }
+
+            .el-input__inner,
+            .el-textarea__inner {
+                background: #0f172a;
+                border-color: rgba(255,255,255,.15);
+                color: #e2e8f0;
+                &::placeholder { color: #475569; }
+                &:focus { border-color: #6366f1; }
+            }
+
+            .el-input-number__decrease,
+            .el-input-number__increase {
+                background: #162032;
+                border-color: rgba(255,255,255,.15);
+                color: #94a3b8;
+                &:hover { color: #e2e8f0; }
+            }
+
+            .el-select .el-input__inner { background: #0f172a; }
+
+            table {
+                color: #cbd5e1;
+                th { color: #94a3b8; border-color: rgba(255,255,255,.08); background: #162032; }
+                td { border-color: rgba(255,255,255,.06); }
+                tr:hover td { background: rgba(255,255,255,.04); }
+            }
+
+            .el-tabs__nav-wrap::after { background: rgba(255,255,255,.1); }
+            .el-tabs__item { color: #64748b; }
+            .el-tabs__item.is-active { color: #818cf8; }
+            .el-tabs__active-bar { background: #6366f1; }
+
+            .el-table {
+                background: transparent;
+                color: #cbd5e1;
+                &::before { background: rgba(255,255,255,.08); }
+
+                th.el-table__cell {
+                    background: #162032;
+                    color: #94a3b8;
+                    border-bottom-color: rgba(255,255,255,.08);
+                }
+                .el-table__cell { border-bottom-color: rgba(255,255,255,.06); }
+                tr { background: transparent; }
+                tr:hover > td { background: rgba(255,255,255,.04) !important; }
+                .el-table__empty-block { background: transparent; color: #64748b; }
+            }
+
+            .el-checkbox__label { color: #cbd5e1; }
+            .el-radio__label { color: #cbd5e1; }
+            .el-switch__label { color: #94a3b8; }
+
+            .form-group label { color: #94a3b8; }
+            .form-control {
+                background: #0f172a;
+                border-color: rgba(255,255,255,.15);
+                color: #e2e8f0;
+                &::placeholder { color: #475569; }
+            }
+        }
+
+        .el-dialog__footer {
+            background: #162032;
+            border-top: 1px solid rgba(255,255,255,.08);
+        }
+    }
+
+    // ── El-Select dropdown (rendered in body via popper) ──────
+    .el-select-dropdown {
+        background: #1e293b;
+        border-color: rgba(255,255,255,.12);
+
+        .el-select-dropdown__item {
+            color: #cbd5e1;
+            &:hover, &.hover { background: rgba(99,102,241,.15); }
+            &.selected { color: #818cf8; }
+        }
+
+        .el-select-dropdown__empty { color: #64748b; }
+        .popper__arrow { border-bottom-color: rgba(255,255,255,.12) !important; }
+        .popper__arrow::after { border-bottom-color: #1e293b !important; }
+    }
+
+    // ── El-MessageBox (confirm / alert dialogs) ───────────────
+    .el-message-box {
+        background: #1e293b;
+        border-color: rgba(255,255,255,.1);
+
+        .el-message-box__header {
+            background: #162032;
+            .el-message-box__title { color: #e2e8f0; }
+            .el-message-box__headerbtn .el-message-box__close { color: #94a3b8; }
+        }
+
+        .el-message-box__content { color: #cbd5e1; }
+        .el-message-box__message p { color: #cbd5e1; }
+
+        .el-message-box__btns .el-button--default {
+            background: #0f172a;
+            border-color: rgba(255,255,255,.15);
+            color: #e2e8f0;
+            &:hover { background: #162032; }
+        }
+    }
+
+    // ── El-Tooltip (dark variant already dark, but ensure light tooltips) ──
+    .el-tooltip__popper.is-light {
+        background: #1e293b;
+        border-color: rgba(255,255,255,.12);
+        color: #e2e8f0;
+        .popper__arrow { border-top-color: rgba(255,255,255,.12) !important; }
+        .popper__arrow::after { border-top-color: #1e293b !important; }
+    }
+
+    // ── El-Notification / El-Message ─────────────────────────
+    .el-notification {
+        background: #1e293b;
+        border-color: rgba(255,255,255,.1);
+        .el-notification__title { color: #e2e8f0; }
+        .el-notification__content { color: #94a3b8; }
+    }
+
+    // ── widget-summary inside dialog header ──────────────────
+    .widget-summary .summary .title { color: #e2e8f0; }
+    .widget-summary .widget-summary-col { color: #94a3b8; }
+
+    // ── opt-channel (email / whatsapp send sections) ──────────
+    .opt-channel-row { border-top-color: rgba(255,255,255,.08); }
+
+    .opt-channel-card {
+        background: rgba(255,255,255,.03);
+        border-color: rgba(255,255,255,.1);
+    }
+    .opt-channel-card--email {
+        border-color: rgba(59,130,246,.35);
+        background: rgba(59,130,246,.07);
+        .opt-channel-header { color: #93c5fd; }
+    }
+    .opt-channel-card--whatsapp {
+        border-color: rgba(37,211,102,.35);
+        background: rgba(37,211,102,.07);
+        .opt-channel-header { color: #86efac; }
+    }
+    .opt-channel-card .el-input__inner {
+        background: rgb(255, 255, 255) !important;
+        border-color: rgba(255,255,255,.12) !important;
+        color: #e2e8f0 !important;
+        &::placeholder { color: #475569 !important; }
+    }
+    .opt-channel-card .el-input-group__prepend {
+        background: rgba(0,0,0,.2) !important;
+        border-color: rgba(255,255,255,.12) !important;
+        color: #94a3b8 !important;
+    }
+}
+
+// ── El-Dialog header vertical center ─────────────────────────
+.el-dialog__header {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .el-dialog__title {
+        line-height: 1.3;
+        padding-left: 10px;
+    }
+
+    .el-dialog__headerbtn {
+        position: absolute;
+    }
+}
+
+// ── El-Dialog close button (global) ──────────────────────────
+.el-dialog__headerbtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s, color .15s;
+
+    .el-dialog__close {
+        font-size: 18px;
+        color: #64748b;
+        transition: color .15s;
+    }
+
+    &:hover {
+        background: rgba(239,68,68,.12);
+        .el-dialog__close { color: #ef4444; }
+    }
+
+    &:focus { outline: none; }
+}
+
+// ── Dialog footer default button (Cerrar / Cancelar) ─────────
+.el-dialog__footer {
+    .el-button:not(.el-button--primary):not(.el-button--success):not(.el-button--warning):not(.el-button--danger):not(.el-button--info) {
+        border-color: #e2e8f0;
+        color: #64748b;
+        transition: background .15s, border-color .15s, color .15s;
+
+        &:hover, &:focus {
+            background: rgba(239,68,68,.08);
+            border-color: rgba(239,68,68,.4);
+            color: #ef4444;
+        }
+    }
+}
+
+html.dark .el-dialog__footer {
+    .el-button:not(.el-button--primary):not(.el-button--success):not(.el-button--warning):not(.el-button--danger):not(.el-button--info) {
+        background: transparent;
+        border-color: rgba(255,255,255,.15);
+        color: #94a3b8;
+
+        &:hover, &:focus {
+            background: rgba(239,68,68,.15);
+            border-color: rgba(239,68,68,.5);
+            color: #f87171;
+        }
+    }
+}
+
+// ── opt-channel shared (light + dark) ────────────────────────
+.opt-channel-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #e9ecef;
+    flex-wrap: wrap;
+}
+
+.opt-channel-card {
+    flex: 1;
+    min-width: 200px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: #fafafa;
+    transition: box-shadow .15s;
+
+    &:hover { box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+}
+
+.opt-channel-card--email {
+    border-color: rgba(59,130,246,.3);
+    background: rgba(59,130,246,.04);
+
+    .opt-channel-header { color: #3b82f6; }
+
+    .el-input-group__append {
+        background: #3b82f6 !important;
+        border-color: #3b82f6 !important;
+        color: #fff !important;
+        transition: background .15s;
+        &:hover { background: #2563eb !important; border-color: #2563eb !important; }
+    }
+}
+
+.opt-channel-card--whatsapp {
+    border-color: rgba(37,211,102,.3);
+    background: rgba(37,211,102,.04);
+
+    .opt-channel-header { color: #16a34a; }
+
+    .el-input-group__prepend {
+        background: #dcfce7 !important;
+        border-color: rgba(37,211,102,.4) !important;
+        color: #15803d !important;
+        font-weight: 700;
+    }
+    .el-input-group__append {
+        background: #25d366 !important;
+        border-color: #25d366 !important;
+        color: #fff !important;
+        transition: background .15s;
+        &:hover { background: #1ebe5d !important; border-color: #1ebe5d !important; }
+    }
+}
+
+.opt-channel-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    margin-bottom: 8px;
 }
 
 .pos-list-items {
@@ -233,6 +661,28 @@ html.dark {
 .card-table-report {
     font-size: 12px;
 }
+
+.card-footer.bg-primary {
+    background-color: #398bf7 !important;
+    border-color: #398bf7 !important;
+    color: #fff !important;
+}
+.sidebar-blue   .card-footer.bg-primary { background-color: #1976d2 !important; border-color: #1976d2 !important; }
+.sidebar-green  .card-footer.bg-primary { background-color: #06d79c !important; border-color: #06d79c !important; }
+.sidebar-red    .card-footer.bg-primary { background-color: #f62d51 !important; border-color: #f62d51 !important; }
+.sidebar-purple .card-footer.bg-primary { background-color: #7460ee !important; border-color: #7460ee !important; }
+.sidebar-megna  .card-footer.bg-primary { background-color: #56c0d8 !important; border-color: #56c0d8 !important; }
+
+.card-header.bg-info {
+    background-color: #398bf7 !important;
+    border-color: #398bf7 !important;
+    color: #fff !important;
+}
+.sidebar-blue   .card-header.bg-info { background-color: #1976d2 !important; border-color: #1976d2 !important; }
+.sidebar-green  .card-header.bg-info { background-color: #06d79c !important; border-color: #06d79c !important; }
+.sidebar-red    .card-header.bg-info { background-color: #f62d51 !important; border-color: #f62d51 !important; }
+.sidebar-purple .card-header.bg-info { background-color: #7460ee !important; border-color: #7460ee !important; }
+.sidebar-megna  .card-header.bg-info { background-color: #56c0d8 !important; border-color: #56c0d8 !important; }
 
 .dialog-modal {
     .el-dialog__body {

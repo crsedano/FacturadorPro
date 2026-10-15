@@ -1,6 +1,7 @@
-require('./bootstrap');
+import './bootstrap'
 
-import { createApp } from 'vue'
+import { createApp, defineAsyncComponent } from 'vue'
+import axios from 'axios'
 import store from './store'
 import ElementPlus from 'element-plus'
 import es from 'element-plus/es/locale/lang/es'
@@ -23,6 +24,9 @@ app.use(store)
 
 // ── Global properties ─────────────────────────────────────────────────────────
 app.config.globalProperties.$eventHub = eventHub
+app.config.globalProperties.$http = axios
+app.config.globalProperties.$setStorage = (name, obj) => localStorage.setItem(name, JSON.stringify(obj))
+app.config.globalProperties.$getStorage = (name) => JSON.parse(localStorage.getItem(name))
 
 app.config.globalProperties.$filters = {
     toDecimals(number, decimal = 2) {
@@ -65,358 +69,358 @@ app.mixin({
 })
 
 // ── Core components ───────────────────────────────────────────────────────────
-app.component('tenant-item-aditional-info-selector', require('./views/tenant/components/partials/item_extra_info.vue').default);
-app.component('tenant-item-aditional-info-modal', require('./views/tenant/components/partials/modal_item_info_attributes.vue').default);
+app.component('tenant-item-aditional-info-selector', defineAsyncComponent(() => import('./views/tenant/components/partials/item_extra_info.vue')));
+app.component('tenant-item-aditional-info-modal', defineAsyncComponent(() => import('./views/tenant/components/partials/modal_item_info_attributes.vue')));
 
-app.component('tenant-dashboard-index', require('../../modules/Dashboard/Resources/assets/js/views/index.vue').default);
-app.component('tenant-dashboard-sales-by-product', require('../../modules/Dashboard/Resources/assets/js/views/items/SalesByProduct.vue').default);
+app.component('tenant-dashboard-index', defineAsyncComponent(() => import('../../modules/Dashboard/Resources/assets/js/views/index.vue')));
+app.component('tenant-dashboard-sales-by-product', defineAsyncComponent(() => import('../../modules/Dashboard/Resources/assets/js/views/items/SalesByProduct.vue')));
 
-app.component('x-graph', require('./components/graph/src/Graph.vue').default);
-app.component('x-graph-line', require('./components/graph/src/GraphLine.vue').default);
+app.component('x-graph', defineAsyncComponent(() => import('./components/graph/src/Graph.vue')));
+app.component('x-graph-line', defineAsyncComponent(() => import('./components/graph/src/GraphLine.vue')));
 
-app.component('tenant-signature-pse-index', require('./views/tenant/companies/signature_pse/index.vue').default)
+app.component('tenant-signature-pse-index', defineAsyncComponent(() => import('./views/tenant/companies/signature_pse/index.vue')))
 
-app.component('tenant-companies-form', require('./views/tenant/companies/form.vue').default);
-app.component('tenant-companies-logo', require('./views/tenant/companies/logo.vue').default);
-app.component('tenant-certificates-index', require('./views/tenant/certificates/index.vue').default);
-app.component('tenant-certificates-form', require('./views/tenant/certificates/form.vue').default);
-app.component('tenant-configurations-form', require('./views/tenant/configurations/form.vue').default);
-app.component('tenant-configurations-form-purchases', require('./views/tenant/configurations/partials/purchases.vue').default);
-app.component('tenant-configurations-visual', require('./views/tenant/configurations/visual.vue').default);
-app.component('tenant-configurations-pdf', require('./views/tenant/configurations/pdf_templates.vue').default);
-app.component('tenant-configurations-ticket-pdf', require('./views/tenant/configurations/pdf_ticket_templates.vue').default);
-app.component('tenant-configurations-sale-notes', require('./views/tenant/configurations/sale_notes.vue').default);
-app.component('tenant-configurations-pdf-guide', require('./views/tenant/configurations/pdf_guide_templates.vue').default);
-app.component('tenant-configurations-preprinted-pdf', require('./views/tenant/configurations/pdf_preprinted_templates.vue').default);
-app.component('tenant-dialog-header-menu', require('./views/tenant/configurations/partials/dialog_header_menu.vue').default);
-app.component('tenant-bank_accounts-index', require('./views/tenant/bank_accounts/index.vue').default);
-app.component('tenant-items-index', require('./views/tenant/items/index.vue').default);
-app.component('tenant-persons-index', require('./views/tenant/persons/index.vue').default);
-app.component('tenant-person-form', require('./views/tenant/persons/form.vue').default);
+app.component('tenant-companies-form', defineAsyncComponent(() => import('./views/tenant/companies/form.vue')));
+app.component('tenant-companies-logo', defineAsyncComponent(() => import('./views/tenant/companies/logo.vue')));
+app.component('tenant-certificates-index', defineAsyncComponent(() => import('./views/tenant/certificates/index.vue')));
+app.component('tenant-certificates-form', defineAsyncComponent(() => import('./views/tenant/certificates/form.vue')));
+app.component('tenant-configurations-form', defineAsyncComponent(() => import('./views/tenant/configurations/form.vue')));
+app.component('tenant-configurations-form-purchases', defineAsyncComponent(() => import('./views/tenant/configurations/partials/purchases.vue')));
+app.component('tenant-configurations-visual', defineAsyncComponent(() => import('./views/tenant/configurations/visual.vue')));
+app.component('tenant-configurations-pdf', defineAsyncComponent(() => import('./views/tenant/configurations/pdf_templates.vue')));
+app.component('tenant-configurations-ticket-pdf', defineAsyncComponent(() => import('./views/tenant/configurations/pdf_ticket_templates.vue')));
+app.component('tenant-configurations-sale-notes', defineAsyncComponent(() => import('./views/tenant/configurations/sale_notes.vue')));
+app.component('tenant-configurations-pdf-guide', defineAsyncComponent(() => import('./views/tenant/configurations/pdf_guide_templates.vue')));
+app.component('tenant-configurations-preprinted-pdf', defineAsyncComponent(() => import('./views/tenant/configurations/pdf_preprinted_templates.vue')));
+app.component('tenant-dialog-header-menu', defineAsyncComponent(() => import('./views/tenant/configurations/partials/dialog_header_menu.vue')));
+app.component('tenant-bank_accounts-index', defineAsyncComponent(() => import('./views/tenant/bank_accounts/index.vue')));
+app.component('tenant-items-index', defineAsyncComponent(() => import('./views/tenant/items/index.vue')));
+app.component('tenant-persons-index', defineAsyncComponent(() => import('./views/tenant/persons/index.vue')));
+app.component('tenant-person-form', defineAsyncComponent(() => import('./views/tenant/persons/form.vue')));
 
-app.component('tenant-users-form', require('./views/tenant/users/form.vue').default);
-app.component('tenant-documents-index', require('./views/tenant/documents/index.vue').default);
-app.component('tenant-documents-invoice', require('./views/tenant/documents/invoice.vue').default);
-app.component('tenant-documents-invoice-generate', require('./views/tenant/documents/invoice_generate').default);
-app.component('tenant-documents-invoicetensu', require('./views/tenant/documents/invoicetensu.vue').default);
-app.component('tenant-documents-note', require('./views/tenant/documents/note.vue').default);
+app.component('tenant-users-form', defineAsyncComponent(() => import('./views/tenant/users/form.vue')));
+app.component('tenant-documents-index', defineAsyncComponent(() => import('./views/tenant/documents/index.vue')));
+app.component('tenant-documents-invoice', defineAsyncComponent(() => import('./views/tenant/documents/invoice.vue')));
+app.component('tenant-documents-invoice-generate', defineAsyncComponent(() => import('./views/tenant/documents/invoice_generate.vue')));
+app.component('tenant-documents-invoicetensu', defineAsyncComponent(() => import('./views/tenant/documents/invoicetensu.vue')));
+app.component('tenant-documents-note', defineAsyncComponent(() => import('./views/tenant/documents/note.vue')));
 
-app.component('tenant-purchase-settlements-index', require('./views/tenant/purchase-settlements/index.vue').default);
-app.component('tenant-purchase-settlements-form', require('./views/tenant/purchase-settlements/form.vue').default);
+app.component('tenant-purchase-settlements-index', defineAsyncComponent(() => import('./views/tenant/purchase-settlements/index.vue')));
+app.component('tenant-purchase-settlements-form', defineAsyncComponent(() => import('./views/tenant/purchase-settlements/form.vue')));
 
-app.component('tenant-documents-items-list', require('./views/tenant/documents/partials/item.vue').default);
-app.component('tenant-summaries-index', require('./views/tenant/summaries/index.vue').default);
-app.component('tenant-voided-index', require('./views/tenant/voided/index.vue').default);
-app.component('tenant-search-index', require('./views/tenant/search/index.vue').default);
-app.component('tenant-options-form', require('./views/tenant/options/form.vue').default);
-app.component('tenant-unit_types-index', require('./views/tenant/unit_types/index.vue').default);
-app.component('tenant-detraction_types-index', require('./views/tenant/detraction_types/index.vue').default);
-app.component('tenant-users-index', require('./views/tenant/users/index.vue').default);
-app.component('tenant-establishments-index', require('./views/tenant/establishments/index.vue').default);
-app.component('tenant-charge_discounts-index', require('./views/tenant/charge_discounts/index.vue').default);
-app.component('tenant-banks-index', require('./views/tenant/banks/index.vue').default);
-app.component('tenant-exchange_rates-index', require('./views/tenant/exchange_rates/index.vue').default);
-app.component('tenant-currency-types-index', require('./views/tenant/currency_types/index.vue').default);
-app.component('tenant-retentions-index', require('./views/tenant/retentions/index.vue').default);
-app.component('tenant-retentions-form', require('./views/tenant/retentions/form.vue').default);
-app.component('tenant-perceptions-index', require('./views/tenant/perceptions/index.vue').default);
-app.component('tenant-perceptions-form', require('./views/tenant/perceptions/form.vue').default);
-app.component('tenant-dispatches-index', require('./views/tenant/dispatches/index.vue').default);
-app.component('tenant-dispatches-form', require('./views/tenant/dispatches/form.vue').default);
-app.component('tenant-dispatches-create', require('./views/tenant/dispatches/create.vue').default);
-app.component('tenant-guides-modal', require('./views/tenant/components/guides.vue').default);
-app.component('tenant-purchases-index', require('./views/tenant/purchases/index.vue').default);
-app.component('tenant-purchases-form', require('./views/tenant/purchases/form.vue').default);
-app.component('tenant-purchases-edit', require('./views/tenant/purchases/form_edit.vue').default);
-app.component('tenant-transfer-reason-types-index', require('./views/tenant/transfer_reason_types/index.vue').default);
+app.component('tenant-documents-items-list', defineAsyncComponent(() => import('./views/tenant/documents/partials/item.vue')));
+app.component('tenant-summaries-index', defineAsyncComponent(() => import('./views/tenant/summaries/index.vue')));
+app.component('tenant-voided-index', defineAsyncComponent(() => import('./views/tenant/voided/index.vue')));
+app.component('tenant-search-index', defineAsyncComponent(() => import('./views/tenant/search/index.vue')));
+app.component('tenant-options-form', defineAsyncComponent(() => import('./views/tenant/options/form.vue')));
+app.component('tenant-unit_types-index', defineAsyncComponent(() => import('./views/tenant/unit_types/index.vue')));
+app.component('tenant-detraction_types-index', defineAsyncComponent(() => import('./views/tenant/detraction_types/index.vue')));
+app.component('tenant-users-index', defineAsyncComponent(() => import('./views/tenant/users/index.vue')));
+app.component('tenant-establishments-index', defineAsyncComponent(() => import('./views/tenant/establishments/index.vue')));
+app.component('tenant-charge_discounts-index', defineAsyncComponent(() => import('./views/tenant/charge_discounts/index.vue')));
+app.component('tenant-banks-index', defineAsyncComponent(() => import('./views/tenant/banks/index.vue')));
+app.component('tenant-exchange_rates-index', defineAsyncComponent(() => import('./views/tenant/exchange_rates/index.vue')));
+app.component('tenant-currency-types-index', defineAsyncComponent(() => import('./views/tenant/currency_types/index.vue')));
+app.component('tenant-retentions-index', defineAsyncComponent(() => import('./views/tenant/retentions/index.vue')));
+app.component('tenant-retentions-form', defineAsyncComponent(() => import('./views/tenant/retentions/form.vue')));
+app.component('tenant-perceptions-index', defineAsyncComponent(() => import('./views/tenant/perceptions/index.vue')));
+app.component('tenant-perceptions-form', defineAsyncComponent(() => import('./views/tenant/perceptions/form.vue')));
+app.component('tenant-dispatches-index', defineAsyncComponent(() => import('./views/tenant/dispatches/index.vue')));
+app.component('tenant-dispatches-form', defineAsyncComponent(() => import('./views/tenant/dispatches/form.vue')));
+app.component('tenant-dispatches-create', defineAsyncComponent(() => import('./views/tenant/dispatches/create.vue')));
+app.component('tenant-guides-modal', defineAsyncComponent(() => import('./views/tenant/components/guides.vue')));
+app.component('tenant-purchases-index', defineAsyncComponent(() => import('./views/tenant/purchases/index.vue')));
+app.component('tenant-purchases-form', defineAsyncComponent(() => import('./views/tenant/purchases/form.vue')));
+app.component('tenant-purchases-edit', defineAsyncComponent(() => import('./views/tenant/purchases/form_edit.vue')));
+app.component('tenant-transfer-reason-types-index', defineAsyncComponent(() => import('./views/tenant/transfer_reason_types/index.vue')));
 
-app.component('tenant-purchases-items', require('./views/tenant/dispatches/items.vue').default);
-app.component('tenant-attribute_types-index', require('./views/tenant/attribute_types/index.vue').default);
-app.component('tenant-calendar', require('./views/tenant/components/calendar.vue').default);
-app.component('tenant-warehouses', require('./views/tenant/components/warehouses.vue').default);
-app.component('tenant-calendar-quotation', require('./views/tenant/components/calendarquotations.vue').default);
-app.component('tenant-product', require('./views/tenant/components/products.vue').default);
+app.component('tenant-purchases-items', defineAsyncComponent(() => import('./views/tenant/dispatches/items.vue')));
+app.component('tenant-attribute_types-index', defineAsyncComponent(() => import('./views/tenant/attribute_types/index.vue')));
+app.component('tenant-calendar', defineAsyncComponent(() => import('./views/tenant/components/calendar.vue')));
+app.component('tenant-warehouses', defineAsyncComponent(() => import('./views/tenant/components/warehouses.vue')));
+app.component('tenant-calendar-quotation', defineAsyncComponent(() => import('./views/tenant/components/calendarquotations.vue')));
+app.component('tenant-product', defineAsyncComponent(() => import('./views/tenant/components/products.vue')));
 
-app.component('tenant-tasks-lists', require('./views/tenant/tasks/lists.vue').default);
-app.component('tenant-tasks-form', require('./views/tenant/tasks/form.vue').default);
-app.component('tenant-reports-consistency-documents-lists', require('./views/tenant/reports/consistency-documents/lists.vue').default);
-app.component('tenant-contingencies-index', require('./views/tenant/contingencies/index.vue').default);
+app.component('tenant-tasks-lists', defineAsyncComponent(() => import('./views/tenant/tasks/lists.vue')));
+app.component('tenant-tasks-form', defineAsyncComponent(() => import('./views/tenant/tasks/form.vue')));
+app.component('tenant-reports-consistency-documents-lists', defineAsyncComponent(() => import('./views/tenant/reports/consistency-documents/lists.vue')));
+app.component('tenant-contingencies-index', defineAsyncComponent(() => import('./views/tenant/contingencies/index.vue')));
 
-app.component('tenant-quotations-index', require('./views/tenant/quotations/index.vue').default);
-app.component('tenant-quotations-form', require('./views/tenant/quotations/form.vue').default);
-app.component('tenant-quotations-edit', require('./views/tenant/quotations/form_edit.vue').default);
-app.component('tenant-quotations-item-form', require('./views/tenant/quotations/partials/item.vue').default);
+app.component('tenant-quotations-index', defineAsyncComponent(() => import('./views/tenant/quotations/index.vue')));
+app.component('tenant-quotations-form', defineAsyncComponent(() => import('./views/tenant/quotations/form.vue')));
+app.component('tenant-quotations-edit', defineAsyncComponent(() => import('./views/tenant/quotations/form_edit.vue')));
+app.component('tenant-quotations-item-form', defineAsyncComponent(() => import('./views/tenant/quotations/partials/item.vue')));
 
-app.component('tenant-sale-notes-index', require('./views/tenant/sale_notes/index.vue').default);
-app.component('tenant-sale-notes-form', require('./views/tenant/sale_notes/form.vue').default);
-app.component('tenant-pos-index', require('./views/tenant/pos/index.vue').default);
-app.component('cash-index', require('./views/tenant/cash/index.vue').default);
-app.component('tenant-card-brands-index', require('./views/tenant/card_brands/index.vue').default);
-app.component('tenant-pos-fast', require('./views/tenant/pos/fast.vue').default);
-app.component('tenant-pos-garage', require('./views/tenant/pos/garage.vue').default);
+app.component('tenant-sale-notes-index', defineAsyncComponent(() => import('./views/tenant/sale_notes/index.vue')));
+app.component('tenant-sale-notes-form', defineAsyncComponent(() => import('./views/tenant/sale_notes/form.vue')));
+app.component('tenant-pos-index', defineAsyncComponent(() => import('./views/tenant/pos/index.vue')));
+app.component('cash-index', defineAsyncComponent(() => import('./views/tenant/cash/index.vue')));
+app.component('tenant-card-brands-index', defineAsyncComponent(() => import('./views/tenant/card_brands/index.vue')));
+app.component('tenant-pos-fast', defineAsyncComponent(() => import('./views/tenant/pos/fast.vue')));
+app.component('tenant-pos-garage', defineAsyncComponent(() => import('./views/tenant/pos/garage.vue')));
 
-app.component('tenant-payment-method-index', require('./views/tenant/payment_method/index.vue').default);
+app.component('tenant-payment-method-index', defineAsyncComponent(() => import('./views/tenant/payment_method/index.vue')));
 
 // ── Inventory module ──────────────────────────────────────────────────────────
-app.component('inventory-index', require('../../modules/Inventory/Resources/assets/js/inventory/index.vue').default);
-app.component('inventory-transfers-index', require('../../modules/Inventory/Resources/assets/js/transfers/index.vue').default);
-app.component('warehouses-index', require('../../modules/Inventory/Resources/assets/js/warehouses/index.vue').default);
-app.component('tenant-report-kardex-index', require('../../modules/Inventory/Resources/assets/js/kardex/index.vue').default);
-app.component('tenant-inventories-form', require('../../modules/Inventory/Resources/assets/js/config/form.vue').default);
-app.component('tenant-expenses-index', require('../../modules/Expense/Resources/assets/js/views/expenses/index.vue').default);
-app.component('tenant-expenses-form', require('../../modules/Expense/Resources/assets/js/views/expenses/form.vue').default);
-app.component('tenant-account-export', require('../../modules/Account/Resources/assets/js/views/account/export.vue').default);
-app.component('tenant-account-summary-report', require('../../modules/Account/Resources/assets/js/views/summary_report/index.vue').default);
-app.component('tenant-account-format', require('../../modules/Account/Resources/assets/js/views/account/format.vue').default);
-app.component('tenant-company-accounts', require('../../modules/Account/Resources/assets/js/views/company_accounts/form.vue').default);
-app.component('tenant-ledger-accounts', require('../../modules/Account/Resources/assets/js/views/ledger_accounts/form.vue').default);
+app.component('inventory-index', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/inventory/index.vue')));
+app.component('inventory-transfers-index', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/transfers/index.vue')));
+app.component('warehouses-index', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/warehouses/index.vue')));
+app.component('tenant-report-kardex-index', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/kardex/index.vue')));
+app.component('tenant-inventories-form', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/config/form.vue')));
+app.component('tenant-expenses-index', defineAsyncComponent(() => import('../../modules/Expense/Resources/assets/js/views/expenses/index.vue')));
+app.component('tenant-expenses-form', defineAsyncComponent(() => import('../../modules/Expense/Resources/assets/js/views/expenses/form.vue')));
+app.component('tenant-account-export', defineAsyncComponent(() => import('../../modules/Account/Resources/assets/js/views/account/export.vue')));
+app.component('tenant-account-summary-report', defineAsyncComponent(() => import('../../modules/Account/Resources/assets/js/views/summary_report/index.vue')));
+app.component('tenant-account-format', defineAsyncComponent(() => import('../../modules/Account/Resources/assets/js/views/account/format.vue')));
+app.component('tenant-company-accounts', defineAsyncComponent(() => import('../../modules/Account/Resources/assets/js/views/company_accounts/form.vue')));
+app.component('tenant-ledger-accounts', defineAsyncComponent(() => import('../../modules/Account/Resources/assets/js/views/ledger_accounts/form.vue')));
 
-app.component('inventory-review-index', require('@viewsModuleInventory/inventory-review/index.vue').default);
+app.component('inventory-review-index', defineAsyncComponent(() => import('@viewsModuleInventory/inventory-review/index.vue')));
 
-app.component('tenant-inventory-report', require('../../modules/Inventory/Resources/assets/js/inventory/reports/index.vue').default);
+app.component('tenant-inventory-report', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/inventory/reports/index.vue')));
 
-app.component('tenant-inventory-color-index', require('../../modules/Inventory/Resources/assets/js/extra_info/color/index.vue').default);
-app.component('tenant-inventory-item-units-per-package-index', require('../../modules/Inventory/Resources/assets/js/extra_info/item_units_per_package/index.vue').default);
-app.component('tenant-inventory-item-units-business', require('../../modules/Inventory/Resources/assets/js/extra_info/item_units_business/index.vue').default);
-app.component('tenant-inventory-item-package-measurements', require('../../modules/Inventory/Resources/assets/js/extra_info/item_package_measurements/index.vue').default);
-app.component('tenant-inventory-mold-cavities', require('../../modules/Inventory/Resources/assets/js/extra_info/item_mold_cavities/index.vue').default);
-app.component('tenant-inventory-mold-property', require('../../modules/Inventory/Resources/assets/js/extra_info/item_mold_property/index.vue').default);
-app.component('tenant-inventory-size-property', require('../../modules/Inventory/Resources/assets/js/extra_info/item_size/index.vue').default);
-app.component('tenant-inventory-item-status', require('../../modules/Inventory/Resources/assets/js/extra_info/item_status/index.vue').default);
-app.component('tenant-inventory-item-product-family', require('../../modules/Inventory/Resources/assets/js/extra_info/item_product_family/index.vue').default);
-app.component('tenant-inventory-extra-info-list', require('../../modules/Inventory/Resources/assets/js/extra_info/index.vue').default);
+app.component('tenant-inventory-color-index', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/color/index.vue')));
+app.component('tenant-inventory-item-units-per-package-index', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/item_units_per_package/index.vue')));
+app.component('tenant-inventory-item-units-business', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/item_units_business/index.vue')));
+app.component('tenant-inventory-item-package-measurements', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/item_package_measurements/index.vue')));
+app.component('tenant-inventory-mold-cavities', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/item_mold_cavities/index.vue')));
+app.component('tenant-inventory-mold-property', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/item_mold_property/index.vue')));
+app.component('tenant-inventory-size-property', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/item_size/index.vue')));
+app.component('tenant-inventory-item-status', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/item_status/index.vue')));
+app.component('tenant-inventory-item-product-family', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/item_product_family/index.vue')));
+app.component('tenant-inventory-extra-info-list', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/extra_info/index.vue')));
 
-app.component('tenant-inventory-devolutions-index', require('../../modules/Inventory/Resources/assets/js/devolutions/index.vue').default);
-app.component('tenant-inventory-devolutions-form', require('../../modules/Inventory/Resources/assets/js/devolutions/form.vue').default);
+app.component('tenant-inventory-devolutions-index', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/devolutions/index.vue')));
+app.component('tenant-inventory-devolutions-form', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/devolutions/form.vue')));
 
 // ── Document module ───────────────────────────────────────────────────────────
-app.component('tenant-documents-not-sent', require('../../modules/Document/Resources/assets/js/views/documents/not_sent.vue').default);
-app.component('tenant-report-purchases-index', require('../../modules/Report/Resources/assets/js/views/purchases/index.vue').default);
-app.component('tenant-report-documents-index', require('../../modules/Report/Resources/assets/js/views/documents/index.vue').default);
-app.component('tenant-report-customers-index', require('../../modules/Report/Resources/assets/js/views/customers/index.vue').default);
-app.component('tenant-report-items-index', require('../../modules/Report/Resources/assets/js/views/items/index.vue').default);
-app.component('tenant-report-items-extra-index', require('../../modules/Report/Resources/assets/js/views/items/index_extra.vue').default);
-app.component('tenant-report-download-tray-index', require('../../modules/Report/Resources/assets/js/views/download_tray/index.vue').default);
-app.component('tenant-report-guide-index', require('../../modules/Report/Resources/assets/js/views/guide/index.vue').default);
-app.component('tenant-report-discount-index', require('../../modules/Report/Resources/assets/js/views/discount/index.vue').default);
-app.component('tenant-report-sale_notes-index', require('../../modules/Report/Resources/assets/js/views/sale_notes/index.vue').default);
-app.component('tenant-report-quotations-index', require('../../modules/Report/Resources/assets/js/views/quotations/index.vue').default);
-app.component('tenant-report-cash-index', require('../../modules/Report/Resources/assets/js/views/cash/index.vue').default);
-app.component('tenant-index-configuration', require('../../modules/BusinessTurn/Resources/assets/js/views/configurations/index.vue').default);
-app.component('tenant-report-document_hotels-index', require('../../modules/Report/Resources/assets/js/views/document_hotels/index.vue').default);
-app.component('tenant-report_hotels-index', require('../../modules/Report/Resources/assets/js/views/report_hotels/index.vue').default);
-app.component('tenant-report-commercial_analysis-index', require('../../modules/Report/Resources/assets/js/views/commercial_analysis/index.vue').default);
-app.component('tenant-offline-configurations-index', require('../../modules/Offline/Resources/assets/js/views/offline_configurations/index.vue').default);
-app.component('tenant-series-configurations-index', require('../../modules/Document/Resources/assets/js/views/series_configurations/index.vue').default);
-app.component('tenant-validate-documents-index', require('../../modules/Document/Resources/assets/js/views/validate_documents/index.vue').default);
-app.component('tenant-report-document-detractions-index', require('../../modules/Report/Resources/assets/js/views/document-detractions/index.vue').default);
-app.component('tenant-report-commissions-index', require('../../modules/Report/Resources/assets/js/views/commissions/index.vue').default);
-app.component('tenant-report-order-notes-consolidated-index', require('../../modules/Report/Resources/assets/js/views/order_notes_consolidated/index.vue').default);
-app.component('tenant-report-general-items-index', require('../../modules/Report/Resources/assets/js/views/general_items/index.vue').default);
-app.component('tenant-report-order-notes-general-index', require('../../modules/Report/Resources/assets/js/views/order_notes_general/index.vue').default);
-app.component('tenant-report-sales-consolidated-index', require('../../modules/Report/Resources/assets/js/views/sales_consolidated/index.vue').default);
-app.component('tenant-report-user-commissions-index', require('../../modules/Report/Resources/assets/js/views/user_commissions/index.vue').default);
-app.component('tenant-report-fixed-asset-purchases-index', require('../../modules/Report/Resources/assets/js/views/fixed-asset-purchases/index.vue').default);
-app.component('tenant-report-massive-downloads-index', require('../../modules/Report/Resources/assets/js/views/massive-downloads/index.vue').default);
-app.component('tenant-documents-regularize-shipping', require('../../modules/Document/Resources/assets/js/views/documents/regularize_shipping.vue').default);
-app.component('tenant-report-commissions-detail-index', require('../../modules/Report/Resources/assets/js/views/commissions_detail/index.vue').default);
-app.component('tenant-report-tips-index', require('../../modules/Report/Resources/assets/js/views/tips/index.vue').default);
+app.component('tenant-documents-not-sent', defineAsyncComponent(() => import('../../modules/Document/Resources/assets/js/views/documents/not_sent.vue')));
+app.component('tenant-report-purchases-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/purchases/index.vue')));
+app.component('tenant-report-documents-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/documents/index.vue')));
+app.component('tenant-report-customers-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/customers/index.vue')));
+app.component('tenant-report-items-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/items/index.vue')));
+app.component('tenant-report-items-extra-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/items/index_extra.vue')));
+app.component('tenant-report-download-tray-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/download_tray/index.vue')));
+app.component('tenant-report-guide-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/guide/index.vue')));
+app.component('tenant-report-discount-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/discount/index.vue')));
+app.component('tenant-report-sale_notes-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/sale_notes/index.vue')));
+app.component('tenant-report-quotations-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/quotations/index.vue')));
+app.component('tenant-report-cash-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/cash/index.vue')));
+app.component('tenant-index-configuration', defineAsyncComponent(() => import('../../modules/BusinessTurn/Resources/assets/js/views/configurations/index.vue')));
+app.component('tenant-report-document_hotels-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/document_hotels/index.vue')));
+app.component('tenant-report_hotels-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/report_hotels/index.vue')));
+app.component('tenant-report-commercial_analysis-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/commercial_analysis/index.vue')));
+app.component('tenant-offline-configurations-index', defineAsyncComponent(() => import('../../modules/Offline/Resources/assets/js/views/offline_configurations/index.vue')));
+app.component('tenant-series-configurations-index', defineAsyncComponent(() => import('../../modules/Document/Resources/assets/js/views/series_configurations/index.vue')));
+app.component('tenant-validate-documents-index', defineAsyncComponent(() => import('../../modules/Document/Resources/assets/js/views/validate_documents/index.vue')));
+app.component('tenant-report-document-detractions-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/document-detractions/index.vue')));
+app.component('tenant-report-commissions-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/commissions/index.vue')));
+app.component('tenant-report-order-notes-consolidated-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/order_notes_consolidated/index.vue')));
+app.component('tenant-report-general-items-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/general_items/index.vue')));
+app.component('tenant-report-order-notes-general-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/order_notes_general/index.vue')));
+app.component('tenant-report-sales-consolidated-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/sales_consolidated/index.vue')));
+app.component('tenant-report-user-commissions-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/user_commissions/index.vue')));
+app.component('tenant-report-fixed-asset-purchases-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/fixed-asset-purchases/index.vue')));
+app.component('tenant-report-massive-downloads-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/massive-downloads/index.vue')));
+app.component('tenant-documents-regularize-shipping', defineAsyncComponent(() => import('../../modules/Document/Resources/assets/js/views/documents/regularize_shipping.vue')));
+app.component('tenant-report-commissions-detail-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/commissions_detail/index.vue')));
+app.component('tenant-report-tips-index', defineAsyncComponent(() => import('../../modules/Report/Resources/assets/js/views/tips/index.vue')));
 
 // ── Item module ───────────────────────────────────────────────────────────────
-app.component('tenant-categories-index', require('../../modules/Item/Resources/assets/js/views/categories/index.vue').default);
-app.component('tenant-brands-index', require('../../modules/Item/Resources/assets/js/views/brands/index.vue').default);
-app.component('tenant-zone-index', require('../../modules/Item/Resources/assets/js/views/zone/index.vue').default);
-app.component('tenant-incentives-index', require('../../modules/Item/Resources/assets/js/views/incentives/index.vue').default);
-app.component('tenant-item-lots-index', require('../../modules/Item/Resources/assets/js/views/item-lots/index.vue').default);
+app.component('tenant-categories-index', defineAsyncComponent(() => import('../../modules/Item/Resources/assets/js/views/categories/index.vue')));
+app.component('tenant-brands-index', defineAsyncComponent(() => import('../../modules/Item/Resources/assets/js/views/brands/index.vue')));
+app.component('tenant-zone-index', defineAsyncComponent(() => import('../../modules/Item/Resources/assets/js/views/zone/index.vue')));
+app.component('tenant-incentives-index', defineAsyncComponent(() => import('../../modules/Item/Resources/assets/js/views/incentives/index.vue')));
+app.component('tenant-item-lots-index', defineAsyncComponent(() => import('../../modules/Item/Resources/assets/js/views/item-lots/index.vue')));
 
 // ── Ecommerce module ──────────────────────────────────────────────────────────
-app.component('tenant-ecommerce-configuration-info', require('../../modules/Ecommerce/Resources/assets/js/views/configuration/index.vue').default);
-app.component('tenant-ecommerce-configuration-culqi', require('../../modules/Ecommerce/Resources/assets/js/views/configuration_culqi/index.vue').default);
-app.component('tenant-ecommerce-configuration-paypal', require('../../modules/Ecommerce/Resources/assets/js/views/configuration_paypal/index.vue').default);
-app.component('tenant-ecommerce-configuration-logo', require('../../modules/Ecommerce/Resources/assets/js/views/configuration_logo/index.vue').default);
-app.component('tenant-ecommerce-configuration-social', require('../../modules/Ecommerce/Resources/assets/js/views/configuration_social/index.vue').default);
-app.component('tenant-ecommerce-configuration-tag', require('../../modules/Ecommerce/Resources/assets/js/views/configuration_tags/index.vue').default);
-app.component('tenant-ecommerce-item-sets-index', require('../../modules/Ecommerce/Resources/assets/js/views/item_sets/index.vue').default);
+app.component('tenant-ecommerce-configuration-info', defineAsyncComponent(() => import('../../modules/Ecommerce/Resources/assets/js/views/configuration/index.vue')));
+app.component('tenant-ecommerce-configuration-culqi', defineAsyncComponent(() => import('../../modules/Ecommerce/Resources/assets/js/views/configuration_culqi/index.vue')));
+app.component('tenant-ecommerce-configuration-paypal', defineAsyncComponent(() => import('../../modules/Ecommerce/Resources/assets/js/views/configuration_paypal/index.vue')));
+app.component('tenant-ecommerce-configuration-logo', defineAsyncComponent(() => import('../../modules/Ecommerce/Resources/assets/js/views/configuration_logo/index.vue')));
+app.component('tenant-ecommerce-configuration-social', defineAsyncComponent(() => import('../../modules/Ecommerce/Resources/assets/js/views/configuration_social/index.vue')));
+app.component('tenant-ecommerce-configuration-tag', defineAsyncComponent(() => import('../../modules/Ecommerce/Resources/assets/js/views/configuration_tags/index.vue')));
+app.component('tenant-ecommerce-item-sets-index', defineAsyncComponent(() => import('../../modules/Ecommerce/Resources/assets/js/views/item_sets/index.vue')));
 
 // ── Purchase module ───────────────────────────────────────────────────────────
-app.component('tenant-purchase-quotations-index', require('../../modules/Purchase/Resources/assets/js/views/purchase-quotations/index.vue').default);
-app.component('tenant-purchase-quotations-form', require('../../modules/Purchase/Resources/assets/js/views/purchase-quotations/form.vue').default);
-app.component('tenant-purchase-orders-index', require('../../modules/Purchase/Resources/assets/js/views/purchase-orders/index.vue').default);
-app.component('tenant-purchase-orders-form', require('../../modules/Purchase/Resources/assets/js/views/purchase-orders/form.vue').default);
-app.component('tenant-purchase-orders-generate', require('../../modules/Purchase/Resources/assets/js/views/purchase-orders/generate.vue').default);
+app.component('tenant-purchase-quotations-index', defineAsyncComponent(() => import('../../modules/Purchase/Resources/assets/js/views/purchase-quotations/index.vue')));
+app.component('tenant-purchase-quotations-form', defineAsyncComponent(() => import('../../modules/Purchase/Resources/assets/js/views/purchase-quotations/form.vue')));
+app.component('tenant-purchase-orders-index', defineAsyncComponent(() => import('../../modules/Purchase/Resources/assets/js/views/purchase-orders/index.vue')));
+app.component('tenant-purchase-orders-form', defineAsyncComponent(() => import('../../modules/Purchase/Resources/assets/js/views/purchase-orders/form.vue')));
+app.component('tenant-purchase-orders-generate', defineAsyncComponent(() => import('../../modules/Purchase/Resources/assets/js/views/purchase-orders/generate.vue')));
 
-app.component('moves-index', require('../../modules/Inventory/Resources/assets/js/moves/index.vue').default);
-app.component('inventory-form-masive', require('../../modules/Inventory/Resources/assets/js/transfers/form_masive.vue').default);
+app.component('moves-index', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/moves/index.vue')));
+app.component('inventory-form-masive', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/transfers/form_masive.vue')));
 
-app.component('tenant-report-kardex-master', require('../../modules/Inventory/Resources/assets/js/kardex_master/index.vue').default);
-app.component('tenant-report-kardex-lots', require('../../modules/Inventory/Resources/assets/js/kardex/lots.vue').default);
-app.component('tenant-report-kardex-series', require('../../modules/Inventory/Resources/assets/js/kardex/series.vue').default);
+app.component('tenant-report-kardex-master', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/kardex_master/index.vue')));
+app.component('tenant-report-kardex-lots', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/kardex/lots.vue')));
+app.component('tenant-report-kardex-series', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/kardex/series.vue')));
 
 // ── Order module ──────────────────────────────────────────────────────────────
-app.component('tenant-order-notes-index', require('../../modules/Order/Resources/assets/js/views/order_notes/index.vue').default);
-app.component('tenant-order-notes-form', require('../../modules/Order/Resources/assets/js/views/order_notes/form.vue').default);
-app.component('tenant-order-notes-edit', require('../../modules/Order/Resources/assets/js/views/order_notes/form_edit.vue').default);
-app.component('tenant-report-valued-kardex', require('../../modules/Inventory/Resources/assets/js/valued_kardex/index.vue').default);
-app.component('tenant-mitiendape-config', require('../../modules/Order/Resources/assets/js/views/mi_tienda_pe/form.vue').default);
+app.component('tenant-order-notes-index', defineAsyncComponent(() => import('../../modules/Order/Resources/assets/js/views/order_notes/index.vue')));
+app.component('tenant-order-notes-form', defineAsyncComponent(() => import('../../modules/Order/Resources/assets/js/views/order_notes/form.vue')));
+app.component('tenant-order-notes-edit', defineAsyncComponent(() => import('../../modules/Order/Resources/assets/js/views/order_notes/form_edit.vue')));
+app.component('tenant-report-valued-kardex', defineAsyncComponent(() => import('../../modules/Inventory/Resources/assets/js/valued_kardex/index.vue')));
+app.component('tenant-mitiendape-config', defineAsyncComponent(() => import('../../modules/Order/Resources/assets/js/views/mi_tienda_pe/form.vue')));
 
 // ── Finance module ────────────────────────────────────────────────────────────
-app.component('tenant-finance-global-payments-index', require('../../modules/Finance/Resources/assets/js/views/global_payments/index.vue').default);
-app.component('tenant-finance-balance-index', require('../../modules/Finance/Resources/assets/js/views/balance/index.vue').default);
-app.component('tenant-finance-modal-transfer-between-accounts', require('../../modules/Finance/Resources/assets/js/views/transfer_between_accounts/options.vue').default);
-app.component('tenant-finance-payment-method-types-index', require('../../modules/Finance/Resources/assets/js/views/payment_method_types/index.vue').default);
-app.component('tenant-finance-unpaid-index', require('@viewsModuleFinance/unpaid/index.vue').default);
-app.component('tenant-finance-to-pay-index', require('@viewsModuleFinance/to_pay/index.vue').default);
-app.component('tenant-finance-income-index', require('@viewsModuleFinance/income/index.vue').default);
-app.component('tenant-finance-income-form', require('@viewsModuleFinance/income/form.vue').default);
-app.component('tenant-income-types-index', require('@viewsModuleFinance/income_types/index.vue').default);
-app.component('tenant-income-reasons-index', require('@viewsModuleFinance/income_reasons/index.vue').default);
-app.component('tenant-finance-movements-index', require('@viewsModuleFinance/movements/index.vue').default);
+app.component('tenant-finance-global-payments-index', defineAsyncComponent(() => import('../../modules/Finance/Resources/assets/js/views/global_payments/index.vue')));
+app.component('tenant-finance-balance-index', defineAsyncComponent(() => import('../../modules/Finance/Resources/assets/js/views/balance/index.vue')));
+app.component('tenant-finance-modal-transfer-between-accounts', defineAsyncComponent(() => import('../../modules/Finance/Resources/assets/js/views/transfer_between_accounts/options.vue')));
+app.component('tenant-finance-payment-method-types-index', defineAsyncComponent(() => import('../../modules/Finance/Resources/assets/js/views/payment_method_types/index.vue')));
+app.component('tenant-finance-unpaid-index', defineAsyncComponent(() => import('@viewsModuleFinance/unpaid/index.vue')));
+app.component('tenant-finance-to-pay-index', defineAsyncComponent(() => import('@viewsModuleFinance/to_pay/index.vue')));
+app.component('tenant-finance-income-index', defineAsyncComponent(() => import('@viewsModuleFinance/income/index.vue')));
+app.component('tenant-finance-income-form', defineAsyncComponent(() => import('@viewsModuleFinance/income/form.vue')));
+app.component('tenant-income-types-index', defineAsyncComponent(() => import('@viewsModuleFinance/income_types/index.vue')));
+app.component('tenant-income-reasons-index', defineAsyncComponent(() => import('@viewsModuleFinance/income_reasons/index.vue')));
+app.component('tenant-finance-movements-index', defineAsyncComponent(() => import('@viewsModuleFinance/movements/index.vue')));
 
 // ── Sale module ───────────────────────────────────────────────────────────────
-app.component('tenant-sale-opportunities-index', require('@viewsModuleSale/sale_opportunities/index.vue').default);
-app.component('tenant-sale-opportunities-form', require('@viewsModuleSale/sale_opportunities/form.vue').default);
-app.component('tenant-payment-method-types-index', require('@viewsModuleSale/payment_method_types/index.vue').default);
-app.component('tenant-contracts-index', require('@viewsModuleSale/contracts/index.vue').default);
-app.component('tenant-contracts-form', require('@viewsModuleSale/contracts/form.vue').default);
-app.component('tenant-production-orders-index', require('@viewsModuleSale/production_orders/index.vue').default);
-app.component('tenant-agents-index', require('@viewsModuleSale/agents/index.vue').default);
-app.component('tenant-web-platforms-index', require('@viewsModuleItem/web-platforms/index.vue').default);
-app.component('tenant-technical-services-index', require('@viewsModuleSale/technical-services/index.vue').default);
-app.component('tenant-user-commissions-index', require('@viewsModuleSale/user-commissions/index.vue').default);
+app.component('tenant-sale-opportunities-index', defineAsyncComponent(() => import('@viewsModuleSale/sale_opportunities/index.vue')));
+app.component('tenant-sale-opportunities-form', defineAsyncComponent(() => import('@viewsModuleSale/sale_opportunities/form.vue')));
+app.component('tenant-payment-method-types-index', defineAsyncComponent(() => import('@viewsModuleSale/payment_method_types/index.vue')));
+app.component('tenant-contracts-index', defineAsyncComponent(() => import('@viewsModuleSale/contracts/index.vue')));
+app.component('tenant-contracts-form', defineAsyncComponent(() => import('@viewsModuleSale/contracts/form.vue')));
+app.component('tenant-production-orders-index', defineAsyncComponent(() => import('@viewsModuleSale/production_orders/index.vue')));
+app.component('tenant-agents-index', defineAsyncComponent(() => import('@viewsModuleSale/agents/index.vue')));
+app.component('tenant-web-platforms-index', defineAsyncComponent(() => import('@viewsModuleItem/web-platforms/index.vue')));
+app.component('tenant-technical-services-index', defineAsyncComponent(() => import('@viewsModuleSale/technical-services/index.vue')));
+app.component('tenant-user-commissions-index', defineAsyncComponent(() => import('@viewsModuleSale/user-commissions/index.vue')));
 
 // ── Purchase extras ───────────────────────────────────────────────────────────
-app.component('tenant-fixed-asset-items-index', require('@viewsModulePurchase/fixed_asset_items/index.vue').default);
-app.component('tenant-fixed-asset-purchases-index', require('@viewsModulePurchase/fixed_asset_purchases/index.vue').default);
-app.component('tenant-fixed-asset-purchases-form', require('@viewsModulePurchase/fixed_asset_purchases/form.vue').default);
+app.component('tenant-fixed-asset-items-index', defineAsyncComponent(() => import('@viewsModulePurchase/fixed_asset_items/index.vue')));
+app.component('tenant-fixed-asset-purchases-index', defineAsyncComponent(() => import('@viewsModulePurchase/fixed_asset_purchases/index.vue')));
+app.component('tenant-fixed-asset-purchases-form', defineAsyncComponent(() => import('@viewsModulePurchase/fixed_asset_purchases/form.vue')));
 
 // ── Expense module ────────────────────────────────────────────────────────────
-app.component('tenant-expense-types-index', require('@viewsModuleExpense/expense_types/index.vue').default);
-app.component('tenant-expense-reasons-index', require('@viewsModuleExpense/expense_reasons/index.vue').default);
-app.component('tenant-expense-method-types-index', require('@viewsModuleExpense/expense_method_types/index.vue').default);
+app.component('tenant-expense-types-index', defineAsyncComponent(() => import('@viewsModuleExpense/expense_types/index.vue')));
+app.component('tenant-expense-reasons-index', defineAsyncComponent(() => import('@viewsModuleExpense/expense_reasons/index.vue')));
+app.component('tenant-expense-method-types-index', defineAsyncComponent(() => import('@viewsModuleExpense/expense_method_types/index.vue')));
 
 // ── Order logistics ───────────────────────────────────────────────────────────
-app.component('tenant-drivers-index', require('@viewsModuleOrder/drivers/index.vue').default);
-app.component('tenant-dispatchers-index', require('@viewsModuleOrder/dispatchers/index.vue').default);
-app.component('tenant-order-forms-index', require('@viewsModuleOrder/order_forms/index.vue').default);
-app.component('tenant-order-forms-form', require('@viewsModuleOrder/order_forms/form.vue').default);
+app.component('tenant-drivers-index', defineAsyncComponent(() => import('@viewsModuleOrder/drivers/index.vue')));
+app.component('tenant-dispatchers-index', defineAsyncComponent(() => import('@viewsModuleOrder/dispatchers/index.vue')));
+app.component('tenant-order-forms-index', defineAsyncComponent(() => import('@viewsModuleOrder/order_forms/index.vue')));
+app.component('tenant-order-forms-form', defineAsyncComponent(() => import('@viewsModuleOrder/order_forms/form.vue')));
 
 // ── System components ─────────────────────────────────────────────────────────
-app.component('system-clients-index', require('./views/system/clients/index.vue').default);
-app.component('system-clients-form', require('./views/system/clients/form.vue').default);
-app.component('system-users-form', require('./views/system/users/form.vue').default);
-app.component('system-certificate-index', require('./views/system/certificate/index.vue').default);
-app.component('system-companies-form', require('./views/system/companies/form.vue').default);
-app.component('system-accounting-index', require('@viewsModuleAccount/system/accounting/index.vue').default);
+app.component('system-clients-index', defineAsyncComponent(() => import('./views/system/clients/index.vue')));
+app.component('system-clients-form', defineAsyncComponent(() => import('./views/system/clients/form.vue')));
+app.component('system-users-form', defineAsyncComponent(() => import('./views/system/users/form.vue')));
+app.component('system-certificate-index', defineAsyncComponent(() => import('./views/system/certificate/index.vue')));
+app.component('system-companies-form', defineAsyncComponent(() => import('./views/system/companies/form.vue')));
+app.component('system-accounting-index', defineAsyncComponent(() => import('@viewsModuleAccount/system/accounting/index.vue')));
 
 // ── Hotel module ──────────────────────────────────────────────────────────────
-app.component('tenant-hotel-rates', require('@viewsModuleHotel/rates/List.vue').default);
-app.component('tenant-hotel-categories', require('@viewsModuleHotel/categories/List.vue').default);
-app.component('tenant-hotel-floors', require('@viewsModuleHotel/floors/List.vue').default);
-app.component('tenant-hotel-rooms', require('@viewsModuleHotel/rooms/List.vue').default);
-app.component('tenant-hotel-reception', require('@viewsModuleHotel/rooms/Reception.vue').default);
-app.component('tenant-hotel-rent', require('@viewsModuleHotel/rooms/Rent.vue').default);
-app.component('tenant-hotel-rent-add-product', require('@viewsModuleHotel/rooms/AddProductToRoom.vue').default);
-app.component('tenant-hotel-rent-checkout', require('@viewsModuleHotel/rooms/Checkout.vue').default);
+app.component('tenant-hotel-rates', defineAsyncComponent(() => import('@viewsModuleHotel/rates/List.vue')));
+app.component('tenant-hotel-categories', defineAsyncComponent(() => import('@viewsModuleHotel/categories/List.vue')));
+app.component('tenant-hotel-floors', defineAsyncComponent(() => import('@viewsModuleHotel/floors/List.vue')));
+app.component('tenant-hotel-rooms', defineAsyncComponent(() => import('@viewsModuleHotel/rooms/List.vue')));
+app.component('tenant-hotel-reception', defineAsyncComponent(() => import('@viewsModuleHotel/rooms/Reception.vue')));
+app.component('tenant-hotel-rent', defineAsyncComponent(() => import('@viewsModuleHotel/rooms/Rent.vue')));
+app.component('tenant-hotel-rent-add-product', defineAsyncComponent(() => import('@viewsModuleHotel/rooms/AddProductToRoom.vue')));
+app.component('tenant-hotel-rent-checkout', defineAsyncComponent(() => import('@viewsModuleHotel/rooms/Checkout.vue')));
 
 // ── Documentary procedure module ──────────────────────────────────────────────
-app.component('tenant-documentary-offices', require('@viewsModuleDocumentary/offices/Offices.vue').default);
-app.component('tenant-documentary-status', require('@viewsModuleDocumentary/status/Status.vue').default);
-app.component('tenant-documentary-processes', require('@viewsModuleDocumentary/processes/Processes.vue').default);
-app.component('tenant-documentary-documents', require('@viewsModuleDocumentary/documents/Documents.vue').default);
-app.component('tenant-documentary-actions', require('@viewsModuleDocumentary/actions/Actions.vue').default);
-app.component('tenant-documentary-files', require('@viewsModuleDocumentary/files/Files.vue').default);
-app.component('tenant-documentary-requirements', require('@viewsModuleDocumentary/requirements/Requirements.vue').default);
-app.component('tenant-documentary-statistic', require('@viewsModuleDocumentary/statistic/Index.vue').default);
-app.component('tenant-documentary-files-simplify', require('@viewsModuleDocumentary/files_simplify/Files.vue').default);
-app.component('tenant-documentary-files-simplify-form', require('@viewsModuleDocumentary/files_simplify/FilesNew.vue').default);
+app.component('tenant-documentary-offices', defineAsyncComponent(() => import('@viewsModuleDocumentary/offices/Offices.vue')));
+app.component('tenant-documentary-status', defineAsyncComponent(() => import('@viewsModuleDocumentary/status/Status.vue')));
+app.component('tenant-documentary-processes', defineAsyncComponent(() => import('@viewsModuleDocumentary/processes/Processes.vue')));
+app.component('tenant-documentary-documents', defineAsyncComponent(() => import('@viewsModuleDocumentary/documents/Documents.vue')));
+app.component('tenant-documentary-actions', defineAsyncComponent(() => import('@viewsModuleDocumentary/actions/Actions.vue')));
+app.component('tenant-documentary-files', defineAsyncComponent(() => import('@viewsModuleDocumentary/files/Files.vue')));
+app.component('tenant-documentary-requirements', defineAsyncComponent(() => import('@viewsModuleDocumentary/requirements/Requirements.vue')));
+app.component('tenant-documentary-statistic', defineAsyncComponent(() => import('@viewsModuleDocumentary/statistic/Index.vue')));
+app.component('tenant-documentary-files-simplify', defineAsyncComponent(() => import('@viewsModuleDocumentary/files_simplify/Files.vue')));
+app.component('tenant-documentary-files-simplify-form', defineAsyncComponent(() => import('@viewsModuleDocumentary/files_simplify/FilesNew.vue')));
 
-app.component('system-plans-index', require('./views/system/plans/index.vue').default);
-app.component('system-plans-form', require('./views/system/plans/form.vue').default);
+app.component('system-plans-index', defineAsyncComponent(() => import('./views/system/plans/index.vue')));
+app.component('system-plans-form', defineAsyncComponent(() => import('./views/system/plans/form.vue')));
 
-app.component('x-input-service', require('../../modules/ApiPeruDev/Resources/assets/js/components/InputService.vue').default);
+app.component('x-input-service', defineAsyncComponent(() => import('../../modules/ApiPeruDev/Resources/assets/js/components/InputService.vue')));
 
-app.component('tenant-items-ecommerce-index', require('./views/tenant/items_ecommerce/index.vue').default);
-app.component('tenant-ecommerce-cart', require('./views/tenant/ecommerce/cart_dropdown.vue').default);
-app.component('tenant-tags-index', require('./views/tenant/tags/index.vue').default);
-app.component('tenant-promotions-index', require('./views/tenant/promotions/index.vue').default);
-app.component('tenant-item-sets-index', require('./views/tenant/item_sets/index.vue').default);
-app.component('tenant-person-types-index', require('./views/tenant/person_types/index.vue').default);
-app.component('tenant-orders-index', require('./views/tenant/orders/index.vue').default);
+app.component('tenant-items-ecommerce-index', defineAsyncComponent(() => import('./views/tenant/items_ecommerce/index.vue')));
+app.component('tenant-ecommerce-cart', defineAsyncComponent(() => import('./views/tenant/ecommerce/cart_dropdown.vue')));
+app.component('tenant-tags-index', defineAsyncComponent(() => import('./views/tenant/tags/index.vue')));
+app.component('tenant-promotions-index', defineAsyncComponent(() => import('./views/tenant/promotions/index.vue')));
+app.component('tenant-item-sets-index', defineAsyncComponent(() => import('./views/tenant/item_sets/index.vue')));
+app.component('tenant-person-types-index', defineAsyncComponent(() => import('./views/tenant/person_types/index.vue')));
+app.component('tenant-orders-index', defineAsyncComponent(() => import('./views/tenant/orders/index.vue')));
 
-app.component('tenant-account-payment-index', require('./views/tenant/account/payment_index.vue').default);
-app.component('tenant-account-configuration-index', require('./views/tenant/account/configuration.vue').default);
+app.component('tenant-account-payment-index', defineAsyncComponent(() => import('./views/tenant/account/payment_index.vue')));
+app.component('tenant-account-configuration-index', defineAsyncComponent(() => import('./views/tenant/account/configuration.vue')));
 
-app.component('system-update', require('./views/system/update/index.vue').default);
-app.component('system-backup', require('./views/system/backup/index.vue').default);
-app.component('system-configuration-culqi', require('./views/system/configuration/culqi.vue').default);
-app.component('system-configuration-apk-url', require('./views/system/configuration/apk-url.vue').default);
-app.component('system-configuration-token', require('./views/system/configuration/token_ruc_dni.vue').default);
-app.component('system-php-configuration', require('./views/system/configuration/php_info.vue').default);
-app.component('system-server-status', require('./views/system/configuration/server_status.vue').default);
-app.component('system-login-settings', require('./views/system/configuration/login.vue').default);
-app.component('system-login-other-configuration', require('./views/system/configuration/other_configuration.vue').default);
-app.component('tenant-login-page', require('./views/tenant/login/index.vue').default);
+app.component('system-update', defineAsyncComponent(() => import('./views/system/update/index.vue')));
+app.component('system-backup', defineAsyncComponent(() => import('./views/system/backup/index.vue')));
+app.component('system-configuration-culqi', defineAsyncComponent(() => import('./views/system/configuration/culqi.vue')));
+app.component('system-configuration-apk-url', defineAsyncComponent(() => import('./views/system/configuration/apk-url.vue')));
+app.component('system-configuration-token', defineAsyncComponent(() => import('./views/system/configuration/token_ruc_dni.vue')));
+app.component('system-php-configuration', defineAsyncComponent(() => import('./views/system/configuration/php_info.vue')));
+app.component('system-server-status', defineAsyncComponent(() => import('./views/system/configuration/server_status.vue')));
+app.component('system-login-settings', defineAsyncComponent(() => import('./views/system/configuration/login.vue')));
+app.component('system-login-other-configuration', defineAsyncComponent(() => import('./views/system/configuration/other_configuration.vue')));
+app.component('tenant-login-page', defineAsyncComponent(() => import('./views/tenant/login/index.vue')));
 
 // ── Digemid module ────────────────────────────────────────────────────────────
-app.component('tenant-digemid-index', require('../../modules/Digemid/Resources/assets/js/view/index.vue').default);
+app.component('tenant-digemid-index', defineAsyncComponent(() => import('../../modules/Digemid/Resources/assets/js/view/index.vue')));
 
 // ── Suscripcion module ────────────────────────────────────────────────────────
-app.component('tenant-suscription-client-index', require('../../modules/Suscription/Resources/assets/js/clients/index.vue').default);
-app.component('tenant-suscription-plans-index', require('../../modules/Suscription/Resources/assets/js/plans/index.vue').default);
-app.component('tenant-suscription-payments-index', require('../../modules/Suscription/Resources/assets/js/payments/index.vue').default);
-app.component('data-table-payment-receipt', require('../js/components/DataTablePaymentReceipt.vue').default);
-app.component('tenant-index-payment-receipt', require('../../modules/Suscription/Resources/assets/js/payment_receipt/index.vue').default);
-app.component('tenant-suscription-grades-index', require('@viewsModuleSuscription/grades/index.vue').default);
-app.component('tenant-suscription-sections-index', require('@viewsModuleSuscription/sections/index.vue').default);
+app.component('tenant-suscription-client-index', defineAsyncComponent(() => import('../../modules/Suscription/Resources/assets/js/clients/index.vue')));
+app.component('tenant-suscription-plans-index', defineAsyncComponent(() => import('../../modules/Suscription/Resources/assets/js/plans/index.vue')));
+app.component('tenant-suscription-payments-index', defineAsyncComponent(() => import('../../modules/Suscription/Resources/assets/js/payments/index.vue')));
+app.component('data-table-payment-receipt', defineAsyncComponent(() => import('../js/components/DataTablePaymentReceipt.vue')));
+app.component('tenant-index-payment-receipt', defineAsyncComponent(() => import('../../modules/Suscription/Resources/assets/js/payment_receipt/index.vue')));
+app.component('tenant-suscription-grades-index', defineAsyncComponent(() => import('@viewsModuleSuscription/grades/index.vue')));
+app.component('tenant-suscription-sections-index', defineAsyncComponent(() => import('@viewsModuleSuscription/sections/index.vue')));
 
 // ── Full Suscripcion module ───────────────────────────────────────────────────
-app.component('tenant-full-suscription-client-index', require('../../modules/FullSuscription/Resources/assets/js/clients/index.vue').default);
-app.component('tenant-full-suscription-plans-index', require('../../modules/FullSuscription/Resources/assets/js/plans/index.vue').default);
-app.component('tenant-full-suscription-payments-index', require('../../modules/FullSuscription/Resources/assets/js/payments/index.vue').default);
-app.component('tenant-full-suscription-index-payment-receipt', require('../../modules/FullSuscription/Resources/assets/js/payment_receipt/index.vue').default);
+app.component('tenant-full-suscription-client-index', defineAsyncComponent(() => import('../../modules/FullSuscription/Resources/assets/js/clients/index.vue')));
+app.component('tenant-full-suscription-plans-index', defineAsyncComponent(() => import('../../modules/FullSuscription/Resources/assets/js/plans/index.vue')));
+app.component('tenant-full-suscription-payments-index', defineAsyncComponent(() => import('../../modules/FullSuscription/Resources/assets/js/payments/index.vue')));
+app.component('tenant-full-suscription-index-payment-receipt', defineAsyncComponent(() => import('../../modules/FullSuscription/Resources/assets/js/payment_receipt/index.vue')));
 
 // ── Expense extras ────────────────────────────────────────────────────────────
-app.component('tenant-bankloans-index', require('../../modules/Expense/Resources/assets/js/views/bank_loans/index.vue').default);
-app.component('tenant-bankloans-form', require('../../modules/Expense/Resources/assets/js/views/bank_loans/form.vue').default);
+app.component('tenant-bankloans-index', defineAsyncComponent(() => import('../../modules/Expense/Resources/assets/js/views/bank_loans/index.vue')));
+app.component('tenant-bankloans-form', defineAsyncComponent(() => import('../../modules/Expense/Resources/assets/js/views/bank_loans/form.vue')));
 
 // ── Production module ─────────────────────────────────────────────────────────
-app.component('tenant-mill-index', require('../../modules/Production/Resources/assets/js/view/mill/index.vue').default);
-app.component('tenant-mill-form', require('../../modules/Production/Resources/assets/js/view/mill/form.vue').default);
-app.component('tenant-machine-index', require('../../modules/Production/Resources/assets/js/view/machine/index.vue').default);
-app.component('tenant-machine-type-index', require('../../modules/Production/Resources/assets/js/view/machine/index_type.vue').default);
-app.component('tenant-machine-form', require('../../modules/Production/Resources/assets/js/view/machine/form.vue').default);
-app.component('tenant-machine-type-form', require('../../modules/Production/Resources/assets/js/view/machine/form_type.vue').default);
-app.component('tenant-workers-index', require('../../modules/Production/Resources/assets/js/view/workers/index.vue').default);
-app.component('tenant-production-index', require('../../modules/Production/Resources/assets/js/view/production/index.vue').default);
-app.component('tenant-production-form', require('../../modules/Production/Resources/assets/js/view/production/form.vue').default);
-app.component('tenant-packaging-index', require('../../modules/Production/Resources/assets/js/view/packaging/index.vue').default);
-app.component('tenant-packaging-form', require('../../modules/Production/Resources/assets/js/view/packaging/form.vue').default);
+app.component('tenant-mill-index', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/mill/index.vue')));
+app.component('tenant-mill-form', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/mill/form.vue')));
+app.component('tenant-machine-index', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/machine/index.vue')));
+app.component('tenant-machine-type-index', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/machine/index_type.vue')));
+app.component('tenant-machine-form', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/machine/form.vue')));
+app.component('tenant-machine-type-form', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/machine/form_type.vue')));
+app.component('tenant-workers-index', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/workers/index.vue')));
+app.component('tenant-production-index', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/production/index.vue')));
+app.component('tenant-production-form', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/production/form.vue')));
+app.component('tenant-packaging-index', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/packaging/index.vue')));
+app.component('tenant-packaging-form', defineAsyncComponent(() => import('../../modules/Production/Resources/assets/js/view/packaging/form.vue')));
 
 // ── Restaurant module ─────────────────────────────────────────────────────────
-app.component('tenant-restaurant-list-items', require('../../modules/Restaurant/Resources/assets/js/views/items/index.vue').default);
-app.component('tenant-restaurant-promotions-index', require('../../modules/Restaurant/Resources/assets/js/views/promotions/index.vue').default);
-app.component('tenant-restaurant-orders-index', require('../../modules/Restaurant/Resources/assets/js/views/orders/index.vue').default);
-app.component('tenant-restaurant-cash-index', require('../../modules/Restaurant/Resources/assets/js/views/cash/index.vue').default);
-app.component('tenant-restaurant-cash-filter-pos', require('../../modules/Restaurant/Resources/assets/js/views/cash/filter-pos.vue').default);
-app.component('tenant-restaurant-configuration', require('../../modules/Restaurant/Resources/assets/js/views/configuration/index.vue').default);
+app.component('tenant-restaurant-list-items', defineAsyncComponent(() => import('../../modules/Restaurant/Resources/assets/js/views/items/index.vue')));
+app.component('tenant-restaurant-promotions-index', defineAsyncComponent(() => import('../../modules/Restaurant/Resources/assets/js/views/promotions/index.vue')));
+app.component('tenant-restaurant-orders-index', defineAsyncComponent(() => import('../../modules/Restaurant/Resources/assets/js/views/orders/index.vue')));
+app.component('tenant-restaurant-cash-index', defineAsyncComponent(() => import('../../modules/Restaurant/Resources/assets/js/views/cash/index.vue')));
+app.component('tenant-restaurant-cash-filter-pos', defineAsyncComponent(() => import('../../modules/Restaurant/Resources/assets/js/views/cash/filter-pos.vue')));
+app.component('tenant-restaurant-configuration', defineAsyncComponent(() => import('../../modules/Restaurant/Resources/assets/js/views/configuration/index.vue')));
 
 // ── Payment module ────────────────────────────────────────────────────────────
-app.component('tenant-payment-configurations-index', require('@viewsModulePayment/payment_configurations/index.vue').default);
-app.component('tenant-public-payment-links-index', require('@viewsModulePayment/payment_links/public/index.vue').default);
-app.component('tenant-payment-links-index', require('@viewsModulePayment/payment_links/index.vue').default);
+app.component('tenant-payment-configurations-index', defineAsyncComponent(() => import('@viewsModulePayment/payment_configurations/index.vue')));
+app.component('tenant-public-payment-links-index', defineAsyncComponent(() => import('@viewsModulePayment/payment_links/public/index.vue')));
+app.component('tenant-payment-links-index', defineAsyncComponent(() => import('@viewsModulePayment/payment_links/index.vue')));
 
 // ── Mobile App module ─────────────────────────────────────────────────────────
-app.component('tenant-mobile-app-configuration', require('@viewsModuleMobileApp/configuration/index.vue').default);
-app.component('tenant-mobile-app-permissions', require('@viewsModuleMobileApp/permissions/index.vue').default);
+app.component('tenant-mobile-app-configuration', defineAsyncComponent(() => import('@viewsModuleMobileApp/configuration/index.vue')));
+app.component('tenant-mobile-app-permissions', defineAsyncComponent(() => import('@viewsModuleMobileApp/permissions/index.vue')));
 
 // ── Level Access module ───────────────────────────────────────────────────────
-app.component('tenant-system-activity-logs-generals-index', require('@viewsModuleLevelAccess/system_activity_logs/generals/index.vue').default);
-app.component('tenant-system-activity-logs-transactions-index', require('@viewsModuleLevelAccess/system_activity_logs/transactions/index.vue').default);
-app.component('tenant-remember-change-password', require('./views/tenant/users/partials/remember_change_password.vue').default);
+app.component('tenant-system-activity-logs-generals-index', defineAsyncComponent(() => import('@viewsModuleLevelAccess/system_activity_logs/generals/index.vue')));
+app.component('tenant-system-activity-logs-transactions-index', defineAsyncComponent(() => import('@viewsModuleLevelAccess/system_activity_logs/transactions/index.vue')));
+app.component('tenant-remember-change-password', defineAsyncComponent(() => import('./views/tenant/users/partials/remember_change_password.vue')));
 
 // ── System reports ────────────────────────────────────────────────────────────
-app.component('system-report-login-lockout-index', require('@viewsModuleReport/system/report_login_lockout/index.vue').default);
-app.component('system-user-not-change-password-index', require('@viewsModuleReport/system/user_not_change_password/index.vue').default);
+app.component('system-report-login-lockout-index', defineAsyncComponent(() => import('@viewsModuleReport/system/report_login_lockout/index.vue')));
+app.component('system-user-not-change-password-index', defineAsyncComponent(() => import('@viewsModuleReport/system/user_not_change_password/index.vue')));
 
 // ── Mount ─────────────────────────────────────────────────────────────────────
 app.mount('#main-wrapper')

@@ -80,7 +80,10 @@
                     $query->where('name', 'like', "%{$request->value}%");
                 });
             } else {
-                $records = TechnicalService::where($request->column, 'like', "%{$request->value}%");
+                $records = TechnicalService::query();
+                if($request->column) {
+                    $records->where($request->column, 'like', "%{$request->value}%");
+                }
             }
 
             return $records->whereTypeUser()->latest();

@@ -14,7 +14,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha y Hora</th>
                         <th>Usuario</th>
@@ -25,8 +26,10 @@
                         <th>Tipo dispositivo</th>
                         <th>Plataforma</th>
                         <th>Navegador</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_time }}</td>
                         <td>{{ row.user_name }}</td>
@@ -57,6 +60,7 @@
                         <td>{{ row.platform_description }}</td>
                         <td>{{ row.browser_description }}</td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

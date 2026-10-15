@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource"  :applyCustomer="true">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th class="">F. Emisión</th>
                             <th class="">F. Vencimiento</th>
@@ -25,8 +26,10 @@
                             <th class="">T. IGV</th>
 
                             <th class="">Total</th>
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td>
                             <td>{{row.date_of_issue}}</td>
                             <td>{{row.date_of_due}}</td>
@@ -50,6 +53,7 @@
                             <td>{{ row.state_type_id == '11' ? '0.00' : row.total}}</td>
 
                         </tr>
+                        </template>
                     </data-table>
 
 

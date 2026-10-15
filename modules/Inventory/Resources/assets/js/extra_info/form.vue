@@ -4,7 +4,7 @@
         :close-on-press-escape="false"
         :show-close="false"
         :title="titleDialog"
-        :visible="showColorDialog"
+        v-model="showColorDialog"
         append-to-body
         width="30%"
         @open="create">

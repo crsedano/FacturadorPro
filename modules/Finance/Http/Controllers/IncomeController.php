@@ -55,9 +55,10 @@ class IncomeController extends Controller
 
     public function records(Request $request)
     {
-        $records = Income::where($request->column, 'like', "%{$request->value}%")
-                            ->whereTypeUser()
-                            ->latest();
+        $records = Income::whereTypeUser()->latest();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new IncomeCollection($records->paginate(config('tenant.items_per_page')));
     }

@@ -14,15 +14,18 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading" width="100%">
+                    <template #heading>
+                    <tr width="100%">
                         <th>#</th>
                         <!-- <th>Cód. Interno</th> -->
                         <th>Producto</th> 
                         <th>Tipo</th> 
                         <th>Comisión</th>
                         <th class="text-right">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <!-- <td>{{ row.internal_id }}</td> -->
                         <td>{{ row.full_description }}</td> 
@@ -35,6 +38,7 @@
                             </template>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

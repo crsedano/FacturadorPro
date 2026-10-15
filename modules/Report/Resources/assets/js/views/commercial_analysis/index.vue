@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource">
-                            <tr slot="heading">
+                            <template #heading>
+                            <tr>
                             <th class="">#</th>
                             <th class="">Cliente</th>
                             <th class="">T. Doc - N° Doc</th>
@@ -28,8 +29,10 @@
                             <th class="">Accesorios</th> -->
 
                             <th class="">Contactar el</th> 
+                        </tr>
+                            </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td> 
                             <td>{{row.customer_name}}</td>
                             <td>{{row.customer_doc }} - {{ row.customer_number }}<br/></td> 
@@ -53,6 +56,7 @@
                             <td>{{row.contact_date}}</td> 
                           
                         </tr>
+                        </template>
                         
                     </data-table>
                      

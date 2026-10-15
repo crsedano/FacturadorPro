@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import ImageBgUpload from "./UploadBgImage";
+import ImageBgUpload from "./UploadBgImage.vue";
 
 export default {
   components: {

@@ -59,7 +59,10 @@ class PaymentLinkController extends Controller
 
     public function records(Request $request)
     {
-        $records = PaymentLink::where($request->column, 'like', "%{$request->value}%")->latest();
+        $records = PaymentLink::latest();
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new PaymentLinkCollection($records->paginate(config('tenant.items_per_page')));
     }

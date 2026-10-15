@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-dialog :title="title"
-                   :visible="showDialogValidate"
+                   :model-value="showDialogValidate"
                    @close="close" @open="handleOpen"
                    class="dialog-import" width="80%">
             <div class="row" v-loading="loading_submit">

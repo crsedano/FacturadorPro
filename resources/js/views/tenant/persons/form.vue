@@ -1,7 +1,7 @@
 <template>
     <el-dialog :close-on-click-modal="false"
                :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                :append-to-body="true"
                @close="close"
                @open="create"
@@ -790,7 +790,6 @@ export default {
 
         },
         create() {
-            // console.log(this.input_person)
             this.parent = 0;
             if(this.parentId !== undefined){
                 this.parent = this.parentId;
@@ -836,6 +835,8 @@ export default {
                         }
                         this.filterProvinces()
                         this.filterDistricts()
+                    }).catch(err => {
+                        console.error('[PersonsForm] API error:', err.response?.status, err.response?.data || err.message)
                     }).then(() => {
                     this.updateEmail()
 

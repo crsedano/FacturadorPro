@@ -8,7 +8,8 @@
                     <data-table
                         :defaultType="defaultType"
                         :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th class="">Fecha</th>
                             <th class="">Tipo Documento</th>
@@ -19,8 +20,10 @@
                             <th class="" v-if="defaultType!== 'purchase'">Plataforma</th>
                             <th class="">Cantidad</th>
                             <th class="">Monto</th>
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td>
                             <td>{{row.date_of_issue}}</td>
                             <td>{{row.document_type_description}}</td>
@@ -32,6 +35,7 @@
                             <td>{{row.quantity}}</td>
                             <td>{{ (row.document_type_id == '07') ? ( (row.total == 0) ? '0.00': '-'+row.total) : ((row.document_type_id!='07' && (row.state_type_id =='11'||row.state_type_id =='09')) ? '0.00':row.total) }}</td>
                         </tr>
+                        </template>
 
                     </data-table>
 

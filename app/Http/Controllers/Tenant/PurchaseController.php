@@ -114,9 +114,10 @@
 
                 default:
 
-                    $records = Purchase::where($request->column, 'like', "%{$request->value}%")
-                        ->whereTypeUser()
-                        ->latest();
+                    $records = Purchase::whereTypeUser()->latest();
+                    if($request->column) {
+                        $records->where($request->column, 'like', "%{$request->value}%");
+                    }
 
                     break;
             }

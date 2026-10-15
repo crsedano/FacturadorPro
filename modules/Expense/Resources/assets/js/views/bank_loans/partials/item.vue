@@ -2,7 +2,7 @@
     <el-dialog :close-on-click-modal="false"
                :close-on-press-escape="false"
                :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                @close="close">
         <form autocomplete="off"
               @submit.prevent="clickAddItem">

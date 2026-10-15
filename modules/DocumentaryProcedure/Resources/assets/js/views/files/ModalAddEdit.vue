@@ -2,7 +2,7 @@
     <div>
         <el-dialog
             :title="title"
-            :visible="visible"
+            :model-value="visible"
             @close="onClose"
             @open="onCreate"
         >
@@ -321,11 +321,11 @@
 
 <script>
 import moment from "moment";
-import TableArchives from "./TableArchives";
+import TableArchives from "./TableArchives.vue";
 import PersonForm from "../../../../../../../resources/js/views/tenant/persons/form.vue";
 import OfficesRows from './Offices.vue';
 import {mapActions, mapState} from "vuex";
-import TableObservation from "./TableObservation";
+import TableObservation from "./TableObservation.vue";
 
 export default {
     components: {

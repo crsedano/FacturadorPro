@@ -1,10 +1,6 @@
 <template>
     <div class="container-fluid p-0">
         <div class="row page-header pr-0 no-gutters" style="height:auto">
-            <key-event="keyup"
-                :key-code="112"
-                @success="handleFn112"
-            />
             <!-- <key-event="keyup" :key-code="113" @success="handleFn113" /> -->
 
             <!-- <h2 class="text-sm">POS</h2>
@@ -170,8 +166,8 @@
                 <br/>
 
                 <div v-if="place == 'cat'" class="row no-gutters">
-                    <template v-for="(item, index) in categories">
-                        <div class="col" :key="index">
+                    <template v-for="(item, index) in categories" :key="index">
+                        <div class="col">
                             <div @click="filterCategorie(item.id)" class="card p-0 m-0 mb-1 mr-1 text-center">
                                 <div
                                     :style="{ backgroundColor: item.color }"
@@ -187,7 +183,7 @@
 
                 <div v-if="place == 'prod' || place == 'cat2'" class="row">
                     <template v-for="(item, index) in items">
-                        <div v-bind:style="classObjectCol" :key="index">
+                        <div v-bind:style="classObjectCol">
                             <section class="card ">
                                 <div
                                     class="card-body pointer px-2 pt-2"
@@ -403,8 +399,7 @@
                                                             width="90"
                                                             label="Precio"
                                                         >
-                                                            <template
-                                                                slot-scope="{
+                                                            <template #default="{
                                                                     row
                                                                 }"
                                                             >
@@ -449,8 +444,7 @@
                                                             width="80"
                                                             label=""
                                                         >
-                                                            <template
-                                                                slot-scope="{
+                                                            <template #default="{
                                                                     row
                                                                 }"
                                                             >
@@ -532,7 +526,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <el-select v-model="form.series_id" class="c-width">
-                                    <el-option   v-for="option in series" :key="option.id" :label="option.number" :value="option.id">
+                                    <el-option   v-for="option in series" :label="option.number" :value="option.id">
                                     </el-option>
                                 </el-select>
                             </div>
@@ -551,11 +545,8 @@
                                     @blur="focusClienteSelect = false"
                                 >
                                     <el-option
-                                        v-for="option in all_customers"
-                                        :key="option.id"
-                                        :label="option.description"
-                                        :value="option.id"
-                                    ></el-option>
+                                        v-for="option in all_customers" :label="option.description"
+                                        :value="option.id"></el-option>
                                 </el-select>
                             </div>
                             <div class="col-4">
@@ -594,7 +585,7 @@
                             <div class="col-12">
                                 <table class="table table-sm table-borderless mb-0 pos-list-items">
                                     <template v-for="(item, index) in form.items">
-                                        <tr :key="index">
+                                        <tr>
                                             <td style="width: 10px; text-align: center; vertical-align: top" class="pos-list-label">
                                                 {{ item.unit_type_id }}
                                             </td>
@@ -1035,6 +1026,13 @@ export default {
             }
             return false;
         }
+    },
+    mounted() {
+        this._keyupHandler = (e) => { if (e.code === 'F1') this.handleFn112(e) }
+        document.addEventListener('keyup', this._keyupHandler)
+    },
+    beforeUnmount() {
+        document.removeEventListener('keyup', this._keyupHandler)
     },
     methods: {
         keyupEnterQuantity() {
@@ -1784,7 +1782,7 @@ export default {
             this.categories.unshift({
                 id: null,
                 name: "Todos",
-                color: "#2C8DE3"
+                color: "var(--theme-color, #2C8DE3)"
             });
         },
         async searchItems() {

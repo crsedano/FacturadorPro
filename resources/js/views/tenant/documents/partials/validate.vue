@@ -1,6 +1,6 @@
 <template>
     <div>
-          <el-dialog :title="titleDialog" :visible="showDialogValidate"  @close="close"  @open="initForm" class="dialog-import" width="80%">
+          <el-dialog :title="titleDialog" :model-value="showDialogValidate"  @close="close"  @open="initForm" class="dialog-import" width="80%">
         <form autocomplete="off">
             <div class="form-body" v-loading="loading_submit" :element-loading-text="loading_text">
                  <div class="row"> 

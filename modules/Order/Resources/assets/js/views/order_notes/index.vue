@@ -58,7 +58,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource" :typeUser="typeUser" :soapCompany="soapCompany" >
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th class="text-center" v-if="columns.delivery_date.visible">Fecha Entrega</th>
@@ -81,8 +82,10 @@
                         <th class="text-right">Total</th>
                         <th class="text-center">PDF</th>
                         <th class="text-right">Acciones</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }" :class="{ anulate_color : row.state_type_id == '11' }">
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr :class="{ anulate_color : row.state_type_id == '11' }">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }}</td>
                         <td class="text-center" v-if="columns.delivery_date.visible">{{ row.delivery_date }}</td>
@@ -92,13 +95,13 @@
                         <td>{{ row.identifier }}
                         </td>
                         <td>
-                            <template v-for="(document,i) in row.documents">
-                                <label :key="i" v-text="showAnulateDoc(document)" class="d-block"></label>
+                            <template v-for="(document,i) in row.documents" :key="i">
+                                <label v-text="showAnulateDoc(document)" class="d-block"></label>
                             </template>
                         </td>
                         <td v-if="columns.sale_notes.visible">
                             <template v-for="(sale_note,i) in row.sale_notes">
-                                <label :key="i" v-text="sale_note.identifier" class="d-block"></label>
+                                <label v-text="sale_note.identifier" class="d-block"></label>
                             </template>
                         </td>
 
@@ -112,7 +115,7 @@
                     <td v-if="columns.dispatches.visible">
                         <!-- Pedidos -->
                         <template v-for="(dispach,i) in row.dispatches">
-                            <label :key="i" v-text="dispach.number" class="d-block"></label>
+                            <label v-text="dispach.number" class="d-block"></label>
                         </template>
                     </td>
 
@@ -158,6 +161,7 @@
                         </td>
 
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

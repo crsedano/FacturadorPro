@@ -41,9 +41,10 @@ class PerceptionController extends Controller
 
     public function records(Request $request)
     {
-        $records = Perception::where($request->column, 'like', "%{$request->value}%")
-                            ->orderBy('series')
-                            ->orderBy('number', 'desc');
+        $records = Perception::orderBy('series')->orderBy('number', 'desc');
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new PerceptionCollection($records->paginate(config('tenant.items_per_page')));
     }

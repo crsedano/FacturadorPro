@@ -29,8 +29,10 @@ class DriverController extends Controller
     public function records(Request $request)
     {
 
-        $records = Driver::where($request->column, 'like', "%{$request->value}%")
-                            ->orderBy('name');
+        $records = Driver::orderBy('name');
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new DriverCollection($records->paginate(config('tenant.items_per_page')));
     }

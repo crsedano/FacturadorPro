@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     :title="title"
-    :visible="visible"
+    :model-value="visible"
     @close="onClose"
     @open="onCreate"
     width="400px"

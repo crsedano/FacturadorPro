@@ -13,10 +13,24 @@ const path = require('path');
  |
  */
 
+const sassOpts = {
+    api: 'modern',
+    sassOptions: {
+        quietDeps: true,
+        silenceDeprecations: [
+            'import',
+            'global-builtin',
+            'color-functions',
+            'if-function',
+            'abs-percent',
+        ],
+    },
+};
+
 mix.js('resources/js/app.js', 'public/js')
-   .vue({ version: 2 })
-   .sass('resources/sass/style.scss', 'public/css/app.css')
-   .sass('resources/sass/auth.scss', 'public/css/auth.css')
+   .vue({ version: 3 })
+   .sass('resources/sass/style.scss', 'public/css/app.css', sassOpts)
+   .sass('resources/sass/auth.scss', 'public/css/auth.css', sassOpts)
    .extract(['vue'])
    .version();
 

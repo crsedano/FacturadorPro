@@ -70,8 +70,10 @@ class FixedAssetPurchaseController extends Controller
                 break;
  
             default:
-                $records = FixedAssetPurchase::where($request->column, 'like', "%{$request->value}%");
-
+                $records = FixedAssetPurchase::query();
+                if($request->column) {
+                    $records->where($request->column, 'like', "%{$request->value}%");
+                }
                 break;
         }
 

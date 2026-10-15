@@ -3,7 +3,7 @@
         <el-dialog
             :closeOnClickModal="false"
             :title="title"
-            :visible="visible"
+            :model-value="visible"
             @close="onClose"
             @open="onCreate"
         >

@@ -1,7 +1,7 @@
-/* ul.nav-main > li.nav-active > a {
-    -webkit-box-shadow: 4px 0 0 #0088cc inset;
-    box-shadow: 4px 0 0 #0088cc inset;
-} */
+ul.nav-main > li.nav-active > a {
+    -webkit-box-shadow: 4px 0 0 var(--theme-color, #0088cc) inset;
+    box-shadow: 4px 0 0 var(--theme-color, #0088cc) inset;
+}
 
 .bg-info {
     background: #0088cc !important;

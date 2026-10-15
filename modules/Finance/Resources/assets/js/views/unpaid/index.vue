@@ -256,8 +256,8 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <template v-for="(row, index) in records">
-                                                <tr v-if="row.total_to_pay > 0" :key="index">
+                                            <template v-for="(row, index) in records" :key="index">
+                                                <tr v-if="row.total_to_pay > 0">
                                                     <td>{{ customIndex(index) }}</td>
                                                     <td>{{ row.date_of_issue }}</td>
                                                     <td>{{ row.date_of_due ? row.date_of_due : 'No tiene fecha de vencimiento.'}}</td>
@@ -291,7 +291,7 @@
                                                                 label="Fecha Envío"
                                                             ></el-table-column>
                                                             <el-table-column fixed="right" label="Descargas" width="120">
-                                                                <template slot-scope="scope">
+                                                                <template #default="scope">
                                                                 <button
                                                                     type="button"
                                                                     class="btn waves-effect waves-light btn-xs btn-info"
@@ -317,7 +317,7 @@
 
                                                     <td  v-if="columns.web_platforms.visible">
                                                         <template v-for="(platform,i) in row.web_platforms" v-if="row.web_platforms !== undefined">
-                                                            <label class="d-block"  :key="i">{{platform.name}}</label>
+                                                            <label class="d-block">{{platform.name}}</label>
                                                         </template>
                                                     </td>
                                                     <td v-if="columns.purchase_order.visible">{{ row.purchase_order }}</td>

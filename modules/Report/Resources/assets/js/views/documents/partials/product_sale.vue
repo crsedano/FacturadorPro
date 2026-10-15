@@ -1,13 +1,15 @@
 <template>
-    <el-dialog :title="titleDialog" :visible="showDialog" width="25%" @close="close" append-to-body top="7vh">
+    <el-dialog :title="titleDialog" :model-value="showDialog" width="25%" @close="close" append-to-body top="7vh">
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-12"> 
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
+                                    <tr>
                                     <th class="">Product</th>
                                     <th class="">Cantidad</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="item in records" :key="item.key">

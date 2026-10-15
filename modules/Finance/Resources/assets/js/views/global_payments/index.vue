@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource" :isAsynchronous="true">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th class="">Adquiriente</th>
                             <th class="">Documento/Transacción</th>
@@ -20,8 +21,10 @@
                             <th class="">Responsable</th>
                             <th class="">Pago</th>
 
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td>
                             <td>{{ row.person_name }}<br/><small v-text="row.person_number"></small></td>
                             <td>
@@ -38,6 +41,7 @@
                             <td>{{row.user_name}}</td>
                             <td>{{row.total}}</td>
                         </tr>
+                        </template>
                     </data-table>
 
 

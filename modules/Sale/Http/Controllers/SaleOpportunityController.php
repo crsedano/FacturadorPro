@@ -106,9 +106,10 @@ class SaleOpportunityController extends Controller
 
         }else{
 
-            $records = SaleOpportunity::where($request->column, 'like', "%{$request->value}%")
-                                ->whereTypeUser()
-                                ->latest();
+            $records = SaleOpportunity::whereTypeUser()->latest();
+            if($request->column) {
+                $records->where($request->column, 'like', "%{$request->value}%");
+            }
 
         }
 

@@ -1,10 +1,5 @@
 <template>
     <div>
-        <key-event="keyup"
-
-            @success="checkKey"
-        />
-        <key-event="keyup" :multiple-keys="multiple" @success="checkKeyWithAlt" />
 
         <div v-if="loading_form">
             <form autocomplete="off"
@@ -197,9 +192,9 @@
                                            class="border-left rounded-left border-info"
                                            dusk="customer_id"
                                            filterable
-
                                            @focus="focus_on_client = true"
                                            @blur="focus_on_client = false"
+                                           @visible-change="(v) => { if(v) loadCustomersOnOpen() }"
                                            placeholder="Escriba el nombre o número de documento del cliente"
                                            popper-class="el-select-customers"
                                            remote
@@ -305,20 +300,12 @@
 
                                     <td class="text-center pt-3"
                                         colspan="2">
-                                        <el-popover
-                                            placement="top-start"
-                                            :open-delay="1000"
-                                            width="145"
-                                            trigger="hover"
-                                            content="Presiona F2">
-                                            <el-button slot="reference"
-                                                       class="btn waves-effect waves-light btn-primary btn-sm hidden-sm-down"
-                                                       style="width: 180px;"
-                                                       type="button"
-                                                       @click.prevent="clickAddItemInvoice">
-                                                + Agregar Producto
-                                            </el-button>
-                                        </el-popover>
+                                        <el-button
+                                               class="btn waves-effect waves-light btn-primary btn-sm"
+                                               style="width: 180px;"
+                                               @click.prevent="clickAddItemInvoice">
+                                            + Agregar Producto
+                                        </el-button>
                                     </td>
                                     <td colspan="2"></td>
                                     <td class="p-0"
@@ -1022,21 +1009,14 @@
                                 style="min-width: 180px"
                                 @click.prevent="close()">Cancelar
                         </button>
-                        <el-popover
-                            placement="top-start"
-                            :open-delay="1000"
-                            width="145"
-                            trigger="hover"
-                            content="Presiona ALT + G">
-                            <el-button slot="reference"
-                                v-if="form.items.length > 0 && this.dateValid"
-                                :loading="loading_submit"
-                                class="submit btn btn-primary"
-                                native-type="submit"
-                                style="min-width: 180px">
-                                    {{ btnText }}
-                            </el-button>
-                        </el-popover>
+                        <el-button
+                            v-if="form.items.length > 0 && this.dateValid"
+                            :loading="loading_submit"
+                            class="submit btn btn-primary"
+                            native-type="submit"
+                            style="min-width: 180px">
+                            {{ btnText }}
+                        </el-button>
                     </div>
                     <!-- @todo: Mejorar evitando duplicar codigo -->
                     <!-- Ocultar en cel -->
@@ -1216,6 +1196,7 @@
                                                             Guías
                                                         </label>
                                                         <table style="width: 100%">
+                                                            <tbody>
                                                             <tr v-for="(guide,index) in form.guides">
                                                                 <td>
                                                                     <el-select v-model="guide.document_type_id">
@@ -1247,6 +1228,7 @@
                                                                     </label>
                                                                 </td>
                                                             </tr>
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </template>
@@ -1258,6 +1240,7 @@
                                                             Guías
                                                         </label>
                                                         <table style="width: 100%">
+                                                            <tbody>
                                                             <tr v-for="(guide,index) in form.guides">
                                                                 <td>
                                                                     <el-select v-model="guide.document_type_id">
@@ -1289,6 +1272,7 @@
                                                                     </label>
                                                                 </td>
                                                             </tr>
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </template>
@@ -1740,6 +1724,16 @@ export default {
 
         this.startConnectionQzTray()
 
+    },
+    mounted() {
+        this._keyupHandler = (e) => this.checkKey(e)
+        this._keyupHandlerAlt = (e) => this.checkKeyWithAlt(e)
+        document.addEventListener('keyup', this._keyupHandler)
+        document.addEventListener('keyup', this._keyupHandlerAlt)
+    },
+    beforeUnmount() {
+        document.removeEventListener('keyup', this._keyupHandler)
+        document.removeEventListener('keyup', this._keyupHandlerAlt)
     },
     methods: {
         ...mapActions([
@@ -2561,25 +2555,32 @@ export default {
             this.recordItem = row
             this.showDialogAddItem = true
         },
+        loadCustomersOnOpen() {
+            this.loading_search = true
+            this.$http.get(`/${this.resource}/search/customers?input=`)
+                .then(response => {
+                    this.customers = response.data.customers
+                    this.loading_search = false
+                })
+                .catch(() => {
+                    this.customers = this.all_customers
+                    this.loading_search = false
+                })
+        },
         searchRemoteCustomers(input) {
 
             if (input.length > 0) {
                 this.loading_search = true
-                let parameters = `input=${input}&document_type_id=${this.form.document_type_id}&operation_type_id=${this.form.operation_type_id}`
+                let parameters = `input=${input}`
 
                 this.$http.get(`/${this.resource}/search/customers?${parameters}`)
                     .then(response => {
                         this.customers = response.data.customers
                         this.loading_search = false
                         this.input_person.number = (this.customers.length==0)? input : null
-
-                        /* if (this.customers.length == 0) {
-                            this.filterCustomers()
-                            this.input_person.number = input
-                        } */
                     })
             } else {
-                this.filterCustomers()
+                this.loadCustomersOnOpen()
                 this.input_person.number = null
             }
 
@@ -2956,11 +2957,11 @@ export default {
             if (['0101', '1001', '1004'].includes(this.form.operation_type_id)) {
 
                 if (this.form.document_type_id === '01') {
-                    this.customers = _.filter(this.all_customers, {'identity_document_type_id': '6'})
+                    this.customers = _.filter(this.all_customers, (c) => c.identity_document_type_id == 6)
                 } else {
                     if (this.document_type_03_filter) {
                         this.customers = _.filter(this.all_customers, (c) => {
-                            return c.identity_document_type_id !== '6'
+                            return c.identity_document_type_id != 6
                         })
                     } else {
                         this.customers = this.all_customers
@@ -3778,7 +3779,7 @@ export default {
             return showNamePdfOfDescription(item, this.config.show_pdf_name)
         },
         checkKeyWithAlt(e){
-            let code = e.event.code;
+            let code = e.code;
             if(
                 this.showDialogOptions === true &&
                 code === 'KeyN'
@@ -3797,7 +3798,7 @@ export default {
             }
         },
         checkKey(e){
-            let code = e.event.code;
+            let code = e.code;
             if(code === 'F2'){
                 //abrir el modal de agergar producto
                 if(!this.showDialogAddItem ) this.showDialogAddItem = true

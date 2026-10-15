@@ -6,7 +6,8 @@
         <div class="card mb-0">
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Nombres y Apellidos</th>
                         <!--                            <th>T. Documento</th>-->
@@ -24,8 +25,10 @@
                          <th  >Procedencia</th>
                          <th>Comprobante</th>-->
 
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.customer.description }}</td>
                         <!--                            <td>{{row.identity_document_type_description}}</td>-->
@@ -67,6 +70,7 @@
                         -->
 
                     </tr>
+                    </template>
 
                 </data-table>
 

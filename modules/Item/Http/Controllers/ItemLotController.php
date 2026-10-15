@@ -52,7 +52,10 @@ class ItemLotController extends Controller
                         });
 
         }else{
-            $records = ItemLot::where($request->column, 'like', "%{$request->value}%")->latest();
+            $records = ItemLot::latest();
+            if($request->column) {
+                $records->where($request->column, 'like', "%{$request->value}%");
+            }
         }
 
         return $records;

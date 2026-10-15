@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th class=""><strong>CPE</strong></th>
                             <th class="text-center"><strong>Efectivo</strong></th>
@@ -18,8 +19,10 @@
                             <th class="text-center"><strong>Compras</strong></th>
                             <th class="text-center"><strong>Gastos</strong></th>
                             <!-- <th class="text-center"> <strong>Saldo</strong></th> -->
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td> 
                             <td>{{row.description}}</td>
                             <td class="text-center">{{ (row.document_payment != '-') ? 'S/ '+row.document_payment : row.document_payment}}</td>
@@ -32,6 +35,7 @@
                             <td class="text-center">{{ (row.expense_payment != '-') ? 'S/ '+row.expense_payment : row.expense_payment}}</td>
                             <!-- <td class="text-center">{{row.balance}}</td>  -->
                         </tr>
+                        </template>
                     </data-table>
                 </div>
         </div>

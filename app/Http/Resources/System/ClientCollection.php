@@ -17,7 +17,8 @@ class ClientCollection extends ResourceCollection
     public function toArray($request)
     {
         $currentDay = Carbon::now();
-        return $this->collection->transform(function(\App\Models\System\Client $row, $key) use ($currentDay) {
+        return $this->collection->transform(function($row, $key) use ($currentDay) {
+            $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
             $apiPeruAsk = TrackApiPeruServices::where('client_id',$row->id)
                 ->where('date_of_issue','>=',$currentDay->firstOfMonth()->format('Y-m-d'))
                 ->where('date_of_issue','<=',$currentDay->lastOfMonth()->format('Y-m-d'))

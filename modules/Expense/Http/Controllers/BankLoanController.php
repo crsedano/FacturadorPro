@@ -78,10 +78,10 @@
          */
         public function records(Request $request)
         {
-            $records = BankLoan::
-            where($request->column, 'like', "%{$request->value}%")
-                ->whereTypeUser()
-                ->latest();
+            $records = BankLoan::whereTypeUser()->latest();
+            if($request->column) {
+                $records->where($request->column, 'like', "%{$request->value}%");
+            }
             return new BankLoanCollection($records->paginate(config('tenant.items_per_page')));
         }
 
@@ -281,10 +281,11 @@
          */
         public function excel(Request $request)
         {
-            $records = BankLoan::where($request->column, 'like', "%{$request->value}%")
-                ->whereTypeUser()
-                ->latest()
-                ->get();
+            $records = BankLoan::whereTypeUser()->latest();
+            if($request->column) {
+                $records->where($request->column, 'like', "%{$request->value}%");
+            }
+            $records = $records->get();
             // dd($records);
             $establishment = auth()->user()->establishment;
             $balance = new ExpenseExport();

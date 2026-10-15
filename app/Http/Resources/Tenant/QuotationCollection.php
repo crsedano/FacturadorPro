@@ -22,6 +22,7 @@ class QuotationCollection extends ResourceCollection
         $configuration = Configuration::query()->first();
 
         return $this->collection->transform(function($row, $key) use($user, $company, $configuration) {
+            $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
             /** @var Quotation $row */
             return $row->getCollectionData($company,$configuration);
             /** Movido al modelo */

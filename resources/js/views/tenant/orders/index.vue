@@ -21,7 +21,8 @@
       </div>
       <div class="card-body">
         <data-table :resource="resource">
-          <tr slot="heading" width="100%">
+          <template #heading>
+          <tr width="100%">
             <th>#</th>
             <th>Codigo de Pedido</th>
             <th>Cliente</th>
@@ -33,8 +34,9 @@
             <th class="text-center">Documento</th>
             <th class="text-center">Opciones</th>
           </tr>
-          <tr></tr>
-          <tr slot-scope="{ index, row }">
+          </template>
+          <template #default="{ index, row }">
+          <tr>
             <td>{{ index }}</td>
             <td>{{ row.order_id }}</td>
             <td>{{ row.customer }}</td>
@@ -50,20 +52,20 @@
                     <el-table-column width="150" property="description" label="Nombre"></el-table-column>
                     <el-table-column width="90" property="cantidad" label="Cant."></el-table-column>
                     <el-table-column width="90" label="Precio">
-                      <template slot-scope="scope">
+                      <template #default="scope">
                         <span>{{ (scope.row.currency_type_id === 'USD') ? '$' : 'S/' }} {{ Number( scope.row.sale_unit_price).toFixed(2)}}</span>
                       </template>
                     </el-table-column>
                     <el-table-column width="90" property="exchange_rate_sale" label="T/C"></el-table-column>
                     <el-table-column width="90" label="Subtotal">
-                      <template slot-scope="scope">
+                      <template #default="scope">
                         <span>S/ {{ subtotal(scope.row) }}</span>
                       </template>
                     </el-table-column>
                   </el-table>
                   <table class="el-table--small el-table--fit el-table">
                     <thead class="has-gutter">
-                      <th colspan="2" class="text-center">Contacto</th>
+                      <tr><th colspan="2" class="text-center">Contacto</th></tr>
                     </thead>
                     <tbody>
                       <tr class="el-table tr">
@@ -114,6 +116,7 @@
 
             </td>
           </tr>
+          </template>
         </data-table>
       </div>
     </div>
@@ -121,7 +124,7 @@
     <el-dialog
       title="Stock en almacén"
       width="40%"
-      :visible="showDialog"
+      v-model="showDialog"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       append-to-body

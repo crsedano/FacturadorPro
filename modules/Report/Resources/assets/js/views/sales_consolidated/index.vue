@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th  class="text-left">Documento</th>
                             <th  class="text-center">Cod. Interno</th>
@@ -15,8 +16,10 @@
                             <th  class="text-center">Producto</th>
                             <th  class="text-center">Cantidad</th>
                             <th  class="text-center">Total de venta</th>
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td>
                             <td  class="text-left">{{row.series}}-{{row.number}}</td>
                             <td  class="text-center">{{row.item_internal_id}}</td>
@@ -26,6 +29,7 @@
                             <td  class="text-center">{{row.item_quantity}}</td>
                             <td  class="text-center">{{row.total_sale}}</td>
                         </tr>
+                        </template>
                     </data-table>
 
                 </div>

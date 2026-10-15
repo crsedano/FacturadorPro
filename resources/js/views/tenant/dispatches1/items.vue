@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="titleDialog" :visible="dialogVisible" @open="create" @close="close" top="8vh">
+    <el-dialog :title="titleDialog" :model-value="dialogVisible" @open="create" @close="close" top="8vh">
         <div class="form-body">
             <div class="row">
                 <div class="col-md-6">

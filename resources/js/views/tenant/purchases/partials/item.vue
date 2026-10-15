@@ -1,6 +1,6 @@
 <template>
     <el-dialog :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                @close="close">
         <:key-code="112"
             key-event="keyup"

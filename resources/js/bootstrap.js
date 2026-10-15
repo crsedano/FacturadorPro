@@ -1,12 +1,15 @@
-;
-window._ = require('lodash');
-window.moment = require('moment');
-window.Popper = require('popper.js').default;
+import _ from 'lodash';
+window._ = _;
 
-try {
-    window.$ = window.jQuery = require('jquery');
-    require('bootstrap');
-} catch (e) {}
+import moment from 'moment';
+window.moment = moment;
+
+import Popper from 'popper.js';
+window.Popper = Popper;
+
+import $ from 'jquery';
+// Keep Vite's jQuery internal — do NOT overwrite window.$ which porto jQuery owns.
+// Bootstrap is loaded as a <script> tag from porto vendor in the layout.
 
 import axios from 'axios';
 
@@ -23,21 +26,10 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-Vue.prototype.$http = axios;
+window.axios = axios;
 
-
-
-Vue.prototype.$setStorage =   function(name,obj){
-    localStorage.setItem(name, JSON.stringify(obj));
-};
-Vue.prototype.$getStorage = function(name){
-    return JSON.parse(localStorage.getItem(name));
-};
-
-require('./vendor/perfect-scrollbar.jquery.min')
-require('./vendor/sidebarmenu')
-require('./vendor/waves')
-require('./vendor/custom')
+// Theme vendor scripts loaded as regular <script> tags in layout (public/js/vendor/)
+// so they register on porto-light's jQuery, not the Vite-bundled jQuery.
 
 $(function () {
     const listElements = document.getElementsByClassName('nav-active');
@@ -46,11 +38,9 @@ $(function () {
     }
 });
 
+const mercadopago = window.Mercadopago;
 
-const mercadopago = window.Mercadopago; 
-
-if(mercadopago)
-{
+if (mercadopago) {
     mercadopago.setPublishableKey(window.token_mercado_pago);
     mercadopago.getIdentificationTypes();
 }

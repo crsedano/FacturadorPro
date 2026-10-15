@@ -9,7 +9,8 @@
         <div class="card mb-0" v-loading="loading_submit">
             <div class="card-body ">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Entorno</th>
                         <th class="text-center">Usuario</th>
@@ -19,8 +20,10 @@
                         <th>Descripción</th>
                         <th class="text-center">Consultar CDR</th>
                         <th class="text-center">Enviar</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.soap_type_description }}</td>
                         <td class="text-center">{{ row.user_name }}</td>
@@ -64,6 +67,7 @@
 
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

@@ -2,7 +2,7 @@
     <el-dialog
         :show-close="false"
         :title="titleDialog"
-        :visible="showDialogTransfer"
+        :model-value="showDialogTransfer"
         @open="create">
         <div v-loading="!fullLoad">
 

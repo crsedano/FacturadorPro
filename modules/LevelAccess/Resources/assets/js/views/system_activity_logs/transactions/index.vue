@@ -14,7 +14,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha y hora emisión</th>
                         <th>Usuario asociado</th>
@@ -22,8 +23,10 @@
                         <th class="text-center">Documento</th>
                         <th class="text-center">Fecha y hora registro</th>
                         <th class="text-center">Fecha y hora actualización</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td class="text-center">{{ row.date_of_issue }} {{ row.time_of_issue || '' }}</td>
                         <td>{{ row.user_name }}</td>
@@ -32,6 +35,7 @@
                         <td class="text-center">{{ row.created_at }}</td>
                         <td class="text-center">{{ row.updated_at }}</td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

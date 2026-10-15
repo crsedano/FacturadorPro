@@ -26,7 +26,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-right"  v-if="columns.seller_name.visible" >Vendedor</th>
 
@@ -74,7 +75,9 @@
                         </th>
                         <th class="text-right">Acciones</th>
                     </tr>
-                    <tr slot-scope="{ index, row }">
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr>
                         <td>{{ index }}</td>
                     <td class="text-right"  v-if="columns.seller_name.visible" >{{ row.seller_name }}</td>
 
@@ -103,8 +106,8 @@
                             {{row.total_pending_paid}}
                         </td>
                         <td>
-                            <template v-for="(document,i) in row.documents">
-                                <label :key="i" v-text="document.number_full" class="d-block"></label>
+                            <template v-for="(document,i) in row.documents" :key="i">
+                                <label v-text="document.number_full" class="d-block"></label>
                             </template>
                         </td>
                         <td class="text-center">
@@ -197,10 +200,10 @@
                                     </button>
 
                                     <el-tooltip class="item" effect="dark" content="Generar guía desde CPE" placement="top-start">
-                                        <template v-for="(document,i) in row.documents" >
+                                        <template v-for="(document,i) in row.documents">
                                             <a :href="`/dispatches/create/${document.id}`"
                                             class="dropdown-item"
-                                                v-if="row.changed" :key="i">
+                                                v-if="row.changed">
         <!--                                        <i class="dropdown-item fas fa-file-alt"></i>-->
                                                 Generar guía desde
 
@@ -269,15 +272,16 @@
 
 
                     </tr>
+                    </template>
                 </data-table>
             </div>
         </div>
         <!-- <el-dialog
             title="Eliminar Documento Relacionado"
-            :visible="showDialogDeleteRelationInvoice"
+            v-model="showDialogDeleteRelationInvoice"
             >
             <table>
-                <tr v-for="(document, index) in dataDeleteRelation.documents" :key="index">
+                <tr v-for="(document, index) in dataDeleteRelation.documents">
                     <td>
                         <el-button
                             type="button"
@@ -318,9 +322,9 @@
     import UploadToOtherServer from './partials/upload_other_server_group.vue'
     import SaleNotePayments from './partials/payments.vue'
     import SaleNotesOptions from './partials/options.vue'
-    import SaleNoteGenerate from './partials/option_documents'
+    import SaleNoteGenerate from './partials/option_documents.vue'
     import {deletable} from '../../../mixins/deletable'
-    import ModalGenerateCPE from './ModalGenerateCPE'
+    import ModalGenerateCPE from './ModalGenerateCPE.vue'
     import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 
     export default {

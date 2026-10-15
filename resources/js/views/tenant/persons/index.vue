@@ -37,7 +37,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource+`/${this.type}`">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Nombre</th>
                         <th>Cód interno</th>
@@ -58,8 +59,10 @@
                         <th class="text-center" v-if="showAccumulatedPoints">Puntos acumulados</th>
 
                         <th class="text-right">Acciones</th>
-                    <tr>
-                    <tr slot-scope="{ index, row }" :class="{ disable_color : !row.enabled}">
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
+                    <tr :class="{ disable_color : !row.enabled}">
                         <td>{{ index }}</td>
                         <td>{{ row.name }}</td>
                         <td>{{ row.internal_code }}</td>
@@ -120,6 +123,7 @@
                             </div>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 

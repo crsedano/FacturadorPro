@@ -1,10 +1,7 @@
 <template>
-    <el-dialog :close-on-click-modal="false" :title="titleDialog" :visible="showDialog" top="7vh" @close="close"
+    <el-dialog :close-on-click-modal="false" :title="titleDialog" :model-value="showDialog" top="7vh" @close="close"
                @open="create">
 
-        <key-event="keyup"
-            @success="checkKey"
-        />
 
         <form autocomplete="off" @submit.prevent="clickAddItem">
             <div class="form-body">
@@ -412,10 +409,9 @@
                         width="135"
                         trigger="hover"
                         content="Presiona ESC">
-                        <el-button slot="reference"
-                                    @click.prevent="close()">
-                        Cerrar
-                    </el-button>
+                        <template #reference>
+                            <el-button @click.prevent="close()">Cerrar</el-button>
+                        </template>
                     </el-popover>
                 </div>
                 <div class="col-6">
@@ -495,7 +491,7 @@ import WarehousesDetail from '../../documents/partials/select_warehouses.vue'
 import SelectLotsForm from '../../documents/partials/lots.vue'
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import CKEditor from '@ckeditor/ckeditor5-vue'
+import { Ckeditor } from '@ckeditor/ckeditor5-vue'
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../helpers/modal_item";
 
@@ -518,7 +514,7 @@ export default {
         WarehousesDetail,
         LotsGroup,
         SelectLotsForm,
-        ckeditor: CKEditor.component
+        ckeditor: Ckeditor
     },
     data() {
         return {
@@ -569,6 +565,8 @@ export default {
         this.initForm()
     },
     mounted() {
+        this._keyupHandler = (e) => this.checkKey(e)
+        document.addEventListener('keyup', this._keyupHandler)
         this.getTables()
         this.$eventHub.$on('reloadDataItems', (item_id) => {
             this.reloadDataItems(item_id)
@@ -578,6 +576,9 @@ export default {
             this.form.warehouse_id = warehouse_id
         })
         this.canCreateProduct();
+    },
+    beforeUnmount() {
+        document.removeEventListener('keyup', this._keyupHandler)
     },
     computed: {
         ...mapState([
@@ -1387,7 +1388,7 @@ export default {
 
         },
         checkKey(e){
-            let code = e.event.code;
+            let code = e.code;
             if(code === 'Escape'){
                 this.close()
 

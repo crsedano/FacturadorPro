@@ -50,7 +50,8 @@
                     :resource="resource"
                     :extraquery="{onlySuscription:1}"
                 >
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th class="text-center">Fecha Emisión</th>
                         <th>Cliente</th>
@@ -120,8 +121,10 @@
                         </th>
                         -->
                         <th class="text-right">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <!-- # -->
                         <td>{{ index }}</td>
                         <!-- Fecha Emisión -->
@@ -190,8 +193,8 @@
                         </td>
                         <!--Comprobantes -->
                         <td>
-                            <template v-for="(document,i) in row.documents">
-                                <label :key="i"
+                            <template v-for="(document,i) in row.documents" :key="i" >
+                                <label
                                        class="d-block"
                                        v-text="document.number_full">
                                 </label>
@@ -304,7 +307,6 @@
                                         placement="top-start">
                                 <template v-for="(document,i) in row.documents">
                                     <a v-if="row.changed"
-                                       :key="i"
                                        :href="`/dispatches/create/${document.id}`"
                                        class="btn waves-effect waves-light btn-xs btn-warning m-1__2">
                                         <i class="fas fa-file-alt">
@@ -359,6 +361,7 @@
 
 
                     </tr>
+                    </template>
                 </data-table-payment-receipt>
             </div>
         </div>
@@ -395,8 +398,8 @@
 // import UploadToOtherServer from './partials/upload_other_server_group.vue'
 import SaleNotePayments from './partials/payments.vue'
 import SaleNotesOptions from './partials/options.vue'
-import SaleNoteGenerate from './partials/option_documents'
-import ModalGenerateCPE from './ModalGenerateCPE'
+import SaleNoteGenerate from './partials/option_documents.vue'
+import ModalGenerateCPE from './ModalGenerateCPE.vue'
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {deletable} from "../../../../../../resources/js/mixins/deletable";
 

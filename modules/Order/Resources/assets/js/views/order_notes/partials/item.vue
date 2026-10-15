@@ -1,7 +1,7 @@
 <template>
     <el-dialog :close-on-click-modal="false"
                :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                top="7vh"
                @close="close"
                @open="create">
@@ -463,15 +463,15 @@
 <script>
 
 // import WarehousesDetail from './warehouses.vue'
-import ItemForm from "../../../../../../../../resources/js/views/tenant/items/form";
-import LotsGroup from "../../../../../../../../resources/js/views/tenant/sale_notes/partials/lots_group";
+import ItemForm from "../../../../../../../../resources/js/views/tenant/items/form.vue";
+import LotsGroup from "../../../../../../../../resources/js/views/tenant/sale_notes/partials/lots_group.vue";
 
 import {calculateRowItem} from '@helpers/functions'
 import WarehousesDetail from '@views/documents/partials/select_warehouses.vue'
 import SelectLotsForm from './lots.vue'
 
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import { Ckeditor } from '@ckeditor/ckeditor5-vue';
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 import {ItemOptionDescription, ItemSlotTooltip} from "../../../../../../../../resources/js/helpers/modal_item";
 
@@ -485,7 +485,7 @@ export default {
         'configuration',
         'percentageIgv'
     ],
-    components: {ItemForm, WarehousesDetail, LotsGroup, SelectLotsForm, ckeditor: CKEditor.component},
+    components: {ItemForm, WarehousesDetail, LotsGroup, SelectLotsForm, ckeditor: Ckeditor},
 
     data() {
         return {

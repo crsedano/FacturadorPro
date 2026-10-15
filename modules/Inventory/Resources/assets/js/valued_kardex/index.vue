@@ -15,7 +15,8 @@
             <div class="card-body">
 
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Producto</th>
                         <th>Categoría</th>
@@ -28,8 +29,10 @@
                         <th class="text-center">Unidad valorizada</th>
                         <th>Stock</th>
                         <th class="text-center">Exportar</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.item_description }}</td>
                         <td>{{ row.category_description }}</td>
@@ -71,6 +74,7 @@
                         </td>
 
                     </tr>
+                    </template>
                 </data-table>
 
             </div>

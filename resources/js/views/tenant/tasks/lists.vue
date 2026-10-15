@@ -16,7 +16,7 @@
                     <el-table-column label="Ultima ejecución" prop="updated_at"></el-table-column>
                     <el-table-column label="Log" prop="output"></el-table-column>
                     <el-table-column fixed="right" label="Acciones" width="120">
-                        <template slot-scope="scope">
+                        <template #default="scope">
                             <el-button block size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">Eliminar</el-button>
                         </template>
                     </el-table-column>

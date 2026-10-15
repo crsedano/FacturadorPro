@@ -15,6 +15,7 @@ class SaleOpportunityCollection extends ResourceCollection
     public function toArray($request)
     {
         return $this->collection->transform(function($row, $key) {
+        $row = $row instanceof \Illuminate\Http\Resources\Json\JsonResource ? $row->resource : $row;
         
             $btn_generate = ($row->quotation) ? false : true;
             $btn_generate_oc = ($row->purchase_order) ? false : true;

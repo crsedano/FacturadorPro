@@ -32,7 +32,8 @@
             </div>
             <div class="card-body">
                 <data-table>
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>
                             #
                         </th>
@@ -52,8 +53,10 @@
                         <th class="text-right">
                             Acciones
                         </th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>
                             {{ index }}
                         </td>
@@ -78,6 +81,7 @@
                             </button>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
             <customers-form

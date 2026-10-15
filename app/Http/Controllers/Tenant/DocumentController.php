@@ -134,28 +134,19 @@ class DocumentController extends Controller
         $NC_t = DocumentType::find('07');
         $ND_t = DocumentType::find('08');
 
-        $BV = $this->getRecords($request)->where('document_type_id', $BV_t->id)->where('currency_type_id','PEN')->sum('total');
-        $FT = $this->getRecords($request)->where('document_type_id', $FT_t->id)->where('currency_type_id','PEN')->sum('total');
-        $NC = $this->getRecords($request)->where('document_type_id', $NC_t->id)->where('currency_type_id','PEN')->sum('total');
-        $ND = $this->getRecords($request)->where('document_type_id', $ND_t->id)->where('currency_type_id','PEN')->sum('total');
-        return [
-            [
-                'name' => $FT_t->description,
-                'total' =>"S/. ". ReportHelper::setNumber($FT),
-            ],
-            [
-                'name' => $BV_t->description,
-                'total' => "S/. ".ReportHelper::setNumber($BV),
+        $totals = $this->getRecords($request)
+            ->reorder()
+            ->whereIn('document_type_id', ['01', '03', '07', '08'])
+            ->where('currency_type_id', 'PEN')
+            ->selectRaw('document_type_id, SUM(total) as total_sum')
+            ->groupBy('document_type_id')
+            ->pluck('total_sum', 'document_type_id');
 
-            ],
-            [
-                'name' => $NC_t->description,
-                'total' => "S/. ".ReportHelper::setNumber($NC),
-            ],
-            [
-                'name' => $ND_t->description,
-                'total' => "S/. ".ReportHelper::setNumber($ND),
-            ],
+        return [
+            ['name' => $FT_t->description, 'total' => "S/. " . ReportHelper::setNumber($totals->get('01', 0))],
+            ['name' => $BV_t->description, 'total' => "S/. " . ReportHelper::setNumber($totals->get('03', 0))],
+            ['name' => $NC_t->description, 'total' => "S/. " . ReportHelper::setNumber($totals->get('07', 0))],
+            ['name' => $ND_t->description, 'total' => "S/. " . ReportHelper::setNumber($totals->get('08', 0))],
         ];
     }
 
@@ -166,27 +157,32 @@ class DocumentController extends Controller
         $identity_document_type_id = $this->getIdentityDocumentTypeId($request->document_type_id, $request->operation_type_id);
 //        $operation_type_id_id = $this->getIdentityDocumentTypeId($request->operation_type_id);
 
-        $customers = Person::where('number','like', "%{$request->input}%")
-                            ->orWhere('name','like', "%{$request->input}%")
-                            ->whereType('customers')->orderBy('name')
-                            ->whereIn('identity_document_type_id',$identity_document_type_id)
-                            ->whereIsEnabled()
-                            ->whereFilterCustomerBySeller('customers')
-                            ->get()->transform(function($row) {
-                /** @var  Person $row */
-                return $row->getCollectionData();
-                /* Movido al modelo */
-                return [
-                                    'id' => $row->id,
-                                    'description' => $row->number.' - '.$row->name,
-                                    'name' => $row->name,
-                                    'number' => $row->number,
-                                    'identity_document_type_id' => $row->identity_document_type_id,
-                                    'identity_document_type_code' => $row->identity_document_type->code,
-                                    'addresses' => $row->addresses,
-                                    'address' =>  $row->address
-                                ];
-                            });
+        $input = $request->input ?? '';
+        $customers = Person::with('identity_document_type', 'addresses')
+                    ->where(function ($q) use ($input) {
+                        $q->where('number', 'like', "%{$input}%")
+                          ->orWhere('name', 'like', "%{$input}%");
+                    })
+                    ->whereType('customers')
+                    ->orderBy('name')
+                    ->whereIn('identity_document_type_id', $identity_document_type_id)
+                    ->whereIsEnabled()
+                    ->whereFilterCustomerBySeller('customers')
+                    ->take(50)
+                    ->get()->transform(function ($row) {
+                        /** @var Person $row */
+                        return [
+                            'id'                          => $row->id,
+                            'description'                 => $row->number . ' - ' . $row->name,
+                            'name'                        => $row->name,
+                            'number'                      => $row->number,
+                            'identity_document_type_id'   => $row->identity_document_type_id,
+                            'identity_document_type_code' => optional($row->identity_document_type)->code,
+                            'addresses'                   => $row->addresses,
+                            'address'                     => $row->address,
+                            'seller_id'                   => $row->seller_id,
+                        ];
+                    });
 
         return compact('customers');
     }
@@ -1120,8 +1116,9 @@ class DocumentController extends Controller
         $guides = $request->guides;
         $plate_numbers = $request->plate_numbers;
 
-        $records = Document::query();
-		if ($d_start && $d_end) {
+        $records = Document::without(['items', 'fee'])
+            ->with(['affected_documents', 'reference_guides', 'dispatch', 'order_note']);
+        if ($d_start && $d_end) {
 			 $records->whereBetween('date_of_issue', [$d_start, $d_end]);
 		}
         if ($date_of_issue) {

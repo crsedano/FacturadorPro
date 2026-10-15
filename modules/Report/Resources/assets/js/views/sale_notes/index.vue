@@ -22,7 +22,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource" :applyCustomer="true">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th>#</th>
                             <th class="text-center">Fecha Emisión</th>
                             <th class="text-center">Hora Emisión</th>
@@ -51,8 +52,10 @@
                                 <th>Datos de referencia</th>
                             </template>
 
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td>
                             <td>{{row.date_of_issue}}</td>
                             <td>{{row.time_of_issue}}</td>
@@ -65,15 +68,15 @@
                             <td>{{row.state_type_description}}</td>
                             <td>{{row.currency_type_id}}</td>
                         <td  v-if="columns.web_platforms.visible">
-                            <template v-for="(platform,i) in row.web_platforms" v-if="row.web_platforms !== undefined">
-                                <label class="d-block"  :key="i">{{platform.name}}</label>
+                            <template v-for="(platform,i) in row.web_platforms" v-if="row.web_platforms !== undefined" :key="i" >
+                                <label class="d-block">{{platform.name}}</label>
                             </template>
                         </td>
                         <td>{{ row.purchase_order }}</td>
                         <td v-if="columns.region.visible">{{row.customer_region}}</td>
                         <td>
                                 <template v-for="(doc,i) in row.documents">
-                                    <label class="d-block"  :key="i">{{doc.number_full}}</label>
+                                    <label class="d-block">{{doc.number_full}}</label>
                                 </template>
                             </td>
                         <td>{{row.quotation_number_full}}</td>
@@ -93,6 +96,7 @@
                                 <td>{{ row.reference_data }}</td>
                             </template>
                         </tr>
+                        </template>
 
                     </data-table>
 

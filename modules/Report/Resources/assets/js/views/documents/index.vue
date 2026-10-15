@@ -18,7 +18,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :applyCustomer="true" :resource="resource" :visibleColumns="columns">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th class="">Usuario/Vendedor</th>
                             <th class="">Tipo Documento</th>
@@ -53,7 +54,9 @@
                             </template>
                             
                         </tr>
-                        <tr slot-scope="{ index, row }">
+                        </template>
+                        <template #default="{ index, row }">
+                        <tr>
                             <td>{{ index }}</td>
                             <td>{{ row.user_name }}</td>
                             <td>{{ row.document_type_description }}</td>
@@ -88,8 +91,8 @@
                             <td>{{ row.currency_type_id }}</td>
 
                             <td  v-if="columns.web_platforms.visible">
-                                <template v-for="(platform,i) in row.web_platforms" v-if="row.web_platforms !== undefined">
-                                    <label class="d-block"  :key="i">{{platform.name}}</label>
+                                <template v-for="(platform,i) in row.web_platforms" v-if="row.web_platforms !== undefined" :key="i">
+                                    <label class="d-block">{{platform.name}}</label>
                                 </template>
                             </td>
                             <td>{{ row.purchase_order }}</td>
@@ -146,6 +149,7 @@
                             <td>{{ (row.document_type_id == '07') ? -row.total : ((row.document_type_id!='07' && (row.state_type_id =='11'||row.state_type_id =='09')) ? '0.00':row.total) }}</td>  -->
 
                         </tr>
+                        </template>
 
                     </data-table>
 
@@ -166,7 +170,7 @@
 <script>
 
     import DataTable from '../../components/DataTableReports.vue'
-    import DocumentOptions from '../../../../../../../resources/js/views/tenant/documents/partials/options'
+    import DocumentOptions from '../../../../../../../resources/js/views/tenant/documents/partials/options.vue'
     import ProductSale from './partials/product_sale.vue'
 
     export default {

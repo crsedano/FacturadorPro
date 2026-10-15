@@ -11,6 +11,19 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 {
     use HasDatabase;
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    public function getIncrementing()
+    {
+        return false;
+    }
+
+    public function getKeyType()
+    {
+        return 'string';
+    }
+
     public static function findByWebsiteId(int $websiteId): ?self
     {
         $uuid = DB::connection('system')

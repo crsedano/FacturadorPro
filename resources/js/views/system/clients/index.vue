@@ -484,7 +484,7 @@ import CompaniesForm from "./form.vue";
 //   import CompaniesFormEdit from './form_edit.vue'
 import {deletable} from "../../../mixins/deletable";
 import {changeable} from "../../../mixins/changeable";
-import ChartLine from "./charts/Line";
+import ChartLine from "./charts/Line.vue";
 import ClientPayments from "./partials/payments.vue";
 import AccountStatus from "./partials/account_status.vue";
 import ClientDelete from "./partials/delete.vue";

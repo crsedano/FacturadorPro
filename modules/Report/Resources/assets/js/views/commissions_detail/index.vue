@@ -10,7 +10,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th>#</th>
                             <th>Fecha</th>
                             <th class="text-center">Comprobante</th>
@@ -26,7 +27,9 @@
                             <th class="text-center">Ganancia unidad</th>
                             <th class="text-center">Ganancia total</th>
                         </tr>
-                        <tr slot-scope="{ index, row }">
+                        </template>
+                        <template #default="{ index, row }">
+                        <tr>
                             <td>{{ index }}</td>  
                             <td>{{row.date_of_issue}}</td>
                             <td class="text-center">{{row.type_document}}</td>
@@ -43,6 +46,7 @@
                             <td class="text-center">{{row.overall_profit}}</td> 
 
                         </tr>
+                        </template>
                         
                     </data-table>
                      

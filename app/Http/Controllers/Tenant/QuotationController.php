@@ -132,15 +132,17 @@ class QuotationController extends Controller
                 $query->where('id', $value);
             }
         } else {
-            $query->where($column, 'like', "%{$value}%")
-                ->whereTypeUser();
+            if($column) {
+                $query->where($column, 'like', "%{$value}%");
+            }
+            $query->whereTypeUser();
         }
 
         $records = $query->latest();
 
-        $form = json_decode($request->form);
+        $form = $request->form ? json_decode($request->form) : null;
 
-        if ($form->date_start && $form->date_end) {
+        if ($form && $form->date_start && $form->date_end) {
             $records = $records->whereBetween('date_of_issue', [$form->date_start, $form->date_end]);
         }
 
@@ -150,28 +152,31 @@ class QuotationController extends Controller
     public function searchCustomers(Request $request)
     {
 
-        $customers = Person::whereType('customers')
+        $customers = Person::with('identity_document_type', 'addresses')
+            ->whereType('customers')
             ->orderBy('name')
             ->whereIsEnabled();
         if ($request->has('customer_id')) {
             $customers->where('id', $request->customer_id);
         } else {
-            $customers->where('number', 'like', "%{$request->input}%")
-                ->orWhere('name', 'like', "%{$request->input}%");
+            $input = $request->input ?? '';
+            $customers->where(function ($q) use ($input) {
+                $q->where('number', 'like', "%{$input}%")
+                  ->orWhere('name', 'like', "%{$input}%");
+            });
         }
-        $customers = $customers->get()->transform(function ($row) {
+        $customers = $customers->take(50)->get()->transform(function ($row) {
             /** @var Person $row */
-            return $row->getCollectionData();
-            /* Se ha movido al modelo */
             return [
-                'id' => $row->id,
-                'description' => $row->number . ' - ' . $row->name,
-                'name' => $row->name,
-                'number' => $row->number,
-                'identity_document_type_id' => $row->identity_document_type_id,
-                'identity_document_type_code' => $row->identity_document_type->code,
-                'addresses' => $row->addresses,
-                'address' => $row->address,
+                'id'                          => $row->id,
+                'description'                 => $row->number . ' - ' . $row->name,
+                'name'                        => $row->name,
+                'number'                      => $row->number,
+                'identity_document_type_id'   => $row->identity_document_type_id,
+                'identity_document_type_code' => optional($row->identity_document_type)->code,
+                'addresses'                   => $row->addresses,
+                'address'                     => $row->address,
+                'seller_id'                   => $row->seller_id,
             ];
         });
         return compact('customers');

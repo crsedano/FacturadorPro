@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     title="Términos y condiciones - Ventas"
-    :visible="showDialog"
+    :model-value="showDialog"
     @close="close"
     append-to-body
     top="7vh"
@@ -28,10 +28,10 @@
 
 <script>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import CKEditor from '@ckeditor/ckeditor5-vue';
+import { Ckeditor } from '@ckeditor/ckeditor5-vue';
 
 export default {
-  components: { ckeditor: CKEditor.component },
+  components: { ckeditor: Ckeditor },
   props: ["showDialog", "form"],
   data() {
     return {

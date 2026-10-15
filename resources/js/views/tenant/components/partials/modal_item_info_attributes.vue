@@ -2,7 +2,7 @@
     <el-dialog
         :append-to-body="true"
         :title="titleDialog"
-        :visible="showDialog"
+        :model-value="showDialog"
         center
         width="30%"
         @close="close"

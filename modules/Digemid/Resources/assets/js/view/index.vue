@@ -141,7 +141,8 @@
                     :resource="resource"
                     :pharmacy="pharmacy"
                 >
-                    <tr slot="heading" width="100%">
+                    <template #heading>
+                    <tr width="100%">
                         <th>#</th>
                         <th>Cód. Interno</th>
                         <th>Unidad</th>
@@ -165,10 +166,10 @@
                         </th>
                         <th class="text-right">Acciones</th>
                     </tr>
+                    </template>
 
-                    <tr></tr>
+                    <template #default="{ index, row }">
                     <tr
-                        slot-scope="{ index, row }"
                         :class="{ disable_color: !row.active }"
                     >
                         <td>{{ index }}</td>
@@ -295,6 +296,7 @@
                             </template>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
             <items-form

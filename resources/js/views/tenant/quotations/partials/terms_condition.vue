@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="titleDialog" :visible="showDialog"   @close="close" @open="create"   append-to-body top="7vh">
+    <el-dialog :title="titleDialog" :model-value="showDialog"   @close="close" @open="create"   append-to-body top="7vh">
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
                 <div class="row">
@@ -24,10 +24,10 @@
 <script>
 
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-    import CKEditor from '@ckeditor/ckeditor5-vue'
+    import { Ckeditor } from '@ckeditor/ckeditor5-vue'
 
     export default {
-        components: {ckeditor: CKEditor.component},
+        components: {ckeditor: Ckeditor},
         props:['showDialog', 'form'],
         data() {
             return {

@@ -37,6 +37,7 @@
                                                                 {{ archive.observation }}
 
                                                             </td>-->
+                </td>
                 <td>
                     {{ archive.public_name }}
                 </td>

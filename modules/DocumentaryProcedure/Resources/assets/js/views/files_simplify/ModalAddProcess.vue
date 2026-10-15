@@ -3,7 +3,7 @@
         <el-dialog
             :closeOnClickModal="false"
             :title="title"
-            :visible="visible"
+            :model-value="visible"
             @close="onClose"
             @open="onCreate"
         >
@@ -274,6 +274,7 @@
                             >
                                 <td>
                                     {{ index + 1 }}
+                                </td>
                                 <td>
                                     {{ archive.public_name }}
                                 </td>

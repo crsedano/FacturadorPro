@@ -17,7 +17,8 @@
             </div>
             <div class="card-body">
                 <data-table :resource="resource">
-                    <tr slot="heading">
+                    <template #heading>
+                    <tr>
                         <th>#</th>
                         <th>Cliente</th>
                         <th>Celular</th>
@@ -33,8 +34,10 @@
                         <th>Saldo</th>
                         <th class="text-center">Ver</th>
                         <th class="text-right">Acciones</th>
+                    </tr>
+                    </template>
+                    <template #default="{ index, row }">
                     <tr>
-                    <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.customer_name }}<br/><small v-text="row.customer_number"></small></td>
                         <td class="text-center">{{ row.cellphone }}</td>
@@ -83,6 +86,7 @@
                             </template>
                         </td>
                     </tr>
+                    </template>
                 </data-table>
             </div>
 
@@ -110,7 +114,7 @@ import TechnicalServicesForm from './form.vue'
 import DataTable from '@components/DataTable.vue'
 import {deletable} from '@mixins/deletable'
 import TechnicalServicePayments from './partials/payments.vue'
-import TechnicalServiceOptions from './partials/options'
+import TechnicalServiceOptions from './partials/options.vue'
 import {mapActions, mapState} from "vuex/dist/vuex.mjs";
 
 

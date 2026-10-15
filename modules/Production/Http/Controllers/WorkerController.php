@@ -32,7 +32,10 @@ class WorkerController extends Controller
 
     public function records(Request $request)
     {
-        $records = Worker::where($request->column, 'like', "%{$request->value}%")->orderBy('name');
+        $records = Worker::orderBy('name');
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
         return new WorkerCollection($records->paginate(config('tenant.items_per_page')));
     }
 

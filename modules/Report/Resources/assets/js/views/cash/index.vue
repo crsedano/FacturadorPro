@@ -6,7 +6,8 @@
         <div class="card mb-0">
                 <div class="card-body">
                     <data-table :resource="resource">
-                        <tr slot="heading">
+                        <template #heading>
+                        <tr>
                             <th class="">#</th>
                             <th class="">Tipo Documento</th>
                             <th class="">Comprobante</th>
@@ -19,8 +20,10 @@
                             
                             <th class="">Total IGV</th>
                             <th class="">Total</th>
+                        </tr>
+                        </template>
+                        <template #default="{ index, row }">
                         <tr>
-                        <tr slot-scope="{ index, row }">
                             <td>{{ index }}</td> 
                             <td>{{row.document_type_description}}</td>
                             <td>{{row.number}}</td>
@@ -35,6 +38,7 @@
                             <td>{{ (row.document_type_id == '07' || (row.document_type_id!='07' && row.state_type_id =='11')) ? -row.total : row.total }}</td> 
 
                         </tr>
+                        </template>
                         
                     </data-table>
                      

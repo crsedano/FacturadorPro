@@ -1,6 +1,6 @@
 <template>
     <el-dialog :title="titleDialog"
-               :visible="showDialog"
+               :model-value="showDialog"
                @close="close"
                @open="getData">
         <form autocomplete="off"

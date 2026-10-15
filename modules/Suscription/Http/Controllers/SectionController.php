@@ -23,7 +23,10 @@ class SectionController extends Controller
 
     public function records(Request $request)
     {
-        $records = SuscriptionSection::where($request->column, 'like', "%{$request->value}%")->latest('id');
+        $records = SuscriptionSection::latest('id');
+        if($request->column) {
+            $records->where($request->column, 'like', "%{$request->value}%");
+        }
 
         return new SectionCollection($records->paginate(config('tenant.items_per_page')));
     }

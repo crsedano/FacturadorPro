@@ -1,6 +1,7 @@
 <template>
     <data-table :resource="resource">
-        <tr slot="heading">
+        <template #heading>
+        <tr>
             <th width="5%">#</th>
             <th>Codigo</th>
             <th>Nombre</th>
@@ -10,8 +11,10 @@
             <th class="text-center">Vcto</th>
             <th class="text-center">Dias x vencer</th>
         </tr>
+        </template>
 
-        <tr slot-scope="{ index, row }">
+        <template #default="{ index, row }">
+        <tr>
             <td>{{ index + 1 }}</td>
             <td>{{ row.code_item }}</td>
             <td>{{ row.name_item }}</td>
@@ -22,6 +25,7 @@
             <td class="text-center">{{ row.date_of_due }}</td>
             <td class="text-center">{{ row.diff_days }}</td>
         </tr>
+        </template>
     </data-table>
 </template>
 

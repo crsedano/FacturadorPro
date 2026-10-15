@@ -446,29 +446,43 @@ class SaleNoteController extends Controller
      * @return \Illuminate\Database\Eloquent\Builder
      */
     private function getRecords($request){
-        $records = SaleNote::whereTypeUser();
+        $records = SaleNote::without(['items'])
+            ->with([
+                'state_type',
+                'payments',
+                'documents',
+                'customer.department',
+                'person',
+                'user',
+                'seller',
+                'quotation.sale_opportunity',
+                'agent',
+            ])
+            ->whereTypeUser();
+
         // Solo devuelve matriculas
         if($request != null && $request->has('onlySuscription') && (bool)$request->onlySuscription == true){
-            $records->whereNotNull('grade')->whereNotNull('section') ;
+            $records->whereNotNull('grade')->whereNotNull('section');
         }
         // Solo devuelve Suscripciones que tengan relacion en user_rel_suscription_plans.
         if($request != null && $request->has('onlyFullSuscription') && (bool)$request->onlyFullSuscription == true){
             $records->whereNotNull('user_rel_suscription_plan_id')
-                ->whereNull('grade')->whereNull('section')
-            ;
+                ->whereNull('grade')->whereNull('section');
         }
+
         if($request->column == 'customer'){
             $records->whereHas('person', function($query) use($request){
-                                    $query
-                                        ->where('name', 'like', "%{$request->value}%")
-                                        ->orWhere('number', 'like', "%{$request->value}%");
-                                })
-                                ->latest();
-
-        }else{
-            $records->where($request->column, 'like', "%{$request->value}%")
-                    ->latest('id');
+                $query->where('name', 'like', "%{$request->value}%")
+                      ->orWhere('number', 'like', "%{$request->value}%");
+            })->latest();
+        } elseif($request->column == 'date_of_issue' && $request->value){
+            $records->where('date_of_issue', $request->value)->latest('id');
+        } elseif($request->column){
+            $records->where($request->column, 'like', "%{$request->value}%")->latest('id');
+        } else{
+            $records->latest('id');
         }
+
         if($request->series) {
             $records->where('series', 'like', '%' . $request->series . '%');
         }
@@ -478,13 +492,19 @@ class SaleNoteController extends Controller
         if($request->total_canceled != null) {
             $records->where('total_canceled', $request->total_canceled);
         }
-
         if($request->purchase_order) {
             $records->where('purchase_order', $request->purchase_order);
         }
         if($request->license_plate) {
             $records->where('license_plate', $request->license_plate);
         }
+        if($request->date_from) {
+            $records->where('date_of_issue', '>=', $request->date_from);
+        }
+        if($request->date_to) {
+            $records->where('date_of_issue', '<=', $request->date_to);
+        }
+
         return $records;
     }
 
@@ -492,22 +512,29 @@ class SaleNoteController extends Controller
     public function searchCustomers(Request $request)
     {
 
-        $customers = Person::where('number','like', "%{$request->input}%")
-                            ->orWhere('name','like', "%{$request->input}%")
-                            ->whereType('customers')->orderBy('name')
-                            ->whereIsEnabled()
-                            ->get()->transform(function(Person $row) {
-                                return [
-                                    'id' => $row->id,
-                                    'description' => $row->number.' - '.$row->name,
-                                    'seller_id' => $row->seller_id,
-                                    'seller' => $row->seller,
-                                    'name' => $row->name,
-                                    'number' => $row->number,
-                                    'identity_document_type_id' => $row->identity_document_type_id,
-                                    'identity_document_type_code' => $row->identity_document_type->code
-                                ];
-                            });
+        $input = $request->input ?? '';
+        $customers = Person::with('identity_document_type', 'addresses')
+                    ->where(function ($q) use ($input) {
+                        $q->where('number', 'like', "%{$input}%")
+                          ->orWhere('name', 'like', "%{$input}%");
+                    })
+                    ->whereType('customers')
+                    ->orderBy('name')
+                    ->whereIsEnabled()
+                    ->take(50)
+                    ->get()->transform(function (Person $row) {
+                        return [
+                            'id'                          => $row->id,
+                            'description'                 => $row->number . ' - ' . $row->name,
+                            'name'                        => $row->name,
+                            'number'                      => $row->number,
+                            'identity_document_type_id'   => $row->identity_document_type_id,
+                            'identity_document_type_code' => optional($row->identity_document_type)->code,
+                            'addresses'                   => $row->addresses,
+                            'address'                     => $row->address,
+                            'seller_id'                   => $row->seller_id,
+                        ];
+                    });
 
         return compact('customers');
     }
