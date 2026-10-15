@@ -11,29 +11,14 @@ if [ "$HOST" = "dominio" ]; then
     exit 1
 fi
 
-#VERSION
-read -p "indique versión del facturador a instalar, [1] [2] [3] [4] [4-API] [5]: " version
-if [ "$version" = '1' ]; then
-    PROYECT='https://gitlab.com/rash07/facturadorpro1.git'
-elif [ "$version" = '2' ]; then
-    PROYECT='https://gitlab.com/facturaloperu/facturador/pro2.git'
-elif [ "$version" = '3' ]; then
-    PROYECT='https://gitlab.com/b.mendoza/facturadorpro3.git'
-elif [ "$version" = '4' ]; then
-    PROYECT='https://gitlab.com/carlomagno83/facturadorpro4.git'
-elif [ "$version" = '4-API' ]; then
-    PROYECT='https://gitlab.com/facturaloperu/facturador/pro4-apirest.git'
-elif [ "$version" = '5' ]; then
-    PROYECT='https://github.com/crsedano/FacturadorPro.git'
-else
-    echo "Error: versión no válida"
-    exit 1
-fi
+#REPOSITORIO
+PROYECT='https://github.com/crsedano/FacturadorPro.git'
+version='5'
 
 #RUTA DE INSTALACION (RUTA ACTUAL DEL SCRIPT)
 PATH_INSTALL=$(echo $PWD)
 #NOMBRE DE CARPETA
-DIR=$(echo $PROYECT | rev | cut -d'/' -f1 | rev | cut -d '.' -f1)$SERVICE_NUMBER
+DIR=$(echo $PROYECT | rev | cut -d'/' -f1 | rev | cut -d '.' -f1)
 #DATOS DE ACCESO MYSQL
 MYSQL_USER=$(echo $DIR)
 MYSQL_PASSWORD=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 20 ; echo '')
@@ -70,11 +55,9 @@ docker network create proxynet
 
 mkdir -p $PATH_INSTALL/proxy
 cat << EOF > $PATH_INSTALL/proxy/docker-compose.yml
-version: '3'
-
 services:
     proxy:
-        image: jwilder/nginx-proxy:alpine
+        image: nginxproxy/nginx-proxy:alpine
         ports:
             - "80:80"
             - "443:443"
@@ -138,8 +121,6 @@ server {
 EOF
 
 cat << EOF > $PATH_INSTALL/$DIR/docker-compose.yml
-version: '3'
-
 services:
     nginx$SERVICE_NUMBER:
         image: rash07/nginx
@@ -255,6 +236,8 @@ sed -i "/DB_PORT=/c\DB_PORT=3306" .env
 sed -i "/DB_USERNAME=/c\DB_USERNAME=root" .env
 sed -i "/APP_URL_BASE=/c\APP_URL_BASE=$HOST" .env
 sed -i '/APP_URL=/c\APP_URL=http://${APP_URL_BASE}' .env
+sed -i '/APP_ENV=/c\APP_ENV=production' .env
+sed -i '/APP_NAME=/c\APP_NAME=FacturadorPro' .env
 sed -i '/FORCE_HTTPS=/c\FORCE_HTTPS=false' .env
 sed -i '/APP_DEBUG=/c\APP_DEBUG=false' .env
 sed -i '/QUEUE_CONNECTION=/c\QUEUE_CONNECTION=database' .env
@@ -334,29 +317,20 @@ docker compose exec -T supervisor$SERVICE_NUMBER supervisorctl status || true
 
 
 #CONFIGURAR CLAVE SSH
-if [ "$version" = '3' ] || [ "$version" = '4' ] || [ "$version" = '4-API' ] || [ "$version" = '5' ]; then
-    read -p "¿Configurar clave SSH para actualizaciones automáticas? si[s] no[n]: " ssh_config
-    if [ "$ssh_config" = "s" ]; then
-        mkdir -p $PATH_INSTALL/$DIR/ssh
-        ssh-keygen -t rsa -q -P "" -f $PATH_INSTALL/$DIR/ssh/id_rsa
+read -p "¿Configurar clave SSH para actualizaciones automáticas? si[s] no[n]: " ssh_config
+if [ "$ssh_config" = "s" ]; then
+    mkdir -p $PATH_INSTALL/$DIR/ssh
+    ssh-keygen -t rsa -q -P "" -f $PATH_INSTALL/$DIR/ssh/id_rsa
 
-        if [ "$version" = '5' ]; then
-            REMOTE='git@github.com:crsedano/FacturadorPro.git'
-            ssh-keyscan -H github.com >> $PATH_INSTALL/$DIR/ssh/known_hosts
-            echo "----------------------------------------------"
-            echo "Clave SSH para añadir en github.com/settings/keys"
-        else
-            REMOTE='git@gitlab.com:'$(echo $PROYECT | sed -e s#^https://gitlab.com/##)
-            ssh-keyscan -H gitlab.com >> $PATH_INSTALL/$DIR/ssh/known_hosts
-            echo "----------------------------------------------"
-            echo "Clave SSH para añadir en gitlab.com/-/profile/keys"
-        fi
+    REMOTE='git@github.com:crsedano/FacturadorPro.git'
+    ssh-keyscan -H github.com >> $PATH_INSTALL/$DIR/ssh/known_hosts
+    echo "----------------------------------------------"
+    echo "Clave SSH para añadir en github.com/settings/keys"
 
-        cd $PATH_INSTALL/$DIR
-        git remote set-url origin $REMOTE
-        docker compose exec -T fpm$SERVICE_NUMBER chown -R www-data ssh/ /var/www/
-        cat $PATH_INSTALL/$DIR/ssh/id_rsa.pub
-    fi
+    cd $PATH_INSTALL/$DIR
+    git remote set-url origin $REMOTE
+    docker compose exec -T fpm$SERVICE_NUMBER chown -R www-data ssh/ /var/www/
+    cat $PATH_INSTALL/$DIR/ssh/id_rsa.pub
 fi
 
 #SSL
