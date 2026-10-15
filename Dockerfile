@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     libssl-dev \
     libcurl4-openssl-dev \
+    libsodium-dev \
     tesseract-ocr \
     && rm -rf /var/lib/apt/lists/*
 
@@ -42,7 +43,6 @@ RUN docker-php-ext-install \
     dom \
     intl \
     soap \
-    sodium \
     opcache \
     sockets
 
