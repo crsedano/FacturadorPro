@@ -17,6 +17,7 @@
     use Exception;
     use Illuminate\Http\Request;
     use Illuminate\Support\Collection;
+    use Illuminate\Support\Facades\Artisan;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Str;
     use Modules\Document\Helpers\DocumentHelper;
@@ -584,12 +585,23 @@
             $tenant = null;
             try {
                 $tenant = Tenant::create([
-                    'id' => $uuid,
-                    'tenancy_db_name' => $uuid,
+                    'id'                   => $uuid,
+                    'tenancy_db_name'      => $uuid,
+                    'tenancy_db_username'  => $uuid,
+                    'tenancy_db_password'  => Str::random(32),
                 ]);
                 Domain::create(['domain' => $fqdn, 'tenant_id' => $uuid]);
 
                 tenancy()->initialize($tenant);
+
+                Artisan::call('migrate', [
+                    '--force' => true,
+                    '--path'  => 'database/migrations/tenant',
+                ]);
+                Artisan::call('db:seed', [
+                    '--class' => 'TenancyDatabaseSeeder',
+                    '--force' => true,
+                ]);
 
                 $token = Str::random(50);
 
