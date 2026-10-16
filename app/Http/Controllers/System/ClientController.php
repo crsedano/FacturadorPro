@@ -586,8 +586,6 @@
                 $tenant = Tenant::create([
                     'id' => $uuid,
                     'tenancy_db_name' => $uuid,
-                    'tenancy_db_username' => $uuid,
-                    'tenancy_db_password' => Str::random(32),
                 ]);
                 Domain::create(['domain' => $fqdn, 'tenant_id' => $uuid]);
 
